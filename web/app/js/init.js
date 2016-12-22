@@ -20,7 +20,7 @@ function initApplication() {
         qp_width: 1000,
         qp_height: 400,
         qp_thickness: 6,
-        qp_r1: 6
+        qp_r1: 0
     });
     canvas.add(ThePanel);
 
@@ -74,22 +74,20 @@ function initApplication() {
     }));
 
     // demo custom class
-    var testHole = new HoleRect({
+    canvas.add(new HoleRect({
         left: 515,
         top: 330,
         qp_width: 100,
         qp_height: 100,
         qp_r1: 10
-    });
-    canvas.add(testHole);
-    var testHole = new HoleRect({
+    }));
+    canvas.add(new HoleRect({
         left: 600,
         top: 200,
         qp_width: 50,
         qp_height: 50,
         qp_r1: 0
-    });
-    canvas.add(testHole);
+    }));
 
 
 
@@ -100,7 +98,7 @@ function initApplication() {
     showProperties(ThePanel);
 
     $( "#propPanel" ).draggable({ cancel: "div.items" });
-};
+}
 
 
 
