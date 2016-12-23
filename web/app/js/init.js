@@ -1,5 +1,5 @@
 var ThePanel;
-var canvas;
+var TheCanvas;
 
 var status_text;
 
@@ -7,12 +7,12 @@ var status_text;
 
 function initApplication() {
 
-    canvas = new fabric.Canvas('mainCanvas');
-    canvas.setWidth(window.innerWidth);
-    canvas.setHeight(window.innerHeight);
-    canvas.preserveObjectStacking = true;
-    canvas.setBackgroundColor(COL_BACKGROUND, null);
-    canvas.calcOffset();
+    TheCanvas = new fabric.Canvas('mainCanvas');
+    TheCanvas.setWidth(window.innerWidth);
+    TheCanvas.setHeight(window.innerHeight);
+    TheCanvas.preserveObjectStacking = true;
+    TheCanvas.setBackgroundColor(COL_BACKGROUND, null);
+    TheCanvas.calcOffset();
 
     definePrototypes();
 
@@ -22,7 +22,7 @@ function initApplication() {
         qp_thickness: 6,
         qp_r1: 0
     });
-    canvas.add(ThePanel);
+    TheCanvas.add(ThePanel);
 
     status_text = new fabric.Text('',{
         originX: 'left',
@@ -35,13 +35,13 @@ function initApplication() {
         fill: '#bbb',
         hasRotatingPoint: false
     });
-    canvas.add(status_text);
+    TheCanvas.add(status_text);
 
 
 
 
     // demo diera obdlznikova
-    canvas.add(new fabric.Rect({
+    TheCanvas.add(new fabric.Rect({
         width: 120,
         height: 85,
         left: 150,
@@ -52,7 +52,7 @@ function initApplication() {
     }));
 
     // demo kapsa obdlznikova
-    canvas.add(new fabric.Rect({
+    TheCanvas.add(new fabric.Rect({
         width: 80,
         height: 100,
         left: 350,
@@ -64,7 +64,7 @@ function initApplication() {
     }));
 
     // demo diera kruhova
-    canvas.add(new fabric.Circle({
+    TheCanvas.add(new fabric.Circle({
         radius: 60,
         left: 400,
         top: 330,
@@ -74,21 +74,34 @@ function initApplication() {
     }));
 
     // demo custom class
-    canvas.add(new HoleRect({
+    TheCanvas.add(new HoleRect({
         left: 515,
         top: 330,
-        qp_width: 100,
-        qp_height: 100,
-        qp_r1: 10
+        width: 100,
+        height: 100,
+        r1: 10
     }));
-    canvas.add(new HoleRect({
+    TheCanvas.add(new HoleRect({
         left: 600,
         top: 200,
-        qp_width: 50,
-        qp_height: 50,
-        qp_r1: 0
+        width: 50,
+        height: 50,
+        r1: 0
     }));
-
+    TheCanvas.add(new HoleRect({
+        left: 600,
+        top: 100,
+        width: 90,
+        height: 90,
+        r1: 0
+    }));
+    TheCanvas.add(new HoleRect({
+        left: 700,
+        top: 100,
+        width: 90,
+        height: 90,
+        r1: 15
+    }));
 
 
 

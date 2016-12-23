@@ -22,7 +22,7 @@ function definePrototypes(){
     // doplnenie metody do JS stringov - first letter uppercase
     String.prototype.capitalizeFirstLetter = function() {
         return this.charAt(0).toUpperCase() + this.slice(1);
-    }
+    };
 
     fabric.Object.prototype.setDepth = function(depth){
 
@@ -32,11 +32,12 @@ function definePrototypes(){
             this.setFill(COL_FEATURE_POCKET);
 
         this.qp_depth = depth;
-    }
+    };
 
     fabric.Object.prototype.on('modified', function(){
-        if (canvas.getActiveGroup())
-            showProperties(canvas.getActiveGroup());
+
+        if (TheCanvas.getActiveGroup())
+            showProperties(TheCanvas.getActiveGroup());
         else {
             if (this.scaleX != 1){
                 this.setWidth(this.width * this.scaleX);

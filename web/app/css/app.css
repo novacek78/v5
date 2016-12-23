@@ -66,3 +66,13 @@ body {
 #propPanel #propGrid th,td{
     padding: 8px 5px;
 }
+
+.propPanelEdit {
+    border: 0;
+    width: 90%;
+}
+
+.propPanelEdit:read-only {
+    color: #aaa; }
+.propPanelEdit:-moz-read-only {
+    color: #aaa; }

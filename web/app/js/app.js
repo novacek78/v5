@@ -1,7 +1,30 @@
 
 function freehandToggle(){
-    canvas.freeDrawingBrush.color = 'black';
-    canvas.isDrawingMode = !canvas.isDrawingMode;
+    TheCanvas.freeDrawingBrush.color = 'black';
+    TheCanvas.isDrawingMode = !TheCanvas.isDrawingMode;
+}
+
+function propPanelValidateNumber(edText) {
+    edText.value = edText.value.replace(',', '.');
+
+    if (isNaN(edText.value) || (edText.value == '')) {
+        edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
+        return false;
+    } else
+        edText.style.backgroundColor = 'white';
+
+    // ak nie je nic vybrate, nastavujeme vlastnosti panela
+    if (TheCanvas.getActiveObject()) {
+        TheCanvas.getActiveObject().set(edText.name, edText.value);
+        edText.value = TheCanvas.getActiveObject().get(edText.name);
+        TheCanvas.getActiveObject().dirty = true;
+    } else  if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
+        ThePanel.set(edText.name, edText.value);
+        edText.value = ThePanel.get(edText.name);
+        ThePanel.dirty = true;
+    }
+
+    TheCanvas.renderAll();
 }
 
 /**
@@ -12,6 +35,7 @@ function freehandToggle(){
 function populatePropertiesWindow(jsonObject){
 
     var tableData = '<tbody>';
+    var readonly = false;
 
     try {
         for (var propName in jsonObject) {
@@ -23,10 +47,11 @@ function populatePropertiesWindow(jsonObject){
                 value = Number(value).toString();
             }
 
-            tableData += '<tr id="">';
+            tableData += '<tr>';
             tableData += '<th>' + propName + '</th>';
-            tableData += '<td>' + value + '</td>';
-            tableData += '</tr>';
+            tableData += '<td><input type="text" name="'+propName+'" value="' + value + '" class="propPanelEdit propPanelText"';
+            tableData += readonly ? ' readonly' : '';
+            tableData += '></td></tr>';
         }
     } catch (e) {
         console.log(e)
@@ -35,6 +60,20 @@ function populatePropertiesWindow(jsonObject){
     tableData += '</tbody>';
 
     $( "#propGrid").html(tableData);
+    $( ".propPanelText").on({
+        keypress: function(event){
+            // ENTER
+            if (event.keyCode == 13){
+                propPanelValidateNumber(event.target);
+            }
+        },
+        focusout: function(event){
+            propPanelValidateNumber(event.target);
+        },
+        focusin: function(event){
+            event.target.style.borderColor = '#555';
+        }
+    });
 }
 
 /**
@@ -64,7 +103,7 @@ function showProperties(objectToInspect){
             populatePropertiesWindow(jsonObject);
         } else {
             // jedna sa o nejaku ficuru na paneli
-            var jsonObject = buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'qp_depth', 'qp_r1', 'angle', 'left', 'top', 'scaleX']);
+            var jsonObject = buildJsonObject(objectToInspect, ['width', 'height', 'depth', 'r1', 'angle', 'left', 'top', 'scaleX']);
             populatePropertiesWindow(jsonObject);
         }
     }
