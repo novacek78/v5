@@ -15,11 +15,11 @@ function propPanelValidateNumber(edText) {
 
     // ak nie je nic vybrate, nastavujeme vlastnosti panela
     if (TheCanvas.getActiveObject()) {
-        TheCanvas.getActiveObject().set(edText.name, edText.value);
+        TheCanvas.getActiveObject().set(edText.name, Number(edText.value));
         edText.value = TheCanvas.getActiveObject().get(edText.name);
         TheCanvas.getActiveObject().dirty = true;
     } else  if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
-        ThePanel.set(edText.name, edText.value);
+        ThePanel.set(edText.name, Number(edText.value));
         edText.value = ThePanel.get(edText.name);
         ThePanel.dirty = true;
     }
@@ -103,7 +103,7 @@ function showProperties(objectToInspect){
             populatePropertiesWindow(jsonObject);
         } else {
             // jedna sa o nejaku ficuru na paneli
-            var jsonObject = buildJsonObject(objectToInspect, ['width', 'height', 'depth', 'r1', 'angle', 'left', 'top', 'scaleX']);
+            var jsonObject = buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'depth', 'r1', 'angle', 'left', 'top', 'scaleX']);
             populatePropertiesWindow(jsonObject);
         }
     }

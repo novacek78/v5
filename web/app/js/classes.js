@@ -67,12 +67,18 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
 
     type: 'holeRect',
     descShort: 'rect.hole',
+    originX: 'center',
+    originY: 'center',
 
     initialize: function(options) {
         options || (options = { });
 
         if (options.depth == null) {
             options.depth = 999;
+        }
+
+        if (options.width || options.height){
+            alert('HoleRect.initialize(): Don\'t use width/height, use qp_width/qp_height instead.');
         }
 
         if (options.r1 == null) {
@@ -85,8 +91,11 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             console.log('Corner radius too small, changing to R0.5');
         }
         if (options.r1 == 0){
-            options.width += ZAPICHY_PRIDAVOK;
-            options.height += ZAPICHY_PRIDAVOK;
+            options.width = options.qp_width + ZAPICHY_PRIDAVOK;
+            options.height = options.qp_height + ZAPICHY_PRIDAVOK;
+        } else {
+            options.width = options.qp_width;
+            options.height = options.qp_height;
         }
 
         this.callSuper('initialize', options);
@@ -97,6 +106,57 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             if ((value > 0) && (value < 0.5)) {
                 console.log('Corner radius too small, changing to R0.5');
                 value = 0.5;
+            }
+            if (value == 0){
+                this.width = this.qp_width + ZAPICHY_PRIDAVOK;
+                this.height = this.qp_height + ZAPICHY_PRIDAVOK;
+            } else {
+                this.width = this.qp_width;
+                this.height = this.qp_height;
+            }
+        }
+
+        if (key == 'width') {
+            if (this.r1 == 0){
+                this.qp_width = value - ZAPICHY_PRIDAVOK;
+            } else {
+                this.qp_width = value;
+            }
+        }
+        if (key == 'height') {
+            if (this.r1 == 0){
+                this.qp_height = value - ZAPICHY_PRIDAVOK;
+            } else {
+                this.qp_height = value;
+            }
+        }
+        if (key == 'qp_width') {
+            if (this.r1 == 0){
+                this.width = value + ZAPICHY_PRIDAVOK;
+            } else {
+                this.width = value;
+            }
+        }
+        if (key == 'qp_height') {
+            if (this.r1 == 0){
+                this.height = value + ZAPICHY_PRIDAVOK;
+            } else {
+                this.height = value;
+            }
+        }
+
+        if (key == 'width') {
+            if (value == 0){
+                this.width = value + ZAPICHY_PRIDAVOK;
+            } else {
+                this.width = value;
+            }
+        }
+        if (key == 'height') {
+            if (value == 0){
+                this.height = value + ZAPICHY_PRIDAVOK;
+            } else {
+                this.height = value;
             }
         }
 
@@ -119,23 +179,24 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
 
         if (this.r1 == 0) {
             var PIx2 = 6.28319; // 2 * PI
-            var w_half = (this.width - ZAPICHY_PRIDAVOK) / 2;
-            var h_half = (this.height - ZAPICHY_PRIDAVOK) / 2;
+            var w_half = this.qp_width / 2;
+            var h_half = this.qp_height / 2;
 
-            this.roundRect(ctx, this.left, this.top, this.width - ZAPICHY_PRIDAVOK, this.height - ZAPICHY_PRIDAVOK, this.r1);
-            ctx.fill();
-            // zapichy
             ctx.beginPath();
-            ctx.arc(-w_half + 2, -h_half + 2, 3, 0, PIx2, false);
+            ctx.rect(-w_half, -h_half, this.qp_width, this.qp_height);
             ctx.fill();
+
             ctx.beginPath();
-            ctx.arc(w_half - 2, -h_half + 2, 3, 0, PIx2, false);
+            ctx.arc(-w_half + 2, -h_half + 2, 4, 0, PIx2, false);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(-w_half + 2, h_half - 2, 3, 0, PIx2, false);
+            ctx.arc(w_half - 2, -h_half + 2, 4, 0, PIx2, false);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(w_half - 2, h_half - 2, 3, 0, PIx2, false);
+            ctx.arc(-w_half + 2, h_half - 2, 4, 0, PIx2, false);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(w_half - 2, h_half - 2, 4, 0, PIx2, false);
             ctx.fill();
         } else {
             this.roundRect(ctx, this.left, this.top, this.width, this.height, this.r1);

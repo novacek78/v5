@@ -12,7 +12,7 @@ function initApplication() {
     TheCanvas.setHeight(window.innerHeight);
     TheCanvas.preserveObjectStacking = true;
     TheCanvas.setBackgroundColor(COL_BACKGROUND, null);
-    TheCanvas.calcOffset();
+    //TheCanvas.calcOffset();
 
     definePrototypes();
 
@@ -40,67 +40,13 @@ function initApplication() {
 
 
 
-    // demo diera obdlznikova
-    TheCanvas.add(new fabric.Rect({
-        width: 120,
-        height: 85,
-        left: 150,
-        top: 150,
-        fill: COL_BACKGROUND,
-        qp_depth: 999,
-        qp_type: FT_HOLE_RECT
-    }));
-
-    // demo kapsa obdlznikova
-    TheCanvas.add(new fabric.Rect({
-        width: 80,
-        height: 100,
-        left: 350,
-        top: 270,
-        fill: COL_FEATURE_POCKET,
-        rx: 12,
-        qp_depth: 1,
-        qp_type: FT_HOLE_RECT
-    }));
-
-    // demo diera kruhova
-    TheCanvas.add(new fabric.Circle({
-        radius: 60,
-        left: 400,
-        top: 330,
-        fill: COL_BACKGROUND,
-        qp_depth: 999,
-        qp_type: FT_HOLE_CIRC
-    }));
-
     // demo custom class
     TheCanvas.add(new HoleRect({
-        left: 515,
-        top: 330,
-        width: 100,
-        height: 100,
-        r1: 10
-    }));
-    TheCanvas.add(new HoleRect({
-        left: 600,
+        left: 500,
         top: 200,
-        width: 50,
-        height: 50,
-        r1: 0
-    }));
-    TheCanvas.add(new HoleRect({
-        left: 600,
-        top: 100,
-        width: 90,
-        height: 90,
-        r1: 0
-    }));
-    TheCanvas.add(new HoleRect({
-        left: 700,
-        top: 100,
-        width: 90,
-        height: 90,
-        r1: 15
+        qp_width: 100,
+        qp_height: 100,
+        r1: 10
     }));
 
 

@@ -7,7 +7,7 @@ function definePrototypes(){
     fabric.Object.prototype.borderColor = 'red';
     fabric.Object.prototype.borderDashArray = [5,8];
     fabric.Object.prototype.cornerColor = 'red';
-    fabric.Object.prototype.cornerSize = 8;
+    fabric.Object.prototype.cornerSize = 10;
     fabric.Object.prototype.originX = 'center';
     fabric.Object.prototype.originY = 'center';
     fabric.Circle.prototype.hasRotatingPoint = false;

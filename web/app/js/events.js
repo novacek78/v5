@@ -19,7 +19,7 @@ function initEventHandlers() {
 
         // X
         if ((e.keyCode == 88) && (TheCanvas.getActiveObject()))
-            TheCanvas.getActiveObject().set('depth', 1);
+            TheCanvas.getActiveObject().set('width', 180);
 
         TheCanvas.renderAll();
         console.log('keyCode = '+e.keyCode);
@@ -32,7 +32,7 @@ function initEventHandlers() {
             e.clientX,
             e.clientY - TOOLBAR_HEIGHT
         );
-        var direction = (e.deltaY > 0) ? 1.1 : 0.9;
+        var direction = (e.deltaY > 0) ? 0.9 : 1.1;
         var newZoom = TheCanvas.getZoom() * direction;
 
         if ((newZoom > 15) || (newZoom < 0.5)) return false;
