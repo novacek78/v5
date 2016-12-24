@@ -1,7 +1,6 @@
 var ThePanel;
 var TheCanvas;
-
-var status_text;
+var TheStatusText;
 
 
 
@@ -12,19 +11,18 @@ function initApplication() {
     TheCanvas.setHeight(window.innerHeight);
     TheCanvas.preserveObjectStacking = true;
     TheCanvas.setBackgroundColor(COL_BACKGROUND, null);
-    //TheCanvas.calcOffset();
+    TheCanvas.setZoom( window.innerWidth / 600 );
 
     definePrototypes();
 
     ThePanel = new Panel({
-        qp_width: 1000,
-        qp_height: 400,
+        qp_width: 400,
+        qp_height: 150,
         qp_thickness: 6,
-        qp_r1: 0
+        qp_r1: 5
     });
-    TheCanvas.add(ThePanel);
 
-    status_text = new fabric.Text('',{
+    TheStatusText = new fabric.Text('',{
         originX: 'left',
         originY: 'bottom',
         left: 20,
@@ -35,22 +33,8 @@ function initApplication() {
         fill: '#bbb',
         hasRotatingPoint: false
     });
-    TheCanvas.add(status_text);
 
-
-
-
-    // demo custom class
-    TheCanvas.add(new HoleRect({
-        left: 500,
-        top: 200,
-        qp_width: 100,
-        qp_height: 100,
-        r1: 10
-    }));
-
-
-
+    TheCanvas.add(ThePanel, TheStatusText);
 
     initEventHandlers();
 
@@ -58,6 +42,4 @@ function initApplication() {
 
     $( "#propPanel" ).draggable({ cancel: "div.items" });
 }
-
-
 

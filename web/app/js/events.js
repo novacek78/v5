@@ -18,8 +18,7 @@ function initEventHandlers() {
             TheCanvas.getActiveObject().set('lockMovementX', !TheCanvas.getActiveObject().lockMovementX);
 
         // X
-        if ((e.keyCode == 88) && (TheCanvas.getActiveObject()))
-            TheCanvas.getActiveObject().set('width', 180);
+        if ((e.keyCode == 88) && (TheCanvas.getActiveObject())) ;
 
         TheCanvas.renderAll();
         console.log('keyCode = '+e.keyCode);
@@ -35,7 +34,7 @@ function initEventHandlers() {
         var direction = (e.deltaY > 0) ? 0.9 : 1.1;
         var newZoom = TheCanvas.getZoom() * direction;
 
-        if ((newZoom > 15) || (newZoom < 0.5)) return false;
+        if ((newZoom > 15) || (newZoom < 0.7)) return false;
 
         // aby nebolo vela desatinnych miest
         newZoom = (Math.round(newZoom * 1000))/1000;
@@ -45,8 +44,13 @@ function initEventHandlers() {
 
     // update suradnic mysi v statusbare
     TheCanvas.on('mouse:move', function (options) {
-        status_text.text = (options.e.clientX - ThePanel.left) + ', ' + (options.e.clientY - TOOLBAR_HEIGHT - ThePanel.top);
+        TheStatusText.text = (options.e.clientX - ThePanel.left) + ', ' + (options.e.clientY - TOOLBAR_HEIGHT - ThePanel.top);
         TheCanvas.renderAll();
+    });
+
+    // po nakresleni prveho prvku markera zrusime tento mod
+    TheCanvas.on('mouse:up', function () {
+        TheCanvas.isDrawingMode = false;
     });
 
     // ked user vyberie objekt / objekty
@@ -58,7 +62,7 @@ function initEventHandlers() {
     });
 
     // ked sa zrusi vyber objektu/objektov
-    TheCanvas.on('selection:cleared', function(options) {
+    TheCanvas.on('selection:cleared', function() {
         showProperties(ThePanel);
     });
 }

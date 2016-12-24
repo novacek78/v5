@@ -14,28 +14,11 @@ function definePrototypes(){
     fabric.Circle.prototype.perPixelTargetFind = true;
 
     // ----------- custom properties -----------------------
-    fabric.Object.prototype.qp_type = -1; // typ objektu v systeme QP
     fabric.Object.prototype.qp_basePoint = BP_CENTER; // poloha base pointu
     fabric.Object.prototype.qp_depth = -1; // hlbka
 
     // --------- custom methods ----------------------------
-    // doplnenie metody do JS stringov - first letter uppercase
-    String.prototype.capitalizeFirstLetter = function() {
-        return this.charAt(0).toUpperCase() + this.slice(1);
-    };
-
-    fabric.Object.prototype.setDepth = function(depth){
-
-        if (depth > 900)
-            this.setFill(COL_BACKGROUND); // otvor skrz
-        else
-            this.setFill(COL_FEATURE_POCKET);
-
-        this.qp_depth = depth;
-    };
-
     fabric.Object.prototype.on('modified', function(){
-
         if (TheCanvas.getActiveGroup())
             showProperties(TheCanvas.getActiveGroup());
         else {
@@ -51,6 +34,17 @@ function definePrototypes(){
         }
     });
 
+    /**
+     * Vykresli na canvas obdlznik so zaoblenymi rohmi
+     *
+     * @param ctx
+     * @param posX
+     * @param posY
+     * @param width
+     * @param height
+     * @param r1
+     * @returns {fabric.Object}
+     */
     fabric.Object.prototype.roundRect = function (ctx, posX, posY, width, height, r1) {
         var w_half = width/2;
         var h_half = height/2;

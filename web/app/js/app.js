@@ -1,29 +1,51 @@
 
 function freehandToggle(){
-    TheCanvas.freeDrawingBrush.color = 'black';
+    TheCanvas.freeDrawingBrush.color = 'rgba(221,255,0,0.55)';
+    TheCanvas.freeDrawingBrush.width = 5;
     TheCanvas.isDrawingMode = !TheCanvas.isDrawingMode;
 }
 
-function propPanelValidateNumber(edText) {
-    edText.value = edText.value.replace(',', '.');
+function saveNewValue(edText, limits) {
+    var newValue = edText.value;
+    var key = edText.name;
+    var targetObj;
 
-    if (isNaN(edText.value) || (edText.value == '')) {
-        edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
-        return false;
-    } else
-        edText.style.backgroundColor = 'white';
-
-    // ak nie je nic vybrate, nastavujeme vlastnosti panela
     if (TheCanvas.getActiveObject()) {
-        TheCanvas.getActiveObject().set(edText.name, Number(edText.value));
-        edText.value = TheCanvas.getActiveObject().get(edText.name);
-        TheCanvas.getActiveObject().dirty = true;
-    } else  if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
-        ThePanel.set(edText.name, Number(edText.value));
-        edText.value = ThePanel.get(edText.name);
-        ThePanel.dirty = true;
+        // pre prave jeden vybraty objekt
+        targetObj = TheCanvas.getActiveObject();
+    } else if (TheCanvas.getActiveGroup()) {
+        // pre viac objektov naraz
+    } else if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
+        // pre panel samotny - ziadny vybraty objekt
+        targetObj = ThePanel;
     }
 
+    newValue = newValue.replace(',', '.');
+
+    if (isNaN(newValue) || (newValue == '')) {
+        edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
+        return false;
+    } else {
+        edText.style.backgroundColor = 'white';
+        newValue = Number(newValue);
+    }
+
+    if (limits && (typeof limits === 'object')){
+
+        if ((limits.min) && (newValue < limits.min)) {
+            showMessage({type: 'e', text: 'Value ' + key + '=' + newValue + ' out of range. Minimum: ' + limits.min});
+            return false;
+        }
+        if ((limits.max) && (newValue > limits.max)) {
+            showMessage({type: 'e', text: 'Value ' + key + '=' + newValue + ' out of range. Maximum: ' + limits.max});
+            return false;
+        }
+    }
+
+    targetObj.set(key, newValue);
+    edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt
+
+    targetObj.dirty = true;  // force redraw
     TheCanvas.renderAll();
 }
 
@@ -40,12 +62,8 @@ function populatePropertiesWindow(jsonObject){
     try {
         for (var propName in jsonObject) {
 
-            var value = jsonObject[propName];
-            // zaokruhlime na pevny pocet miest a potom prevodom na string odstranim trailing zeroes
-            if (! isNaN(value)) {
-                value = parseFloat(value).toFixed(3);
-                value = Number(value).toString();
-            }
+            // zaokruhlime na pevny pocet des.miest
+            var value = formatFloat(jsonObject[propName]);
 
             tableData += '<tr>';
             tableData += '<th>' + propName + '</th>';
@@ -64,16 +82,13 @@ function populatePropertiesWindow(jsonObject){
         keypress: function(event){
             // ENTER
             if (event.keyCode == 13){
-                propPanelValidateNumber(event.target);
+                saveNewValue(event.target, getLimits(event.target));
             }
         },
         focusout: function(event){
-            propPanelValidateNumber(event.target);
-        },
-        focusin: function(event){
-            event.target.style.borderColor = '#555';
+            saveNewValue(event.target, getLimits(event.target));
         }
-    });
+    })
 }
 
 /**
@@ -93,7 +108,7 @@ function showProperties(objectToInspect){
     } else {
         // jeden objekt
         if (objectToInspect.descShort)
-            $( "#propPanel div.title").text(objectToInspect.descShort.capitalizeFirstLetter());
+            $( "#propPanel div.title").text(capitalizeFirstLetter(objectToInspect.descShort));
         else
             $( "#propPanel div.title").text('?');
 
@@ -103,28 +118,35 @@ function showProperties(objectToInspect){
             populatePropertiesWindow(jsonObject);
         } else {
             // jedna sa o nejaku ficuru na paneli
-            var jsonObject = buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'depth', 'r1', 'angle', 'left', 'top', 'scaleX']);
+            var jsonObject = buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'qp_depth', 'qp_r1', 'angle', 'left', 'top']);
             populatePropertiesWindow(jsonObject);
         }
     }
 }
 
-/**
- * Z dodaneho objektu povytahuje jeho vlastnosti a vytvori z toho JSON objekt
- *
- * @param objData Object        Objekt, z ktoreho treba vytiahnut vlastnosti
- * @param arrProperties Array   Zoznam vlastnosti, ktore treba z objektu vytiahnut
- * @returns Object
- */
-function buildJsonObject(objData, arrProperties){
+function getLimits(element){
 
-    if (Array.isArray(arrProperties)){
-        var result = {};
+    return {};
 
-        arrProperties.forEach(function (propName){
-            result[propName] = objData[propName];
-        });
+    //var items = element.getAttribute('limits').split(",");
+    //var newItems = [];
+    //
+    //items.forEach(function(item){
+    //    var keyValue = item.split(":");
+    //    newItems.push('"' + keyValue[0] + '":"' + keyValue[1] + '"')
+    //});
+    //
+    //return JSON.parse('{' + newItems.join(',') + '}');
+}
 
-        return result;
-    }
+function addRectHole() {
+    var x = new HoleRect({
+        left: 50,
+        top: 50,
+        qp_width: 40,
+        qp_height: 30
+    });
+
+    TheCanvas.add(x);
+    TheCanvas.setActiveObject(x, null);
 }

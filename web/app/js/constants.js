@@ -5,7 +5,7 @@ const COL_BACKGROUND = '#eee';
 const COL_SURFACE_RAW = '#ccc';
 const COL_SURFACE_ELOX_NATURAL = '#d0d0d0';
 const COL_SURFACE_ELOX_BLACK = '#000';
-const COL_FEATURE_POCKET = '#aaa';
+const COL_FEATURE_POCKET = 'rgba(0,0,0,0.2)';//'#aaa';
 const COL_VALIDATE_ERROR_BGND = '#ffdddd';
 
 const PANEL_WIDTH_MAX = 1000;
