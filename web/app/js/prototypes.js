@@ -10,6 +10,7 @@ function definePrototypes(){
     fabric.Object.prototype.cornerSize = 10;
     fabric.Object.prototype.originX = 'center';
     fabric.Object.prototype.originY = 'center';
+    fabric.Object.prototype.lockScalingFlip = true;
     fabric.Circle.prototype.hasRotatingPoint = false;
     fabric.Circle.prototype.perPixelTargetFind = true;
 
@@ -61,6 +62,22 @@ function definePrototypes(){
         ctx.closePath();
 
         return this;
-    }
+    };
+
+    /**
+     * Zisti, ci sa v poli nachadza dana hodnota.
+     * Nie je urcene pre hladanie objektov.
+     *
+     * @param needle
+     * @returns {boolean}
+     */
+    Array.prototype.contains = function(needle) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] === needle) return true;
+        }
+        return false;
+    };
+
+
 
 }

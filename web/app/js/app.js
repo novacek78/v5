@@ -33,11 +33,11 @@ function saveNewValue(edText, limits) {
     if (limits && (typeof limits === 'object')){
 
         if ((limits.min) && (newValue < limits.min)) {
-            showMessage({type: 'e', text: 'Value ' + key + '=' + newValue + ' out of range. Minimum: ' + limits.min});
+            showMessage('e', 'Value ' + key + '=' + newValue + ' out of range. Minimum: ' + limits.min);
             return false;
         }
         if ((limits.max) && (newValue > limits.max)) {
-            showMessage({type: 'e', text: 'Value ' + key + '=' + newValue + ' out of range. Maximum: ' + limits.max});
+            showMessage('e', 'Value ' + key + '=' + newValue + ' out of range. Maximum: ' + limits.max);
             return false;
         }
     }
@@ -97,9 +97,10 @@ function populatePropertiesWindow(jsonObject){
  */
 function showProperties(objectToInspect){
 
-    if (Array.isArray(objectToInspect)){
+    if (Array.isArray(objectToInspect) || objectToInspect._objects){
         // viac objektov - treba najst ich spolocne vlastnosti a len tie zobrazit
-        $( "#propPanel div.title").text("Group (" + objectToInspect.length + ")");
+        var poleObjektov = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects;
+        $( "#propPanel div.title").text(poleObjektov.length + " objects");
         var jsonObject = {};
         jsonObject['Nejake'] = '';
         jsonObject['spolocne'] = '';
@@ -109,8 +110,9 @@ function showProperties(objectToInspect){
         // jeden objekt
         if (objectToInspect.descShort)
             $( "#propPanel div.title").text(capitalizeFirstLetter(objectToInspect.descShort));
-        else
-            $( "#propPanel div.title").text('?');
+        else {
+            $("#propPanel div.title").text('?');
+        }
 
         if ((objectToInspect.type) && (objectToInspect.type == FT_PANEL)){
             // jedna sa o panel samotny

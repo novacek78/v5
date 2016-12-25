@@ -12,21 +12,27 @@ function formatFloat(value, decimals, removeTrailing) {
     }
 }
 
-function showMessage(data){
+/**
+ * Zaloguje / oznami / ukaze spravu.
+ *
+ * @param type String['e'|'w'|'i'] Typ spravy
+ * @param message String|Object Telo spravy alebo objekt s dalsimi parametrami
+ */
+function showMessage(type, message){
 
-    if (typeof data === 'string'){
-        data = {type: 'i', text: data};
+    if (typeof message === 'string'){
+        message = {text: message};
     }
 
-    if (data.type == 'i'){
+    if (type == 'i'){
 
-    } else if (data.type == 'w'){
+    } else if (type == 'w'){
 
-    } else if (data.type == 'e'){
+    } else if (type == 'e'){
 
     }
 
-    console.log('"'+data.type+'" message : ' + data.text);
+    console.log('"' + type + '" message : ' + message.text);
 }
 
 /**
@@ -58,4 +64,45 @@ function buildJsonObject(objData, arrProperties){
 function capitalizeFirstLetter(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 };
+
+/**
+ * Skontroluje, ci hodnota nie je mimo povoleny rozsah.
+ * Ak je vsetko OK, vrati povodnu hodnotu, ak nie, vrati limitnu hodnotu.
+ *
+ * @param obj Object Objekt na ktorom ma prebehnut kontrola
+ * @param dimensionName
+ * @param value
+ * @returns {*}
+ * @private
+ */
+function checkRange(obj, dimensionName, value){
+    var limits = obj.getAttributes();
+    var correctedValue = null;
+
+    if ( eval('limits.'+dimensionName)) {
+
+        if (eval('limits.' + dimensionName + '.min')) {
+            if (value < eval('limits.' + dimensionName + '.min'))
+                correctedValue = eval('limits.' + dimensionName + '.min');
+        }
+
+        if (eval('limits.' + dimensionName + '.max')) {
+            if (value > eval('limits.' + dimensionName + '.max'))
+                correctedValue = eval('limits.' + dimensionName + '.max');
+        }
+
+        if (eval('limits.' + dimensionName + '.allowed')) {
+            if (eval('limits.' + dimensionName + '.allowed.contains(value)'))
+                correctedValue = null;
+        }
+    }
+
+    if (correctedValue === null) {
+        return value; // hodnota vyhovuje
+    } else {
+        showMessage('e', 'Value '+dimensionName+'='+value+' out of range.');
+        return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
+    }
+}
+
 

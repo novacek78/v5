@@ -1,6 +1,7 @@
 var ThePanel;
 var TheCanvas;
 var TheStatusText;
+var TheClipboard;
 
 
 

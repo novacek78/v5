@@ -37,9 +37,12 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
     },
     _set: function(key, value){
 
+        value = checkRange(this, key, value);
+
         if (key == 'qp_r1') {
+            value = Math.abs(value);
             if ((value > 0) && (value < 0.5)) {
-                showMessage({type: 'e', message:'Corner radius too small, changing to R0.5'});
+                showMessage('e', 'Corner radius too small, changing to R0.5');
                 value = 0.5;
             }
 
@@ -70,6 +73,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             }
         }
         if (key == 'qp_width') {
+            value = checkRange(this, key, value);
             if (this.qp_r1 == 0){
                 this.width = value + ZAPICHY_PRIDAVOK;
             } else {
@@ -86,11 +90,12 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
 
         if (key == 'qp_depth') {
             value = Math.abs(value);
+            if (value >= ThePanel.qp_thickness) value = 999;
             if (value > 900) {
-                this.set('fill', COL_BACKGROUND);
+                this.fill = COL_BACKGROUND;
                 if (this.canvas) this.bringToFront();
             } else {
-                this.set('fill', COL_FEATURE_POCKET);
+                this.fill = COL_FEATURE_POCKET;
                 if (this.canvas) { this.sendToBack(); ThePanel.sendToBack(); } // kapsy budu za dierami ale pred panelom
             }
         }
@@ -112,21 +117,98 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             ctx.fill();
 
             ctx.beginPath();
-            ctx.arc(-w_half + 2, -h_half + 2, 4, 0, PIx2, false);
+            ctx.arc(-w_half + ZAPICHY_OFFSET, -h_half + ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(w_half - 2, -h_half + 2, 4, 0, PIx2, false);
+            ctx.arc(w_half - ZAPICHY_OFFSET, -h_half + ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(-w_half + 2, h_half - 2, 4, 0, PIx2, false);
+            ctx.arc(-w_half + ZAPICHY_OFFSET, h_half - ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(w_half - 2, h_half - 2, 4, 0, PIx2, false);
+            ctx.arc(w_half - ZAPICHY_OFFSET, h_half - ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
             ctx.fill();
         } else {
             this.roundRect(ctx, this.left, this.top, this.width, this.height, this.qp_r1);
             ctx.fill();
         }
+    },
+
+    /**
+     * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
+     * a ich hranice pre jednotlive hrubky plechov.
+     *
+     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, qp_r1: {min: number, max: number}}}
+     */
+    getAttributes: function(){
+        if (ThePanel.qp_thickness <= 4)
+            return {
+                qp_width: {
+                    min: 1.5,
+                    max: ThePanel.qp_width+6
+                },
+                qp_height: {
+                    min: 1.5,
+                    max: ThePanel.qp_height+6
+                },
+                qp_r1: {
+                    min: 0.5,
+                    max: 250,
+                    allowed: [0]
+                }
+            }
+        else if (ThePanel.qp_thickness <= 6)
+            return {
+                qp_width: {
+                    min: 2.5,
+                    max: ThePanel.qp_width+6
+                },
+                qp_height: {
+                    min: 2.5,
+                    max: ThePanel.qp_height+6
+                },
+                qp_r1: {
+                    min: 0.75,
+                    max: 250,
+                    allowed: [0]
+                }
+            }
+        else if (ThePanel.qp_thickness <= 8)
+            return {
+                qp_width: {
+                    min: 3,
+                    max: ThePanel.qp_width+6
+                },
+                qp_height: {
+                    min: 3,
+                    max: ThePanel.qp_height+6
+                },
+                qp_r1: {
+                    min: 1,
+                    max: 250,
+                    allowed: [0]
+                }
+            }
+        else if (ThePanel.qp_thickness <= 10)
+            return {
+                qp_width: {
+                    min: 4.5,
+                    max: ThePanel.qp_width+6
+                },
+                qp_height: {
+                    min: 4.5,
+                    max: ThePanel.qp_height+6
+                },
+                qp_r1: {
+                    min: 1.5,
+                    max: 250,
+                    allowed: [0]
+                }
+            }
+        else
+            showMessage('e', 'Unsupported panel thickness: ' + ThePanel.qp_thickness);
     }
+
+
 });
 
