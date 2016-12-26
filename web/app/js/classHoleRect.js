@@ -11,6 +11,9 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         if (options.qp_depth == null) {
             options.qp_depth = 999;
         }
+        
+        if (options.qp_depth < 900)
+            options.fill = ThePanel.getPocketColor(options.qp_depth);
 
         if (options.width || options.height){
             alert('HoleRect.initialize(): Don\'t use width/height, use qp_width/qp_height instead.');
@@ -106,7 +109,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
                 this.fill = COL_BACKGROUND;
                 if (this.canvas) this.bringToFront();
             } else {
-                this.fill = COL_FEATURE_POCKET;
+                this.fill = ThePanel.getPocketColor(value);
                 if (this.canvas) { this.sendToBack(); ThePanel.sendToBack(); } // kapsy budu za dierami ale pred panelom
             }
         }

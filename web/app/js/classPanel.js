@@ -59,6 +59,19 @@ var Panel = fabric.util.createClass(fabric.Object, {
     },
 
     /**
+     * Podla hlbky kapsy nastavi jej farbu - cim hlbsia, tym tmavsia
+     *
+     * @param depth
+     */
+    getPocketColor: function(depth){
+        var relativeDepth = depth / ThePanel.qp_thickness;
+        var rozsah = COL_FEATURE_POCKET_MINDEPTH - COL_FEATURE_POCKET_MAXDEPTH;
+        var odtien = COL_FEATURE_POCKET_MINDEPTH - Math.round(rozsah * relativeDepth);
+
+        return "rgb("+odtien+","+odtien+","+odtien+")";
+    },
+
+    /**
      * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
      * a ich pravidla a okrajove hodnoty.
      *
