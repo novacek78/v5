@@ -95,16 +95,26 @@ function definePrototypes(){
                     correctedValue = eval('limits.' + dimensionName + '.max');
             }
 
-            if (eval('limits.' + dimensionName + '.allowed')) {
-                if (eval('limits.' + dimensionName + '.allowed.contains(value)'))
+            if (correctedValue !== null) {
+                // ak to nepreslo nejakym predoslym pravidlom, este to moze prejst ak sa hodnota najde v poli dovolenych
+                if (eval('limits.' + dimensionName + '.allowed')) {
+                    if (eval('limits.' + dimensionName + '.allowed.contains(value)'))
+                        correctedValue = null;
+                }
+            }
+
+            if (eval('limits.' + dimensionName + '.select_one')) {
+                if (eval('limits.' + dimensionName + '.select_one.contains(value)'))
                     correctedValue = null;
+                else
+                    correctedValue = false;
             }
         }
 
         if (correctedValue === null) {
             return value; // hodnota vyhovuje
         } else {
-            QP.showMessage('e', 'Value '+dimensionName+'='+value+' out of range.');
+            QP.showMessage('error', 'Value '+dimensionName+'='+value+' out of range.');
             return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
         }
     };

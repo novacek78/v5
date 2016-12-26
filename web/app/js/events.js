@@ -47,7 +47,7 @@ function initEventHandlers() {
         }
 
         // X
-        //if ((e.keyCode == 88) && (TheCanvas.getActiveObject())) ;
+        //if ((e.keyCode == 88) && (true))
 
         TheCanvas.renderAll();
         console.log('keyCode = '+e.keyCode);

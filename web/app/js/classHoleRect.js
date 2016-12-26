@@ -49,7 +49,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         if (key == 'qp_r1') {
             value = Math.abs(value);
             if ((value > 0) && (value < 0.5)) {
-                QP.showMessage('e', 'Corner radius too small, changing to R0.5');
+                QP.showMessage('error', 'Corner radius too small, changing to R0.5');
                 value = 0.5;
             }
 
@@ -227,7 +227,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
                 }
             };
         else
-            QP.showMessage('e', 'Unsupported panel thickness: ' + ThePanel.qp_thickness);
+            QP.showMessage('error', 'Unsupported panel thickness: ' + ThePanel.qp_thickness);
 
         objAttribs['qp_posx'] = {};
         objAttribs['qp_posy'] = {};

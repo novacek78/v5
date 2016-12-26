@@ -42,5 +42,6 @@ function initApplication() {
     showProperties(ThePanel);
 
     $( "#propPanel" ).draggable({ cancel: "div.items" });
+    $.notify.defaults({ className: "error", position: "left top" });
 }
 

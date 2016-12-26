@@ -25,7 +25,7 @@ var QP = {
     /**
      * Zaloguje / oznami / ukaze spravu.
      *
-     * @param type String['e'|'w'|'i'] Typ spravy
+     * @param type String['error'|'warn'|'info'] Typ spravy
      * @param message String|Object Telo spravy alebo objekt s dalsimi parametrami
      */
     showMessage: function(type, message){
@@ -34,14 +34,11 @@ var QP = {
             message = {text: message};
         }
 
-        if (type == 'i'){
-
-        } else if (type == 'w'){
-
-        } else if (type == 'e'){
-
+        if ( ! message.target) {
+            message.target = '#propPanel';
         }
 
+        $(message.target).notify(message.text, message.type);
         console.log('"' + type + '" message : ' + message.text);
     },
 

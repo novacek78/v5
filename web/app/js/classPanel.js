@@ -30,24 +30,16 @@ var Panel = fabric.util.createClass(fabric.Object, {
     _set: function(key, value){
 
         if (key == 'qp_width') {
-            if (value > PANEL_WIDTH_MAX) {
-                QP.showMessage('e', 'Width too large! Max = '+PANEL_WIDTH_MAX+' ('+value+' provided)');
-                value = PANEL_WIDTH_MAX;
-            }
+            value = this.checkRange(key, value);
             this.width = value;
         }
         if (key == 'qp_height') {
-            if (value > PANEL_HEIGHT_MAX) {
-                QP.showMessage('e', 'Height too large! Max = '+PANEL_HEIGHT_MAX+' ('+value+' provided)');
-                value = PANEL_HEIGHT_MAX;
-            }
+            value = this.checkRange(key, value);
             this.height = value;
         }
         if (key == 'qp_thickness') {
-            if (value > PANEL_THICKNESS_MAX) {
-                QP.showMessage('e', 'Thickness too large! Max = '+PANEL_THICKNESS_MAX+' ('+value+' provided)');
-                value = PANEL_THICKNESS_MAX;
-            }
+            value = this.checkRange(key, value);
+            if (value === false) return false;
         }
         if (key == 'qp_r1') {
             // obmedzenie maxima radiusu
@@ -121,7 +113,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
             };
 
         objAttribs['qp_thickness'] = {
-                allowed: PANEL_THICKNESS_AVAILABLE
+                select_one: PANEL_THICKNESS_AVAILABLE
         };
         objAttribs['qp_r1'] = {};
         objAttribs['qp_version'] = {
