@@ -24,11 +24,11 @@ function definePrototypes(){
             showProperties(TheCanvas.getActiveGroup());
         else {
             if (this.scaleX != 1){
-                this.setWidth(this.width * this.scaleX);
+                this.set('qp_width', this.qp_width * this.scaleX);
                 this.scaleX = 1;
             }
             if (this.scaleY != 1){
-                this.setHeight(this.height * this.scaleY);
+                this.set('qp_height', this.qp_height * this.scaleY);
                 this.scaleY = 1;
             }
             showProperties(this);
@@ -39,14 +39,12 @@ function definePrototypes(){
      * Vykresli na canvas obdlznik so zaoblenymi rohmi
      *
      * @param ctx
-     * @param posX
-     * @param posY
      * @param width
      * @param height
      * @param r1
      * @returns {fabric.Object}
      */
-    fabric.Object.prototype.roundRect = function (ctx, posX, posY, width, height, r1) {
+    fabric.Object.prototype.roundRect = function (ctx, width, height, r1) {
         var w_half = width/2;
         var h_half = height/2;
 
@@ -65,6 +63,54 @@ function definePrototypes(){
     };
 
     /**
+     * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
+     * a ich pravidla a okrajove hodnoty.
+     *
+     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}}}
+     */
+    fabric.Object.prototype.getSizeRules = function(){}; // abstract
+
+    /**
+     * Skontroluje, ci hodnota nie je mimo povoleny rozsah.
+     * Ak je vsetko OK, vrati povodnu hodnotu, ak nie, vrati limitnu hodnotu.
+     *
+     * @param dimensionName
+     * @param value
+     * @returns {*}
+     * @private
+     */
+    fabric.Object.prototype.checkRange = function(dimensionName, value){
+        var limits = this.getSizeRules();
+        var correctedValue = null;
+
+        if ( eval('limits.'+dimensionName)) {
+
+            if (eval('limits.' + dimensionName + '.min')) {
+                if (value < eval('limits.' + dimensionName + '.min'))
+                    correctedValue = eval('limits.' + dimensionName + '.min');
+            }
+
+            if (eval('limits.' + dimensionName + '.max')) {
+                if (value > eval('limits.' + dimensionName + '.max'))
+                    correctedValue = eval('limits.' + dimensionName + '.max');
+            }
+
+            if (eval('limits.' + dimensionName + '.allowed')) {
+                if (eval('limits.' + dimensionName + '.allowed.contains(value)'))
+                    correctedValue = null;
+            }
+        }
+
+        if (correctedValue === null) {
+            return value; // hodnota vyhovuje
+        } else {
+            QP.showMessage('e', 'Value '+dimensionName+'='+value+' out of range.');
+            return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
+        }
+    };
+
+
+    /**
      * Zisti, ci sa v poli nachadza dana hodnota.
      * Nie je urcene pre hladanie objektov.
      *
@@ -76,6 +122,15 @@ function definePrototypes(){
             if (this[i] === needle) return true;
         }
         return false;
+    };
+
+    /**
+     * Prve pismeno v texte skonvertuje na velke
+     *
+     * @returns {string}
+     */
+    String.prototype.capitalizeFirstLetter = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
     };
 
 

@@ -26,25 +26,26 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
         this.callSuper('initialize', options);
     },
+
     _set: function(key, value){
 
         if (key == 'qp_width') {
             if (value > PANEL_WIDTH_MAX) {
-                showMessage('e', 'Width too large! Max = '+PANEL_WIDTH_MAX+' ('+value+' provided)');
+                QP.showMessage('e', 'Width too large! Max = '+PANEL_WIDTH_MAX+' ('+value+' provided)');
                 value = PANEL_WIDTH_MAX;
             }
             this.width = value;
         }
         if (key == 'qp_height') {
             if (value > PANEL_HEIGHT_MAX) {
-                showMessage('e', 'Height too large! Max = '+PANEL_HEIGHT_MAX+' ('+value+' provided)');
+                QP.showMessage('e', 'Height too large! Max = '+PANEL_HEIGHT_MAX+' ('+value+' provided)');
                 value = PANEL_HEIGHT_MAX;
             }
             this.height = value;
         }
         if (key == 'qp_thickness') {
             if (value > PANEL_THICKNESS_MAX) {
-                showMessage('e', 'Thickness too large! Max = '+PANEL_THICKNESS_MAX+' ('+value+' provided)');
+                QP.showMessage('e', 'Thickness too large! Max = '+PANEL_THICKNESS_MAX+' ('+value+' provided)');
                 value = PANEL_THICKNESS_MAX;
             }
         }
@@ -56,11 +57,78 @@ var Panel = fabric.util.createClass(fabric.Object, {
         this.callSuper('_set', key, value);
         return this;
     },
+
     _render: function(ctx) {
 
-        this.roundRect(ctx, this.left, this.top, this.qp_width, this.qp_height, this.qp_r1);
+        this.roundRect(ctx, this.qp_width, this.qp_height, this.qp_r1);
 
         ctx.fillStyle = this.fill;
         ctx.fill();
+    },
+
+    /**
+     * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
+     * a ich pravidla a okrajove hodnoty.
+     *
+     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, qp_r1: {min: number, max: number}}}
+     */
+    getSizeRules: function(){
+        var objAttribs;
+
+        if (this.qp_thickness <= 4)
+            objAttribs = {
+                qp_width: {
+                    min: 20,
+                    max: PANEL_WIDTH_MAX
+                },
+                qp_height: {
+                    min: 20,
+                    max: PANEL_HEIGHT_MAX
+                }
+            };
+        else if (this.qp_thickness <= 6)
+            objAttribs = {
+                qp_width: {
+                    min: 25,
+                    max: PANEL_WIDTH_MAX
+                },
+                qp_height: {
+                    min: 25,
+                    max: PANEL_HEIGHT_MAX
+                }
+            };
+        else if (this.qp_thickness <= 10)
+            objAttribs = {
+                qp_width: {
+                    min: 30,
+                    max: PANEL_WIDTH_MAX
+                },
+                qp_height: {
+                    min: 30,
+                    max: PANEL_HEIGHT_MAX
+                }
+            };
+        else
+            objAttribs = {
+                qp_width: {
+                    min: 50,
+                    max: PANEL_WIDTH_MAX
+                },
+                qp_height: {
+                    min: 50,
+                    max: PANEL_HEIGHT_MAX
+                }
+            };
+
+        objAttribs['qp_thickness'] = {
+                allowed: PANEL_THICKNESS_AVAILABLE
+        };
+        objAttribs['qp_r1'] = {};
+        objAttribs['qp_version'] = {
+            readonly: true
+        };
+
+        return objAttribs;
     }
+
 });

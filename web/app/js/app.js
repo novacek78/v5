@@ -5,7 +5,7 @@ function freehandToggle(){
     TheCanvas.isDrawingMode = !TheCanvas.isDrawingMode;
 }
 
-function saveNewValue(edText, limits) {
+function saveNewValue(edText) {
     var newValue = edText.value;
     var key = edText.name;
     var targetObj;
@@ -30,18 +30,6 @@ function saveNewValue(edText, limits) {
         newValue = Number(newValue);
     }
 
-    if (limits && (typeof limits === 'object')){
-
-        if ((limits.min) && (newValue < limits.min)) {
-            showMessage('e', 'Value ' + key + '=' + newValue + ' out of range. Minimum: ' + limits.min);
-            return false;
-        }
-        if ((limits.max) && (newValue > limits.max)) {
-            showMessage('e', 'Value ' + key + '=' + newValue + ' out of range. Maximum: ' + limits.max);
-            return false;
-        }
-    }
-
     targetObj.set(key, newValue);
     edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt
 
@@ -63,7 +51,7 @@ function populatePropertiesWindow(jsonObject){
         for (var propName in jsonObject) {
 
             // zaokruhlime na pevny pocet des.miest
-            var value = formatFloat(jsonObject[propName]);
+            var value = QP.formatFloat(jsonObject[propName]);
 
             tableData += '<tr>';
             tableData += '<th>' + propName + '</th>';
@@ -82,11 +70,11 @@ function populatePropertiesWindow(jsonObject){
         keypress: function(event){
             // ENTER
             if (event.keyCode == 13){
-                saveNewValue(event.target, getLimits(event.target));
+                saveNewValue(event.target);
             }
         },
         focusout: function(event){
-            saveNewValue(event.target, getLimits(event.target));
+            saveNewValue(event.target);
         }
     })
 }
@@ -96,12 +84,13 @@ function populatePropertiesWindow(jsonObject){
  * @param objectToInspect
  */
 function showProperties(objectToInspect){
+    var jsonObject;
 
     if (Array.isArray(objectToInspect) || objectToInspect._objects){
         // viac objektov - treba najst ich spolocne vlastnosti a len tie zobrazit
         var poleObjektov = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects;
         $( "#propPanel div.title").text(poleObjektov.length + " objects");
-        var jsonObject = {};
+        jsonObject = {};
         jsonObject['Nejake'] = '';
         jsonObject['spolocne'] = '';
         jsonObject['vlastnosti'] = '';
@@ -109,42 +98,27 @@ function showProperties(objectToInspect){
     } else {
         // jeden objekt
         if (objectToInspect.descShort)
-            $( "#propPanel div.title").text(capitalizeFirstLetter(objectToInspect.descShort));
+            $( "#propPanel div.title").text(objectToInspect.descShort.capitalizeFirstLetter());
         else {
             $("#propPanel div.title").text('?');
         }
 
         if ((objectToInspect.type) && (objectToInspect.type == FT_PANEL)){
             // jedna sa o panel samotny
-            var jsonObject = buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'qp_thickness', 'qp_r1']);
+            jsonObject = QP.buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'qp_thickness', 'qp_r1']);
             populatePropertiesWindow(jsonObject);
         } else {
             // jedna sa o nejaku ficuru na paneli
-            var jsonObject = buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'qp_depth', 'qp_r1', 'angle', 'left', 'top']);
+            jsonObject = QP.buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'qp_depth', 'qp_r1', 'angle', 'left', 'top']);
             populatePropertiesWindow(jsonObject);
         }
     }
 }
 
-function getLimits(element){
-
-    return {};
-
-    //var items = element.getAttribute('limits').split(",");
-    //var newItems = [];
-    //
-    //items.forEach(function(item){
-    //    var keyValue = item.split(":");
-    //    newItems.push('"' + keyValue[0] + '":"' + keyValue[1] + '"')
-    //});
-    //
-    //return JSON.parse('{' + newItems.join(',') + '}');
-}
-
 function addRectHole() {
     var x = new HoleRect({
-        left: 50,
-        top: 50,
+        qp_posx: 50,
+        qp_posy: 50,
         qp_width: 40,
         qp_height: 30
     });

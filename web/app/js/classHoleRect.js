@@ -15,6 +15,9 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         if (options.width || options.height){
             alert('HoleRect.initialize(): Don\'t use width/height, use qp_width/qp_height instead.');
         }
+        if (options.left || options.top){
+            alert('HoleRect.initialize(): Don\'t use left/top, use qp_posx/qp_posy instead.');
+        }
 
         if (options.qp_r1 == null) {
             options.qp_r1 = Math.min(options.qp_width, options.qp_height) / 3;
@@ -33,16 +36,20 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             options.height = options.qp_height;
         }
 
+        options.left = options.qp_posx;
+        options.top = options.qp_posy;
+
         this.callSuper('initialize', options);
     },
+
     _set: function(key, value){
 
-        value = checkRange(this, key, value);
+        value = this.checkRange(key, value);
 
         if (key == 'qp_r1') {
             value = Math.abs(value);
             if ((value > 0) && (value < 0.5)) {
-                showMessage('e', 'Corner radius too small, changing to R0.5');
+                QP.showMessage('e', 'Corner radius too small, changing to R0.5');
                 value = 0.5;
             }
 
@@ -73,11 +80,13 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             }
         }
         if (key == 'qp_width') {
-            value = checkRange(this, key, value);
+            value = this.checkRange(key, value);
             if (this.qp_r1 == 0){
                 this.width = value + ZAPICHY_PRIDAVOK;
             } else {
                 this.width = value;
+                // obmedzenie maxima radiusu
+                this.qp_r1 = Math.min( this.qp_r1 , Math.min(value, this.qp_height) / 2);
             }
         }
         if (key == 'qp_height') {
@@ -85,6 +94,8 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
                 this.height = value + ZAPICHY_PRIDAVOK;
             } else {
                 this.height = value;
+                // obmedzenie maxima radiusu
+                this.qp_r1 = Math.min( this.qp_r1 , Math.min(this.qp_width, value) / 2);
             }
         }
 
@@ -100,9 +111,17 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             }
         }
 
+        if (key == 'qp_posx') {
+            key = 'left';
+        }
+        if (key == 'qp_posy') {
+            key = 'top';
+        }
+
         this.callSuper('_set', key, value);
         return this;
     },
+
     _render: function(ctx) {
 
         ctx.fillStyle = this.fill;
@@ -129,7 +148,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             ctx.arc(w_half - ZAPICHY_OFFSET, h_half - ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
             ctx.fill();
         } else {
-            this.roundRect(ctx, this.left, this.top, this.width, this.height, this.qp_r1);
+            this.roundRect(ctx, this.width, this.height, this.qp_r1);
             ctx.fill();
         }
     },
@@ -140,15 +159,17 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
      *
      * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, qp_r1: {min: number, max: number}}}
      */
-    getAttributes: function(){
+    getSizeRules: function(){
+        var objAttribs;
+
         if (ThePanel.qp_thickness <= 4)
-            return {
+            objAttribs = {
                 qp_width: {
-                    min: 1.5,
+                    min: 2,
                     max: ThePanel.qp_width+6
                 },
                 qp_height: {
-                    min: 1.5,
+                    min: 2,
                     max: ThePanel.qp_height+6
                 },
                 qp_r1: {
@@ -156,15 +177,15 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
                     max: 250,
                     allowed: [0]
                 }
-            }
+            };
         else if (ThePanel.qp_thickness <= 6)
-            return {
+            objAttribs = {
                 qp_width: {
-                    min: 2.5,
+                    min: 3,
                     max: ThePanel.qp_width+6
                 },
                 qp_height: {
-                    min: 2.5,
+                    min: 3,
                     max: ThePanel.qp_height+6
                 },
                 qp_r1: {
@@ -172,15 +193,15 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
                     max: 250,
                     allowed: [0]
                 }
-            }
+            };
         else if (ThePanel.qp_thickness <= 8)
-            return {
+            objAttribs = {
                 qp_width: {
-                    min: 3,
+                    min: 4,
                     max: ThePanel.qp_width+6
                 },
                 qp_height: {
-                    min: 3,
+                    min: 4,
                     max: ThePanel.qp_height+6
                 },
                 qp_r1: {
@@ -188,15 +209,15 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
                     max: 250,
                     allowed: [0]
                 }
-            }
+            };
         else if (ThePanel.qp_thickness <= 10)
-            return {
+            objAttribs = {
                 qp_width: {
-                    min: 4.5,
+                    min: 6,
                     max: ThePanel.qp_width+6
                 },
                 qp_height: {
-                    min: 4.5,
+                    min: 6,
                     max: ThePanel.qp_height+6
                 },
                 qp_r1: {
@@ -204,9 +225,14 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
                     max: 250,
                     allowed: [0]
                 }
-            }
+            };
         else
-            showMessage('e', 'Unsupported panel thickness: ' + ThePanel.qp_thickness);
+            QP.showMessage('e', 'Unsupported panel thickness: ' + ThePanel.qp_thickness);
+
+        objAttribs['qp_posx'] = {};
+        objAttribs['qp_posy'] = {};
+
+        return objAttribs;
     }
 
 
