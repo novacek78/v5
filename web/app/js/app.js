@@ -142,12 +142,12 @@ if ( ! attribs) return;
 
             if ((cssClass == 'numberValue') || (cssClass == 'textValue') || (cssClass == 'labelValue')) {
                 tableData += '<input type="text" name="' + key + '" value="' + value + '" class="propPanelEdit ' + cssClass;
-                tableData += readonly ? ' readonly' : '';
-                tableData += '">';
+                tableData += readonly ? ' readonly" readonly' : '"';
+                tableData += '>';
             } else if (cssClass == 'selectValue') {
                 tableData += '<select name="' + key + '" class="propPanelEdit ' + cssClass;
-                tableData += readonly ? ' readonly' : '';
-                tableData += '">';
+                tableData += readonly ? ' readonly" readonly' : '"';
+                tableData += '>';
                 for (var i = 0; i < attribs[key].select_values.length; i++){
                     selected = (value == attribs[key].select_values[i]) ? ' selected' : '';
                     tableData += '<option value="' + attribs[key].select_values[i] + '"' + selected + '>' + attribs[key].select_labels[i] + '</option>';
