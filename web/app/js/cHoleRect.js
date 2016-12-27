@@ -103,7 +103,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             value = Math.abs(value);
             if (value >= ThePanel.qp_thickness) value = 999;
             if (value > 900) {
-                this.fill = COL_BACKGROUND;
+                this.fill = TheCanvas.backgroundColor;
                 if (this.canvas) this.bringToFront();
             } else {
                 this.fill = ThePanel.getPocketColor(value);
@@ -124,6 +124,9 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
 
     _render: function(ctx) {
 
+        var zapichPriemer = 1.5;
+        var zapichOffset = 0.75;
+
         ctx.fillStyle = this.fill;
 
         if (this.qp_r1 == 0) {
@@ -136,16 +139,16 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             ctx.fill();
 
             ctx.beginPath();
-            ctx.arc(-w_half + ZAPICHY_OFFSET, -h_half + ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
+            ctx.arc(-w_half + zapichOffset, -h_half + zapichOffset, zapichPriemer, 0, PIx2, false);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(w_half - ZAPICHY_OFFSET, -h_half + ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
+            ctx.arc(w_half - zapichOffset, -h_half + zapichOffset, zapichPriemer, 0, PIx2, false);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(-w_half + ZAPICHY_OFFSET, h_half - ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
+            ctx.arc(-w_half + zapichOffset, h_half - zapichOffset, zapichPriemer, 0, PIx2, false);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(w_half - ZAPICHY_OFFSET, h_half - ZAPICHY_OFFSET, ZAPICHY_PRIEMER, 0, PIx2, false);
+            ctx.arc(w_half - zapichOffset, h_half - zapichOffset, zapichPriemer, 0, PIx2, false);
             ctx.fill();
         } else {
             this.roundRect(ctx, this.width, this.height, this.qp_r1);

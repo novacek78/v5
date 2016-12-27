@@ -11,7 +11,7 @@ function initApplication() {
     TheCanvas.setWidth(window.innerWidth);
     TheCanvas.setHeight(window.innerHeight);
     TheCanvas.preserveObjectStacking = true;
-    TheCanvas.setBackgroundColor(COL_BACKGROUND, null);
+    TheCanvas.setBackgroundColor(PANEL_SURFCOLOR_AVAILABLE_COLBGND[ PANEL_SURFCOLOR_AVAILABLE.indexOf('RAW') ], null);
     TheCanvas.setZoom( window.innerWidth / 600 );
 
     definePrototypes();

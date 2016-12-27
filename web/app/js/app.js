@@ -180,9 +180,6 @@ if ( ! attribs) return;
         }});
     $( ".selectValue").on({
         change: function(event){
-            if (event.keyCode == 13) saveSelectValue(event.target); // ENTER
-        },
-        focusout: function(event){
             saveSelectValue(event.target);
         }});
 }

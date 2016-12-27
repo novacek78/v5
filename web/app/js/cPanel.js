@@ -2,7 +2,6 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
     type: FT_PANEL,
     descShort: 'panel',
-    fill: COL_SURFACE_RAW,
     originX: 'left',
     originY: 'top',
     left: 20,
@@ -21,6 +20,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
         this.set('qp_edgeStyle', options.qp_edgeStyle || '');
         this.set('qp_edgeSize', options.qp_edgeSize || 0);
         this.set('qp_r1', options.qp_r1 || 0);
+        this.set('qp_surfcolor', 'RAW');
         this.set('width', options.qp_width);
         this.set('height', options.qp_height);
 
@@ -42,8 +42,14 @@ var Panel = fabric.util.createClass(fabric.Object, {
             if (value === false) return false;
         }
         if (key == 'qp_r1') {
-            // obmedzenie maxima radiusu
+            // obmedzenie maxima radiusu velkostou panela
             value = Math.min( Math.abs(value) , Math.min(this.qp_width, this.qp_height) / 2);
+        }
+        if (key == 'qp_surfcolor') {
+            var sizeRules = this.getSizeRules();
+            this.fill = sizeRules.qp_surfcolor.colors_surf[ sizeRules.qp_surfcolor.select_values.indexOf(value) ];
+            this.dirty = true;
+            TheCanvas.setBackgroundColor(sizeRules.qp_surfcolor.colors_bgnd[ sizeRules.qp_surfcolor.select_values.indexOf(value) ], null);
         }
 
         this.callSuper('_set', key, value);
@@ -144,7 +150,9 @@ var Panel = fabric.util.createClass(fabric.Object, {
         objAttribs['qp_surfcolor'] = {
             type: 'select',
             select_values: PANEL_SURFCOLOR_AVAILABLE,
-            select_labels: PANEL_SURFCOLOR_AVAILABLE_DESC
+            select_labels: PANEL_SURFCOLOR_AVAILABLE_DESC,
+            colors_surf: PANEL_SURFCOLOR_AVAILABLE_COL,
+            colors_bgnd: PANEL_SURFCOLOR_AVAILABLE_COLBGND
         };
         objAttribs['qp_version'] = {
             type: 'text',
