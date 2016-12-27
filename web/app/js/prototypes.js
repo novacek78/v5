@@ -103,10 +103,9 @@ function definePrototypes(){
                 }
             }
 
-            if (eval('limits.' + dimensionName + '.select_one')) {
-console.log('som dnu');
-                if (eval('limits.' + dimensionName + '.select_one.contains(value)'))
-                    console.log('NULLLLLL');//correctedValue = null;
+            if (eval('limits.' + dimensionName + '.select_values')) {
+                if (eval('limits.' + dimensionName + '.select_values.contains(value)'))
+                    correctedValue = null;
                 else
                     correctedValue = false;
             }
@@ -129,7 +128,7 @@ console.log('som dnu');
      */
     Array.prototype.contains = function(needle) {
         for (var i = 0; i < this.length; i++) {
-            if (this[i] === needle) return true;
+            if (this[i] == needle) return true;
         }
         return false;
     };

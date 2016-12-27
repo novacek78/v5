@@ -58,19 +58,6 @@ var Panel = fabric.util.createClass(fabric.Object, {
         ctx.fill();
     },
 
-    /**
-     *
-     */
-    getObjectAttributes: function(objectToInspect){
-        var attribs = this.getSizeRules();
-        var result = {};
-
-        for (var propName in attribs) {
-            console.log(propName);
-            result[propName] = '';
-        }
-    },
-
 /**
      * Podla hlbky kapsy nastavi jej farbu - cim hlbsia, tym tmavsia
      *
@@ -148,10 +135,16 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
         objAttribs['qp_thickness'] = {
             type: 'select',
-            select_one: PANEL_THICKNESS_AVAILABLE
+            select_values: PANEL_THICKNESS_AVAILABLE,
+            select_labels: PANEL_THICKNESS_AVAILABLE_DESC
         };
         objAttribs['qp_r1'] = {
             type: 'number'
+        };
+        objAttribs['qp_surfcolor'] = {
+            type: 'select',
+            select_values: PANEL_SURFCOLOR_AVAILABLE,
+            select_labels: PANEL_SURFCOLOR_AVAILABLE_DESC
         };
         objAttribs['qp_version'] = {
             type: 'text',

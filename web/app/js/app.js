@@ -5,7 +5,7 @@ function freehandToggle(){
     TheCanvas.isDrawingMode = !TheCanvas.isDrawingMode;
 }
 
-function saveNewValue(edText) {
+function saveNumberValue(edText) {
     var newValue = edText.value;
     var key = edText.name;
     var targetObj;
@@ -37,6 +37,58 @@ function saveNewValue(edText) {
     TheCanvas.renderAll();
 }
 
+function saveTextValue(edText) {
+    var newValue = edText.value;
+    var key = edText.name;
+    var targetObj;
+
+    if (TheCanvas.getActiveObject()) {
+        // pre prave jeden vybraty objekt
+        targetObj = TheCanvas.getActiveObject();
+    } else if (TheCanvas.getActiveGroup()) {
+        // pre viac objektov naraz
+    } else if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
+        // pre panel samotny - ziadny vybraty objekt
+        targetObj = ThePanel;
+    }
+
+    if (newValue == '') {
+        edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
+        return false;
+    } else {
+        edText.style.backgroundColor = 'white';
+        newValue = Number(newValue);
+    }
+
+    targetObj.set(key, newValue);
+    edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt
+
+    targetObj.dirty = true;  // force redraw
+    TheCanvas.renderAll();
+}
+
+function saveSelectValue(edSelect) {
+    var newValue = edSelect.value;
+    var key = edSelect.name;
+    var targetObj;
+
+    if (TheCanvas.getActiveObject()) {
+        // pre prave jeden vybraty objekt
+        targetObj = TheCanvas.getActiveObject();
+    } else if (TheCanvas.getActiveGroup()) {
+        // pre viac objektov naraz
+    } else if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
+        // pre panel samotny - ziadny vybraty objekt
+        targetObj = ThePanel;
+    }
+
+    targetObj.set(key, newValue);
+    edSelect.value = targetObj.get(key); // spatne updatnem ak by dany objekt
+
+    targetObj.dirty = true;  // force redraw
+    TheCanvas.renderAll();
+}
+
 /**
  * Do properties-panela nahra vlastnosti daneho objektu / objektov
  *
@@ -50,6 +102,7 @@ function showProperties(objectToInspect){
         objectToInspect = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects
         $( "#propPanel div.title").text(objectToInspect.length + " objects");
         /*
+        *
         * Naplnit options panel vlastnostami spolocnymi pre vsetky objekty v skupine
         *
         * */
@@ -65,6 +118,7 @@ if ( ! attribs) return;
     var cssClass;
     var readonly = false;
     var tableData = '<tbody>';
+    var selected;
 
     try {
         // prejdeme zoznamom vlastnosti 'attribs', ktory sme vytiahli z objektu a tieto naplnime do properties panela
@@ -86,10 +140,22 @@ if ( ! attribs) return;
             else if (attribs[key].type == 'select') cssClass = 'selectValue';
             else cssClass = 'textValue';
 
-            tableData += '<input type="text" name="'+key+'" value="' + value + '" class="propPanelEdit ' + cssClass + '"';
-            tableData += readonly ? ' readonly' : '';
+            if ((cssClass == 'numberValue') || (cssClass == 'textValue') || (cssClass == 'labelValue')) {
+                tableData += '<input type="text" name="' + key + '" value="' + value + '" class="propPanelEdit ' + cssClass;
+                tableData += readonly ? ' readonly' : '';
+                tableData += '">';
+            } else if (cssClass == 'selectValue') {
+                tableData += '<select name="' + key + '" class="propPanelEdit ' + cssClass;
+                tableData += readonly ? ' readonly' : '';
+                tableData += '">';
+                for (var i = 0; i < attribs[key].select_values.length; i++){
+                    selected = (value == attribs[key].select_values[i]) ? ' selected' : '';
+                    tableData += '<option value="' + attribs[key].select_values[i] + '"' + selected + '>' + attribs[key].select_labels[i] + '</option>';
+                }
+                tableData += '</select>';
+            }
 
-            tableData += '></td></tr>';
+            tableData += '</td></tr>';
         }
     } catch (e) {
         console.log(e)
@@ -100,15 +166,25 @@ if ( ! attribs) return;
     $( "#propGrid").html(tableData);
     $( ".numberValue").on({
         keypress: function(event){
-            // ENTER
-            if (event.keyCode == 13){
-                saveNewValue(event.target);
-            }
+            if (event.keyCode == 13) saveNumberValue(event.target); // ENTER
         },
         focusout: function(event){
-            saveNewValue(event.target);
-        }
-    })
+            saveNumberValue(event.target);
+        }});
+    $( ".textValue").on({
+        keypress: function(event){
+            if (event.keyCode == 13) saveTextValue(event.target); // ENTER
+        },
+        focusout: function(event){
+            saveTextValue(event.target);
+        }});
+    $( ".selectValue").on({
+        change: function(event){
+            if (event.keyCode == 13) saveSelectValue(event.target); // ENTER
+        },
+        focusout: function(event){
+            saveSelectValue(event.target);
+        }});
 }
 
 function addRectHole() {

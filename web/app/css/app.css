@@ -12,7 +12,7 @@ body {
 /* ==== PROPERTIES WINDOW ======== */
 /* =============================== */
 #propPanel {
-    width: 250px;
+    width: 300px;
     z-index: 9;
     border: 0;
     position: absolute;
@@ -72,7 +72,6 @@ body {
     width: 90%;
 }
 
-.propPanelEdit:read-only {
+.readonly {
     color: #aaa; }
-.propPanelEdit:-moz-read-only {
-    color: #aaa; }
+

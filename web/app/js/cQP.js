@@ -10,6 +10,7 @@ var QP = {
      */
     formatFloat: function(value, decimals, removeTrailing) {
 
+        // default values:
         decimals = typeof decimals !== 'undefined' ? decimals : 2;
         removeTrailing = typeof removeTrailing !== 'undefined' ? removeTrailing : true;
 
