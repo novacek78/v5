@@ -48,7 +48,7 @@ function initEventHandlers() {
 
         // X
         if ((e.keyCode == 88) && (true))
-            console.log(ThePanel);
+            console.log(TheCanvas.getActiveObject().getSizeRules());
 
         TheCanvas.renderAll();
         console.log('keyCode = '+e.keyCode);

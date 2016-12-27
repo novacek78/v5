@@ -1,6 +1,6 @@
 var HoleRect = fabric.util.createClass(fabric.Object, {
 
-    type: 'holeRect',
+    type: FT_HOLE_RECT,
     descShort: 'rect.hole',
     originX: 'center',
     originY: 'center',
@@ -112,10 +112,16 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         }
 
         if (key == 'qp_posx') {
-            key = 'left';
+            this.left = value;
         }
         if (key == 'qp_posy') {
-            key = 'top';
+            this.top = value;
+        }
+        if (key == 'left') {
+            this.qp_posx = value;
+        }
+        if (key == 'top') {
+            this.qp_posy = value;
         }
 
         this.callSuper('_set', key, value);
@@ -168,110 +174,81 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         if (ThePanel.qp_thickness <= 4)
             objAttribs = {
                 qp_width: {
-                    type: 'number',
-                    min: 2,
-                    max: ThePanel.qp_width+6
+                    min: 2
                 },
                 qp_height: {
-                    type: 'number',
-                    min: 2,
-                    max: ThePanel.qp_height+6
+                    min: 2
                 },
                 qp_r1: {
-                    type: 'number',
                     min: 0.5,
-                    max: 250,
                     allowed: [0]
                 }
             };
         else if (ThePanel.qp_thickness <= 6)
             objAttribs = {
                 qp_width: {
-                    type: 'number',
-                    min: 3,
-                    max: ThePanel.qp_width+6
+                    min: 3
                 },
                 qp_height: {
-                    type: 'number',
-                    min: 3,
-                    max: ThePanel.qp_height+6
+                    min: 3
                 },
                 qp_r1: {
-                    type: 'number',
                     min: 0.75,
-                    max: 250,
                     allowed: [0]
                 }
             };
         else if (ThePanel.qp_thickness <= 8)
             objAttribs = {
                 qp_width: {
-                    type: 'number',
-                    min: 4,
-                    max: ThePanel.qp_width+6
+                    min: 4
                 },
                 qp_height: {
-                    type: 'number',
-                    min: 4,
-                    max: ThePanel.qp_height+6
+                    min: 4
                 },
                 qp_r1: {
-                    type: 'number',
                     min: 1,
-                    max: 250,
                     allowed: [0]
                 }
             };
         else if (ThePanel.qp_thickness <= 10)
             objAttribs = {
                 qp_width: {
-                    type: 'number',
-                    min: 6,
-                    max: ThePanel.qp_width+6
+                    min: 6
                 },
                 qp_height: {
-                    type: 'number',
-                    min: 6,
-                    max: ThePanel.qp_height+6
+                    min: 6
                 },
                 qp_r1: {
-                    type: 'number',
                     min: 1.5,
-                    max: 250,
                     allowed: [0]
                 }
             };
         else
             objAttribs = {
                 qp_width: {
-                    type: 'number',
-                    min: 10,
-                    max: ThePanel.qp_width+6
+                    min: 10
                 },
                 qp_height: {
-                    type: 'number',
-                    min: 10,
-                    max: ThePanel.qp_height+6
+                    min: 10
                 },
                 qp_r1: {
-                    type: 'number',
-                    min: 3,
-                    max: 250
+                    min: 3
                 }
             };
 
-        objAttribs['qp_depth'] = {
-            type: 'number'
-        };
-        objAttribs['angle'] = {
-            type: 'number'
-        };
-        objAttribs['qp_posx'] = {
-            type: 'number'
-        };
-        objAttribs['qp_posy'] = {
-            type: 'number'
-        };
+        objAttribs.qp_width.type = 'number';
+        objAttribs.qp_width.max = ThePanel.qp_width+6;
+
+        objAttribs.qp_height.type = 'number';
+        objAttribs.qp_height.max = ThePanel.qp_height+6;
+
+        objAttribs.qp_r1.type = 'number';
+        objAttribs.qp_r1.max = 250;
+
+        objAttribs.qp_depth = {type: 'number'};
+        objAttribs.angle = {type: 'number'};
+        objAttribs.qp_posx = {type: 'number'};
+        objAttribs.qp_posy = {type: 'number'};
 
         return objAttribs;
     }

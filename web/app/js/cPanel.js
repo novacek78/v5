@@ -154,10 +154,6 @@ var Panel = fabric.util.createClass(fabric.Object, {
             colors_surf: PANEL_SURFCOLOR_AVAILABLE_COL,
             colors_bgnd: PANEL_SURFCOLOR_AVAILABLE_COLBGND
         };
-        objAttribs['qp_version'] = {
-            type: 'text',
-            readonly: true
-        };
 
         return objAttribs;
     }

@@ -24,14 +24,16 @@ function saveNumberValue(edText) {
 
     if (isNaN(newValue) || (newValue == '')) {
         edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
-        return false;
+        edText.focus();
+        //edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+        return;
     } else {
         edText.style.backgroundColor = 'white';
         newValue = Number(newValue);
     }
 
     targetObj.set(key, newValue);
-    edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt
+    edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
 
     targetObj.dirty = true;  // force redraw
     TheCanvas.renderAll();
@@ -101,6 +103,8 @@ function showProperties(objectToInspect){
         // viac objektov - treba najst ich spolocne vlastnosti a len tie zobrazit
         objectToInspect = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects
         $( "#propPanel div.title").text(objectToInspect.length + " objects");
+        // prejdeme vsetkymi objektami a urobime prienik ich vlastnosti aby sme ziskali len tie, co maju spolocne
+
         /*
         *
         * Naplnit options panel vlastnostami spolocnymi pre vsetky objekty v skupine
@@ -190,6 +194,17 @@ function addRectHole() {
         qp_posy: 50,
         qp_width: 40,
         qp_height: 30
+    });
+
+    TheCanvas.add(x);
+    TheCanvas.setActiveObject(x, null);
+}
+
+function addCircHole() {
+    var x = new HoleCirc({
+        qp_posx: 50,
+        qp_posy: 50,
+        qp_diameter: 20
     });
 
     TheCanvas.add(x);

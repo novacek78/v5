@@ -4,6 +4,7 @@
 function definePrototypes(){
 
     // ----------- default properties ----------------------
+    fabric.Object.prototype.descShort = 'object';
     fabric.Object.prototype.borderColor = 'red';
     fabric.Object.prototype.borderDashArray = [5,8];
     fabric.Object.prototype.cornerColor = 'red';
@@ -23,12 +24,24 @@ function definePrototypes(){
         if (TheCanvas.getActiveGroup())
             showProperties(TheCanvas.getActiveGroup());
         else {
-            if (this.scaleX != 1){
-                this.set('qp_width', this.qp_width * this.scaleX);
+            if ((this.scaleX != 1) && (this.scaleX != 1)) {
+                if (this.qp_width)
+                    this.set('qp_width', this.qp_width * this.scaleX);
+                if (this.qp_height)
+                    this.set('qp_height', this.qp_height * this.scaleY);
+                if (this.qp_diameter)
+                    this.set('qp_diameter', this.qp_diameter * this.scaleX);
                 this.scaleX = 1;
-            }
-            if (this.scaleY != 1){
-                this.set('qp_height', this.qp_height * this.scaleY);
+                this.scaleY = 1;
+                this.dirty = true;
+                TheCanvas.renderAll();
+            } else if (this.scaleX != 1){
+                if (this.qp_width)
+                    this.set('qp_width', this.qp_width * this.scaleX);
+                this.scaleX = 1;
+            } else if (this.scaleY != 1){
+                if (this.qp_height)
+                    this.set('qp_height', this.qp_height * this.scaleY);
                 this.scaleY = 1;
             }
             showProperties(this);
@@ -66,9 +79,11 @@ function definePrototypes(){
      * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
      * a ich pravidla a okrajove hodnoty.
      *
-     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}}}
+     * @returns Object
      */
-    fabric.Object.prototype.getSizeRules = function(){}; // abstract
+    fabric.Object.prototype.getSizeRules = function(){
+        return {};
+    }; // abstract
 
     /**
      * Skontroluje, ci hodnota nie je mimo povoleny rozsah.
@@ -114,7 +129,7 @@ function definePrototypes(){
         if (correctedValue === null) {
             return value; // hodnota vyhovuje
         } else {
-            QP.showMessage('error', {text: 'Value '+dimensionName+'='+value+' out of range.' , target: '#propPanel'});
+            QP.showMessage('error', {text: 'Value '+dimensionName+'='+QP.formatFloat(value)+' out of range.' , target: '#propPanel'});
             return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
         }
     };
