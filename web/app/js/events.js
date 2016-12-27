@@ -47,7 +47,8 @@ function initEventHandlers() {
         }
 
         // X
-        //if ((e.keyCode == 88) && (true))
+        if ((e.keyCode == 88) && (true))
+            TheCanvas.getActiveObject().getObjectAttributes();
 
         TheCanvas.renderAll();
         console.log('keyCode = '+e.keyCode);
@@ -72,9 +73,9 @@ function initEventHandlers() {
     });
 
     // zakazanie pop-up menu
-    $(window).contextmenu(function(){
-        return false;
-    });
+    //$(window).contextmenu(function(){
+    //    return false;
+    //});
 
     // update suradnic mysi v statusbare
     TheCanvas.on('mouse:move', function (options) {

@@ -35,32 +35,14 @@ var QP = {
         }
 
         if ( ! message.target) {
-            message.target = '#propPanel';
+            $.notify(message.text, message.type);
+        } else {
+            $(message.target).notify(message.text, message.type);
         }
 
-        $(message.target).notify(message.text, message.type);
         console.log('"' + type + '" message : ' + message.text);
-    },
-
-    /**
-     * Z dodaneho objektu povytahuje jeho vlastnosti a vytvori z toho JSON objekt
-     *
-     * @param objData Object        Objekt, z ktoreho treba vytiahnut vlastnosti
-     * @param arrProperties Array   Zoznam vlastnosti, ktore treba z objektu vytiahnut
-     * @returns Object
-     */
-    buildJsonObject: function(objData, arrProperties){
-
-        if (Array.isArray(arrProperties)){
-            var result = {};
-
-            arrProperties.forEach(function (propName){
-                result[propName] = objData[propName];
-            });
-
-            return result;
-        }
     }
+
 
 
 

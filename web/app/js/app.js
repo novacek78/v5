@@ -38,25 +38,57 @@ function saveNewValue(edText) {
 }
 
 /**
- * Z json dat naplni tabulku vlastnosti objektu
+ * Do properties-panela nahra vlastnosti daneho objektu / objektov
  *
- * @param jsonObject Object JSON objekt
+ * @param objectToInspect fabric.Object
  */
-function populatePropertiesWindow(jsonObject){
+function showProperties(objectToInspect){
+    var attribs;
 
-    var tableData = '<tbody>';
+    if (Array.isArray(objectToInspect) || objectToInspect._objects){
+        // viac objektov - treba najst ich spolocne vlastnosti a len tie zobrazit
+        objectToInspect = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects
+        $( "#propPanel div.title").text(objectToInspect.length + " objects");
+        /*
+        * Naplnit options panel vlastnostami spolocnymi pre vsetky objekty v skupine
+        *
+        * */
+    } else {
+        // jeden objekt
+        $("#propPanel div.title").text(objectToInspect.descShort.capitalizeFirstLetter());
+        attribs = objectToInspect.getSizeRules();
+    }
+
+if ( ! attribs) return;
+
+    var value;
+    var cssClass;
     var readonly = false;
+    var tableData = '<tbody>';
 
     try {
-        for (var propName in jsonObject) {
-
-            // zaokruhlime na pevny pocet des.miest
-            var value = QP.formatFloat(jsonObject[propName]);
+        // prejdeme zoznamom vlastnosti 'attribs', ktory sme vytiahli z objektu a tieto naplnime do properties panela
+        for (var key in attribs) {
 
             tableData += '<tr>';
-            tableData += '<th>' + propName + '</th>';
-            tableData += '<td><input type="text" name="'+propName+'" value="' + value + '" class="propPanelEdit propPanelText"';
+            tableData += '<th>' + key + '</th>';
+            tableData += '<td>';
+
+            value = objectToInspect[key];
+            readonly = attribs[key].readonly;
+
+            if (attribs[key].type == 'number'){
+                value = QP.formatFloat(value);
+            }
+
+            if (readonly) cssClass = 'labelValue';
+            else if (attribs[key].type == 'number') cssClass = 'numberValue';
+            else if (attribs[key].type == 'select') cssClass = 'selectValue';
+            else cssClass = 'textValue';
+
+            tableData += '<input type="text" name="'+key+'" value="' + value + '" class="propPanelEdit ' + cssClass + '"';
             tableData += readonly ? ' readonly' : '';
+
             tableData += '></td></tr>';
         }
     } catch (e) {
@@ -66,7 +98,7 @@ function populatePropertiesWindow(jsonObject){
     tableData += '</tbody>';
 
     $( "#propGrid").html(tableData);
-    $( ".propPanelText").on({
+    $( ".numberValue").on({
         keypress: function(event){
             // ENTER
             if (event.keyCode == 13){
@@ -77,42 +109,6 @@ function populatePropertiesWindow(jsonObject){
             saveNewValue(event.target);
         }
     })
-}
-
-/**
- * Do properties-panela nahra vlastnosti daneho objektu / objektov
- * @param objectToInspect
- */
-function showProperties(objectToInspect){
-    var jsonObject;
-
-    if (Array.isArray(objectToInspect) || objectToInspect._objects){
-        // viac objektov - treba najst ich spolocne vlastnosti a len tie zobrazit
-        var poleObjektov = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects;
-        $( "#propPanel div.title").text(poleObjektov.length + " objects");
-        jsonObject = {};
-        jsonObject['Nejake'] = '';
-        jsonObject['spolocne'] = '';
-        jsonObject['vlastnosti'] = '';
-        populatePropertiesWindow(jsonObject);
-    } else {
-        // jeden objekt
-        if (objectToInspect.descShort)
-            $( "#propPanel div.title").text(objectToInspect.descShort.capitalizeFirstLetter());
-        else {
-            $("#propPanel div.title").text('?');
-        }
-
-        if ((objectToInspect.type) && (objectToInspect.type == FT_PANEL)){
-            // jedna sa o panel samotny
-            jsonObject = QP.buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'qp_thickness', 'qp_r1']);
-            populatePropertiesWindow(jsonObject);
-        } else {
-            // jedna sa o nejaku ficuru na paneli
-            jsonObject = QP.buildJsonObject(objectToInspect, ['qp_width', 'qp_height', 'qp_depth', 'qp_r1', 'angle', 'left', 'top']);
-            populatePropertiesWindow(jsonObject);
-        }
-    }
 }
 
 function addRectHole() {

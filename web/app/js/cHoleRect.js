@@ -51,10 +51,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
 
         if (key == 'qp_r1') {
             value = Math.abs(value);
-            if ((value > 0) && (value < 0.5)) {
-                QP.showMessage('error', 'Corner radius too small, changing to R0.5');
-                value = 0.5;
-            }
+            value = this.checkRange(key, value);
 
             // obmedzenie maxima radiusu
             value = Math.min( value , Math.min(this.qp_width, this.qp_height) / 2);
@@ -168,14 +165,17 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         if (ThePanel.qp_thickness <= 4)
             objAttribs = {
                 qp_width: {
+                    type: 'number',
                     min: 2,
                     max: ThePanel.qp_width+6
                 },
                 qp_height: {
+                    type: 'number',
                     min: 2,
                     max: ThePanel.qp_height+6
                 },
                 qp_r1: {
+                    type: 'number',
                     min: 0.5,
                     max: 250,
                     allowed: [0]
@@ -184,14 +184,17 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         else if (ThePanel.qp_thickness <= 6)
             objAttribs = {
                 qp_width: {
+                    type: 'number',
                     min: 3,
                     max: ThePanel.qp_width+6
                 },
                 qp_height: {
+                    type: 'number',
                     min: 3,
                     max: ThePanel.qp_height+6
                 },
                 qp_r1: {
+                    type: 'number',
                     min: 0.75,
                     max: 250,
                     allowed: [0]
@@ -200,14 +203,17 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         else if (ThePanel.qp_thickness <= 8)
             objAttribs = {
                 qp_width: {
+                    type: 'number',
                     min: 4,
                     max: ThePanel.qp_width+6
                 },
                 qp_height: {
+                    type: 'number',
                     min: 4,
                     max: ThePanel.qp_height+6
                 },
                 qp_r1: {
+                    type: 'number',
                     min: 1,
                     max: 250,
                     allowed: [0]
@@ -216,24 +222,53 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         else if (ThePanel.qp_thickness <= 10)
             objAttribs = {
                 qp_width: {
+                    type: 'number',
                     min: 6,
                     max: ThePanel.qp_width+6
                 },
                 qp_height: {
+                    type: 'number',
                     min: 6,
                     max: ThePanel.qp_height+6
                 },
                 qp_r1: {
+                    type: 'number',
                     min: 1.5,
                     max: 250,
                     allowed: [0]
                 }
             };
         else
-            QP.showMessage('error', 'Unsupported panel thickness: ' + ThePanel.qp_thickness);
+            objAttribs = {
+                qp_width: {
+                    type: 'number',
+                    min: 10,
+                    max: ThePanel.qp_width+6
+                },
+                qp_height: {
+                    type: 'number',
+                    min: 10,
+                    max: ThePanel.qp_height+6
+                },
+                qp_r1: {
+                    type: 'number',
+                    min: 3,
+                    max: 250
+                }
+            };
 
-        objAttribs['qp_posx'] = {};
-        objAttribs['qp_posy'] = {};
+        objAttribs['qp_depth'] = {
+            type: 'number'
+        };
+        objAttribs['angle'] = {
+            type: 'number'
+        };
+        objAttribs['qp_posx'] = {
+            type: 'number'
+        };
+        objAttribs['qp_posy'] = {
+            type: 'number'
+        };
 
         return objAttribs;
     }

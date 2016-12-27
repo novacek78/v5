@@ -11,8 +11,11 @@ const COL_VALIDATE_ERROR_BGND = '#ffdddd';
 
 const PANEL_WIDTH_MAX = 500;
 const PANEL_HEIGHT_MAX = 500;
-const PANEL_THICKNESS_AVAILABLE = [2,3,4,5,6,8,10];
 const PANEL_THICKNESS_MAX = 10;
+const PANEL_THICKNESS_AVAILABLE = [2,3,4,5,6,8,10];
+const PANEL_THICKNESS_AVAILABLE_DESC = ['2 mm','3 mm','4 mm','5 mm','6 mm','8 mm','10 mm'];
+const PANEL_SURFCOLOR_AVAILABLE = ['RAW','C8','C0','C31','C32','C33','C2','C3','C4','C40','C50','Red-B0'];
+const PANEL_SURFCOLOR_AVAILABLE_DESC = ['Raw','Black','Silver','Bronze light','Bronze','Bronze dark','Gold light','Gold','Gold dark','Green','Blue','Red'];
 
 const ZAPICHY_PRIEMER = 1.5;
 const ZAPICHY_OFFSET = 0.75;

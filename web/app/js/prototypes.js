@@ -104,8 +104,9 @@ function definePrototypes(){
             }
 
             if (eval('limits.' + dimensionName + '.select_one')) {
+console.log('som dnu');
                 if (eval('limits.' + dimensionName + '.select_one.contains(value)'))
-                    correctedValue = null;
+                    console.log('NULLLLLL');//correctedValue = null;
                 else
                     correctedValue = false;
             }
@@ -114,11 +115,10 @@ function definePrototypes(){
         if (correctedValue === null) {
             return value; // hodnota vyhovuje
         } else {
-            QP.showMessage('error', 'Value '+dimensionName+'='+value+' out of range.');
+            QP.showMessage('error', {text: 'Value '+dimensionName+'='+value+' out of range.' , target: '#propPanel'});
             return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
         }
     };
-
 
     /**
      * Zisti, ci sa v poli nachadza dana hodnota.

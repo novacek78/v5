@@ -59,6 +59,19 @@ var Panel = fabric.util.createClass(fabric.Object, {
     },
 
     /**
+     *
+     */
+    getObjectAttributes: function(objectToInspect){
+        var attribs = this.getSizeRules();
+        var result = {};
+
+        for (var propName in attribs) {
+            console.log(propName);
+            result[propName] = '';
+        }
+    },
+
+/**
      * Podla hlbky kapsy nastavi jej farbu - cim hlbsia, tym tmavsia
      *
      * @param depth
@@ -83,10 +96,12 @@ var Panel = fabric.util.createClass(fabric.Object, {
         if (this.qp_thickness <= 4)
             objAttribs = {
                 qp_width: {
+                    type: 'number',
                     min: 20,
                     max: PANEL_WIDTH_MAX
                 },
                 qp_height: {
+                    type: 'number',
                     min: 20,
                     max: PANEL_HEIGHT_MAX
                 }
@@ -94,10 +109,12 @@ var Panel = fabric.util.createClass(fabric.Object, {
         else if (this.qp_thickness <= 6)
             objAttribs = {
                 qp_width: {
+                    type: 'number',
                     min: 25,
                     max: PANEL_WIDTH_MAX
                 },
                 qp_height: {
+                    type: 'number',
                     min: 25,
                     max: PANEL_HEIGHT_MAX
                 }
@@ -105,10 +122,12 @@ var Panel = fabric.util.createClass(fabric.Object, {
         else if (this.qp_thickness <= 10)
             objAttribs = {
                 qp_width: {
+                    type: 'number',
                     min: 30,
                     max: PANEL_WIDTH_MAX
                 },
                 qp_height: {
+                    type: 'number',
                     min: 30,
                     max: PANEL_HEIGHT_MAX
                 }
@@ -116,20 +135,26 @@ var Panel = fabric.util.createClass(fabric.Object, {
         else
             objAttribs = {
                 qp_width: {
+                    type: 'number',
                     min: 50,
                     max: PANEL_WIDTH_MAX
                 },
                 qp_height: {
+                    type: 'number',
                     min: 50,
                     max: PANEL_HEIGHT_MAX
                 }
             };
 
         objAttribs['qp_thickness'] = {
-                select_one: PANEL_THICKNESS_AVAILABLE
+            type: 'select',
+            select_one: PANEL_THICKNESS_AVAILABLE
         };
-        objAttribs['qp_r1'] = {};
+        objAttribs['qp_r1'] = {
+            type: 'number'
+        };
         objAttribs['qp_version'] = {
+            type: 'text',
             readonly: true
         };
 
