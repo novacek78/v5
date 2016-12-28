@@ -129,7 +129,8 @@ function definePrototypes(){
         if (correctedValue === null) {
             return value; // hodnota vyhovuje
         } else {
-            QP.showMessage('error', {text: 'Value '+dimensionName+'='+QP.formatFloat(value)+' out of range.' , target: '#propPanel'});
+//TODO vyriesit preklad tohto textu, kde vstupuje dynamicky text - nazov vlastnosti
+            QP.showMessage('error', {text: _('Value %1=%2 is out of range.', dimensionName, QP.formatFloat(value)) , target: '#propPanel'});
             return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
         }
     };
@@ -142,10 +143,7 @@ function definePrototypes(){
      * @returns {boolean}
      */
     Array.prototype.contains = function(needle) {
-        for (var i = 0; i < this.length; i++) {
-            if (this[i] == needle) return true;
-        }
-        return false;
+        return (this.indexOf(needle) > -1);
     };
 
     /**

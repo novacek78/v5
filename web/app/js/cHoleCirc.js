@@ -1,7 +1,7 @@
 var HoleCirc = fabric.util.createClass(fabric.Object, {
 
     type: FT_HOLE_CIRC,
-    descShort: 'circ.hole',
+    descShort: _('circ.hole'),
     originX: 'center',
     originY: 'center',
     hasRotatingPoint: false,
@@ -18,10 +18,10 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
             options.fill = ThePanel.getPocketColor(options.qp_depth);
 
         if (options.width || options.height){
-            alert('HoleCirc.initialize(): Don\'t use width/height, use qp_diameter instead.');
+            console.log('HoleCirc.initialize(): Don\'t use width/height, use qp_diameter instead.');
         }
         if (options.left || options.top){
-            alert('HoleCirc.initialize(): Don\'t use left/top, use qp_posx/qp_posy instead.');
+            console.log('HoleCirc.initialize(): Don\'t use left/top, use qp_posx/qp_posy instead.');
         }
 
         options.width = options.qp_diameter;

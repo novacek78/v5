@@ -1,0 +1,78 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: QuickPanel\n"
+"POT-Creation-Date: 2016-12-28 23:38+0100\n"
+"PO-Revision-Date: 2016-12-28 23:39+0100\n"
+"Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
+"sk>\n"
+"Language-Team: \n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: .git\n"
+"X-Poedit-SearchPathExcluded-1: .idea\n"
+
+#: web/app/js/app.js:105
+msgid "%1 objects"
+msgstr "%1 objektov"
+
+#: web/app/js/app_constants.js:15
+msgid "Raw"
+msgstr "Surový"
+
+#: web/app/js/app_constants.js:15
+msgid "Silver"
+msgstr "Strieborný"
+
+#: web/app/js/app_constants.js:15
+msgid "Black"
+msgstr "Čierny"
+
+#: web/app/js/app_constants.js:15
+msgid "Bronze_light"
+msgstr "Svetlo bronzový"
+
+#: web/app/js/app_constants.js:15
+msgid "Bronze"
+msgstr "Bronzový"
+
+#: web/app/js/app_constants.js:15
+msgid "Bronze_dark"
+msgstr "Tmavo bronzový"
+
+#: web/app/js/app_constants.js:15
+msgid "Gold_light"
+msgstr "Svetlo zlatý"
+
+#: web/app/js/app_constants.js:15
+msgid "Gold"
+msgstr "Zlatý"
+
+#: web/app/js/app_constants.js:15
+msgid "Gold_dark"
+msgstr "Tmavo zlatý"
+
+#: web/app/js/app_constants.js:15
+msgid "Green"
+msgstr "Zelený"
+
+#: web/app/js/app_constants.js:15
+msgid "Blue"
+msgstr "Modrý"
+
+#: web/app/js/app_constants.js:15
+msgid "Red"
+msgstr "Červený"
+
+#: web/app/js/cHoleCirc.js:4
+msgid "circ.hole"
+msgstr "Kruhový otvor"
+
+#~ msgid "circ_hole"
+#~ msgstr "Kruhový otvor"

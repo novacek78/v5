@@ -1,7 +1,7 @@
 var HoleRect = fabric.util.createClass(fabric.Object, {
 
     type: FT_HOLE_RECT,
-    descShort: 'rect.hole',
+    descShort: _('rect.hole'),
     originX: 'center',
     originY: 'center',
 
@@ -16,10 +16,10 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             options.fill = ThePanel.getPocketColor(options.qp_depth);
 
         if (options.width || options.height){
-            alert('HoleRect.initialize(): Don\'t use width/height, use qp_width/qp_height instead.');
+            console.log('HoleRect.initialize(): Don\'t use width/height, use qp_width/qp_height instead.');
         }
         if (options.left || options.top){
-            alert('HoleRect.initialize(): Don\'t use left/top, use qp_posx/qp_posy instead.');
+            console.log('HoleRect.initialize(): Don\'t use left/top, use qp_posx/qp_posy instead.');
         }
 
         if (options.qp_r1 == null) {

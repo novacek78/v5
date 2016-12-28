@@ -32,13 +32,15 @@
     <!-- Application -->
     <link rel="stylesheet" href="css/my-bootstrap.css"/>
     <link rel="stylesheet" href="css/app.css"/>
-    <script type="text/javascript" src="js/cQP.js"></script>
+    <script type="text/javascript" src="js/trans-init.js"></script>
+    <script type="text/javascript" src="js/trans_<?php echo "sk" ?>.js"></script>
     <script type="text/javascript" src="js/app_constants.js"></script>
-    <script type="text/javascript" src="js/prototypes.js"></script>
+    <script type="text/javascript" src="js/cQP.js"></script>
     <script type="text/javascript" src="js/cPanel.js"></script>
     <script type="text/javascript" src="js/cHoleRect.js"></script>
     <script type="text/javascript" src="js/cHoleCirc.js"></script>
-    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/prototypes.js"></script>
+    <script type="text/javascript" src="js/app-init.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/events.js"></script>
     <script type="text/javascript">
@@ -95,7 +97,7 @@
 
 
     <div id="propPanel" class="ui-widget-content" style="">
-        <div class="title">Panel</div>
+        <div class="title"></div>
         <div class="items">
             <table id="propGrid"></table>
         </div>

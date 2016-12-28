@@ -1,7 +1,7 @@
 var Panel = fabric.util.createClass(fabric.Object, {
 
     type: FT_PANEL,
-    descShort: 'panel',
+    descShort: _('panel'),
     originX: 'left',
     originY: 'top',
     left: 20,
@@ -14,7 +14,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
         options || (options = { });
 
         if (options.width || options.height)
-            alert('class Panel : Pouzi qp_width a qp_height. Width a height su LEN pre interne pouzitie!');
+            console.log('class Panel : Pouzi qp_width a qp_height. Width a height su LEN pre interne pouzitie!');
 
         this.set('qp_thickness', options.qp_thickness || 3);
         this.set('qp_edgeStyle', options.qp_edgeStyle || '');
@@ -85,7 +85,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
      */
     getSizeRules: function(){
         var objAttribs;
-
+//TODO spolocne vlastnosti objektov vytiahnut na koniec
         if (this.qp_thickness <= 4)
             objAttribs = {
                 qp_width: {

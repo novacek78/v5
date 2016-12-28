@@ -102,7 +102,7 @@ function showProperties(objectToInspect){
     if (Array.isArray(objectToInspect) || objectToInspect._objects){
         // viac objektov - treba najst ich spolocne vlastnosti a len tie zobrazit
         objectToInspect = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects
-        $( "#propPanel div.title").text(objectToInspect.length + " objects");
+        $( "#propPanel div.title").text(_("%1 objects", objectToInspect.length));
         // prejdeme vsetkymi objektami a urobime prienik ich vlastnosti aby sme ziskali len tie, co maju spolocne
 
         /*
