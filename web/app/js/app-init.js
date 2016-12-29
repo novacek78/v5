@@ -42,9 +42,10 @@ function initApplication() {
 
     showProperties(ThePanel);
 
-    $( "#propPanel" ).draggable({ cancel: "div.items" });
-    $.notify.defaults({ className: "error", position: "left top" });
+    $( "#propPanel" ).draggable({ cancel: "div.items" }); // moznost tahat properties panel
+    $.notify.defaults({ className: "error", position: "left top" }); // defaultny typ notify spravy
 
+    // naplnenie textov do HTML kodu aplikacie
     $( "#menu_new_circhole" ).text(_('Circular hole'));
     $( "#menu_new_recthole" ).text(_('Rectangular hole'));
     $( "#menu_tools_marker" ).text(_('Marker tool'));

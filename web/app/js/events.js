@@ -105,5 +105,30 @@ function initEventHandlers() {
     TheCanvas.on('selection:cleared', function() {
         showProperties(ThePanel);
     });
+
 }
+
+function setPropertiesPanelEvents(){
+
+    // eventy properties panela - pre kazdy typ editovacieho policka zvlast
+    $( ".numberValue").on({
+        keypress: function(event){
+            if (event.keyCode == 13) saveNumberValue(event.target); // ENTER
+        },
+        focusout: function(event){
+            saveNumberValue(event.target);
+        }});
+    $( ".textValue").on({
+        keypress: function(event){
+            if (event.keyCode == 13) saveTextValue(event.target); // ENTER
+        },
+        focusout: function(event){
+            saveTextValue(event.target);
+        }});
+    $( ".selectValue").on({
+        change: function(event){
+            saveSelectValue(event.target);
+        }});
+}
+
 

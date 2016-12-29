@@ -104,7 +104,7 @@ function showProperties(objectToInspect){
         objectToInspect = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects
         $( "#propPanel div.title").text(_("%1 objects", objectToInspect.length));
         // prejdeme vsetkymi objektami a urobime prienik ich vlastnosti aby sme ziskali len tie, co maju spolocne
-
+        attribs = {};
         /*
         *
         * Naplnit options panel vlastnostami spolocnymi pre vsetky objekty v skupine
@@ -115,8 +115,6 @@ function showProperties(objectToInspect){
         $("#propPanel div.title").text(objectToInspect.descShort.capitalizeFirstLetter());
         attribs = objectToInspect.getSizeRules();
     }
-
-if ( ! attribs) return;
 
     var value;
     var cssClass;
@@ -168,24 +166,7 @@ if ( ! attribs) return;
     tableData += '</tbody>';
 
     $( "#propGrid").html(tableData);
-    $( ".numberValue").on({
-        keypress: function(event){
-            if (event.keyCode == 13) saveNumberValue(event.target); // ENTER
-        },
-        focusout: function(event){
-            saveNumberValue(event.target);
-        }});
-    $( ".textValue").on({
-        keypress: function(event){
-            if (event.keyCode == 13) saveTextValue(event.target); // ENTER
-        },
-        focusout: function(event){
-            saveTextValue(event.target);
-        }});
-    $( ".selectValue").on({
-        change: function(event){
-            saveSelectValue(event.target);
-        }});
+    setPropertiesPanelEvents();
 }
 
 function addRectHole() {

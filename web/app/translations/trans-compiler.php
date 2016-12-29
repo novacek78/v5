@@ -1,4 +1,10 @@
 <?php
+
+/*
+ * Po kazdej uprave prekladov v Poedit-e je potrebne spustit tento skript,
+ * ktory rozparsuje .PO subory a vytvori z nich .JS subory s prelozenymi frazami.
+ */
+
 $dir = '.';
 $inFilesExt = 'po';
 $outFilesExt = 'js';
