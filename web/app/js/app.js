@@ -129,7 +129,7 @@ if ( ! attribs) return;
         for (var key in attribs) {
 
             tableData += '<tr>';
-            tableData += '<th>' + key + '</th>';
+            tableData += '<th>' + eval('attribs.'+key+'.desc') + '</th>';
             tableData += '<td>';
 
             value = objectToInspect[key];

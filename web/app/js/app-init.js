@@ -44,5 +44,9 @@ function initApplication() {
 
     $( "#propPanel" ).draggable({ cancel: "div.items" });
     $.notify.defaults({ className: "error", position: "left top" });
+
+    $( "#menu_new_circhole" ).text(_('Circular hole'));
+    $( "#menu_new_recthole" ).text(_('Rectangular hole'));
+    $( "#menu_tools_marker" ).text(_('Marker tool'));
 }
 

@@ -173,12 +173,8 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
 
         if (ThePanel.qp_thickness <= 4)
             objAttribs = {
-                qp_width: {
-                    min: 2
-                },
-                qp_height: {
-                    min: 2
-                },
+                qp_width: { min: 2 },
+                qp_height: { min: 2 },
                 qp_r1: {
                     min: 0.5,
                     allowed: [0]
@@ -186,12 +182,8 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             };
         else if (ThePanel.qp_thickness <= 6)
             objAttribs = {
-                qp_width: {
-                    min: 3
-                },
-                qp_height: {
-                    min: 3
-                },
+                qp_width: { min: 3 },
+                qp_height: { min: 3 },
                 qp_r1: {
                     min: 0.75,
                     allowed: [0]
@@ -199,12 +191,8 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             };
         else if (ThePanel.qp_thickness <= 8)
             objAttribs = {
-                qp_width: {
-                    min: 4
-                },
-                qp_height: {
-                    min: 4
-                },
+                qp_width: { min: 4 },
+                qp_height: { min: 4 },
                 qp_r1: {
                     min: 1,
                     allowed: [0]
@@ -212,12 +200,8 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             };
         else if (ThePanel.qp_thickness <= 10)
             objAttribs = {
-                qp_width: {
-                    min: 6
-                },
-                qp_height: {
-                    min: 6
-                },
+                qp_width: { min: 6 },
+                qp_height: { min: 6 },
                 qp_r1: {
                     min: 1.5,
                     allowed: [0]
@@ -225,12 +209,8 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             };
         else
             objAttribs = {
-                qp_width: {
-                    min: 10
-                },
-                qp_height: {
-                    min: 10
-                },
+                qp_width: { min: 10 },
+                qp_height: { min: 10 },
                 qp_r1: {
                     min: 3
                 }
@@ -238,17 +218,20 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
 
         objAttribs.qp_width.type = 'number';
         objAttribs.qp_width.max = ThePanel.qp_width+6;
+        objAttribs.qp_width.desc = _('qp_width');
 
         objAttribs.qp_height.type = 'number';
         objAttribs.qp_height.max = ThePanel.qp_height+6;
+        objAttribs.qp_height.desc = _('qp_height');
 
         objAttribs.qp_r1.type = 'number';
         objAttribs.qp_r1.max = 250;
+        objAttribs.qp_r1.desc = _('qp_r1');
 
-        objAttribs.qp_depth = {type: 'number'};
-        objAttribs.angle = {type: 'number'};
-        objAttribs.qp_posx = {type: 'number'};
-        objAttribs.qp_posy = {type: 'number'};
+        objAttribs.qp_depth = {type: 'number', desc: _('qp_depth')};
+        objAttribs.angle = {type: 'number', desc: _('qp_angle')};
+        objAttribs.qp_posx = {type: 'number', desc: _('qp_posx')};
+        objAttribs.qp_posy = {type: 'number', desc: _('qp_posy')};
 
         return objAttribs;
     }

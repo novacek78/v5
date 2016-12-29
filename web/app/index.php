@@ -60,16 +60,16 @@
         <div class="collapse navbar-toggleable-md" id="navbarResponsive">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:addRectHole();">Rectangular</a>
+                    <a class="nav-link" id="menu_new_recthole" href="javascript:addRectHole();">xxxxxxxxx</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:addCircHole();">Circular</a>
+                    <a class="nav-link" id="menu_new_circhole" href="javascript:addCircHole();">xxxxxxx</a>
                 </li>
                 <!--<li class="nav-item">-->
                     <!--<a class="nav-link" href="javascript:;">Circular</a>-->
                 <!--</li>-->
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:freehandToggle()">Marker</a>
+                    <a class="nav-link" id="menu_tools_marker" href="javascript:freehandToggle()">xxxxxxx</a>
                 </li>
 
                 <!--<li class="nav-item active dropdown">-->

@@ -85,74 +85,53 @@ var Panel = fabric.util.createClass(fabric.Object, {
      */
     getSizeRules: function(){
         var objAttribs;
-//TODO spolocne vlastnosti objektov vytiahnut na koniec
+
         if (this.qp_thickness <= 4)
             objAttribs = {
-                qp_width: {
-                    type: 'number',
-                    min: 20,
-                    max: PANEL_WIDTH_MAX
-                },
-                qp_height: {
-                    type: 'number',
-                    min: 20,
-                    max: PANEL_HEIGHT_MAX
-                }
+                qp_width: { min: 20 },
+                qp_height: { min: 20 }
             };
         else if (this.qp_thickness <= 6)
             objAttribs = {
-                qp_width: {
-                    type: 'number',
-                    min: 25,
-                    max: PANEL_WIDTH_MAX
-                },
-                qp_height: {
-                    type: 'number',
-                    min: 25,
-                    max: PANEL_HEIGHT_MAX
-                }
+                qp_width: { min: 25 },
+                qp_height: { min: 25 }
             };
         else if (this.qp_thickness <= 10)
             objAttribs = {
-                qp_width: {
-                    type: 'number',
-                    min: 30,
-                    max: PANEL_WIDTH_MAX
-                },
-                qp_height: {
-                    type: 'number',
-                    min: 30,
-                    max: PANEL_HEIGHT_MAX
-                }
+                qp_width: { min: 30 },
+                qp_height: { min: 30 }
             };
         else
             objAttribs = {
-                qp_width: {
-                    type: 'number',
-                    min: 50,
-                    max: PANEL_WIDTH_MAX
-                },
-                qp_height: {
-                    type: 'number',
-                    min: 50,
-                    max: PANEL_HEIGHT_MAX
-                }
+                qp_width: { min: 50 },
+                qp_height: { min: 50 }
             };
+
+        objAttribs.qp_width.type = 'number';
+        objAttribs.qp_width.max = PANEL_WIDTH_MAX;
+        objAttribs.qp_width.desc = _('qp_width');
+
+        objAttribs.qp_height.type = 'number';
+        objAttribs.qp_height.max = PANEL_HEIGHT_MAX;
+        objAttribs.qp_height.desc = _('qp_height');
 
         objAttribs['qp_thickness'] = {
             type: 'select',
             select_values: PANEL_THICKNESS_AVAILABLE,
-            select_labels: PANEL_THICKNESS_AVAILABLE_DESC
+            select_labels: PANEL_THICKNESS_AVAILABLE_DESC,
+            desc: _('qp_thickness')
         };
         objAttribs['qp_r1'] = {
-            type: 'number'
+            type: 'number',
+            desc: _('qp_r1')
         };
         objAttribs['qp_surfcolor'] = {
             type: 'select',
             select_values: PANEL_SURFCOLOR_AVAILABLE,
             select_labels: PANEL_SURFCOLOR_AVAILABLE_DESC,
             colors_surf: PANEL_SURFCOLOR_AVAILABLE_COL,
-            colors_bgnd: PANEL_SURFCOLOR_AVAILABLE_COLBGND
+            colors_bgnd: PANEL_SURFCOLOR_AVAILABLE_COLBGND,
+            desc: _('qp_surfcolor')
         };
 
         return objAttribs;

@@ -131,10 +131,11 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
 
         objAttribs.qp_diameter.type = 'number';
         objAttribs.qp_diameter.max = Math.min(ThePanel.qp_width, ThePanel.qp_height);
+        objAttribs.qp_diameter.desc = _('qp_diameter');
 
-        objAttribs.qp_depth = {type: 'number'};
-        objAttribs.qp_posx = {type: 'number'};
-        objAttribs.qp_posy = {type: 'number'};
+        objAttribs.qp_depth = {type: 'number', desc: _('qp_depth')};
+        objAttribs.qp_posx = {type: 'number', desc: _('qp_posx')};
+        objAttribs.qp_posy = {type: 'number', desc: _('qp_posy')};
 
         return objAttribs;
     }

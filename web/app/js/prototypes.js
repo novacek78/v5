@@ -129,8 +129,7 @@ function definePrototypes(){
         if (correctedValue === null) {
             return value; // hodnota vyhovuje
         } else {
-//TODO vyriesit preklad tohto textu, kde vstupuje dynamicky text - nazov vlastnosti
-            QP.showMessage('error', {text: _('Value %1=%2 is out of range.', dimensionName, QP.formatFloat(value)) , target: '#propPanel'});
+            QP.showMessage('error', {text: _('Value %1=%2 is out of range.', eval('limits.'+dimensionName+'.desc'), QP.formatFloat(value)) , target: '#propPanel'});
             return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
         }
     };
@@ -143,7 +142,11 @@ function definePrototypes(){
      * @returns {boolean}
      */
     Array.prototype.contains = function(needle) {
-        return (this.indexOf(needle) > -1);
+        // nepouzijem metodu Array.indexOf() lebo ta porovnava aj typ (===) a to nechcem
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == needle) return true;
+        }
+        return false;
     };
 
     /**

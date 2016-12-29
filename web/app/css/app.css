@@ -65,6 +65,7 @@ body {
 }
 #propPanel #propGrid th,td{
     padding: 8px 5px;
+    width: 50%;
 }
 
 .propPanelEdit {

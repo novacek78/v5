@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-29 09:45+0100\n"
-"PO-Revision-Date: 2016-12-29 09:45+0100\n"
+"POT-Creation-Date: 2016-12-29 18:56+0100\n"
+"PO-Revision-Date: 2016-12-29 18:57+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -15,6 +15,18 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: js/app-init.js:48
+msgid "Circular hole"
+msgstr "Kruhový otvor"
+
+#: js/app-init.js:49
+msgid "Rectangular hole"
+msgstr "Obdĺžnikový otvor"
+
+#: js/app-init.js:50
+msgid "Marker tool"
+msgstr "Zvýrazňovač"
 
 #: js/app.js:105
 msgid "%1 objects"
@@ -72,17 +84,66 @@ msgstr "Červený"
 msgid "circ.hole"
 msgstr "Kruhový otvor"
 
+#: js/cHoleCirc.js:134
+msgid "qp_diameter"
+msgstr "Priemer"
+
+#: js/cHoleCirc.js:136 js/cHoleRect.js:231
+msgid "qp_depth"
+msgstr "Hĺbka"
+
+#: js/cHoleCirc.js:137 js/cHoleRect.js:233
+msgid "qp_posx"
+msgstr "Poloha X"
+
+#: js/cHoleCirc.js:138 js/cHoleRect.js:234
+msgid "qp_posy"
+msgstr "Poloha Y"
+
 #: js/cHoleRect.js:4
 msgid "rect.hole"
-msgstr ""
+msgstr "Obdĺžnik.otvor"
+
+#: js/cHoleRect.js:221 js/cPanel.js:112
+msgid "qp_width"
+msgstr "Šírka"
+
+#: js/cHoleRect.js:225 js/cPanel.js:116
+msgid "qp_height"
+msgstr "Výška"
+
+#: js/cHoleRect.js:229 js/cPanel.js:126
+msgid "qp_r1"
+msgstr "Zaoblenie rohu"
+
+#: js/cHoleRect.js:232
+msgid "qp_angle"
+msgstr "Uhol natočenia"
 
 #: js/cPanel.js:4
 msgid "panel"
-msgstr ""
+msgstr "Panel"
 
-#: js/prototypes.js:133
+#: js/cPanel.js:122
+msgid "qp_thickness"
+msgstr "Hrúbka"
+
+#: js/cPanel.js:134
+msgid "qp_surfcolor"
+msgstr "Farba povrchu"
+
+#: js/prototypes.js:132
 msgid "Value %1=%2 is out of range."
-msgstr ""
+msgstr "Hodnota je mimo rozsahu: %1=%2"
+
+#~ msgid "Circular"
+#~ msgstr "Kruhový otvor"
+
+#~ msgid "Rectangular"
+#~ msgstr "Obdĺžnikový otvor"
+
+#~ msgid "Marker"
+#~ msgstr "Zvýrazňovač"
 
 #~ msgid "circ_hole"
 #~ msgstr "Kruhový otvor"
