@@ -12,7 +12,6 @@ body {
 /* ==== PROPERTIES WINDOW ======== */
 /* =============================== */
 #propPanel {
-    width: 300px;
     z-index: 9;
     border: 0;
     position: absolute;

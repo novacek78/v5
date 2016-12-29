@@ -1,4 +1,26 @@
-<!DOCTYPE html>
+<?php
+
+require_once "php/app.php";
+
+$User = new QPUser();
+
+if( ! isset($_COOKIE['uid'])) {
+
+    $User->createAnonymousUser();
+    $expiry = time()+60*60*24*28;
+    setcookie('uid', $User->getId(), $expiry); // expiracia po 28 dnoch
+    setcookie('secure', $User->getSecureKey(), $expiry); // expiracia po 28 dnoch
+
+} else {
+
+    if ( ! $User->loginAnonymousUser($_COOKIE['uid'], $_COOKIE['secure'])) {
+        $User->createAnonymousUser();
+        $expiry = time()+60*60*24*28;
+        setcookie('uid', $User->getId(), $expiry); // expiracia po 28 dnoch
+        setcookie('secure', $User->getSecureKey(), $expiry); // expiracia po 28 dnoch
+    }
+}
+?><!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -30,12 +52,13 @@
     <!--3rd party-->
     <script type="text/javascript" src="ext/fabric.js"></script>
     <script type="text/javascript" src="ext/notify.js"></script>
+<!--    <script type="text/javascript" src="ext/is.min.js"></script>-->
 
     <!-- Application -->
     <link rel="stylesheet" href="css/my-bootstrap.css"/>
     <link rel="stylesheet" href="css/app.css"/>
     <script type="text/javascript" src="translations/trans-init.js"></script>
-    <script type="text/javascript" src="translations/<?php echo "en" ?>.js"></script>
+    <script type="text/javascript" src="translations/<?php echo $User->getConfigValue('lang', 'en') ?>.js"></script>
     <script type="text/javascript" src="js/app_constants.js"></script>
     <script type="text/javascript" src="js/cQP.js"></script>
     <script type="text/javascript" src="js/cPanel.js"></script>
@@ -97,20 +120,17 @@
         <!--<canvas id="propertiesCanvas"></canvas>-->
     <!--</div>-->
 
-
-    <div id="propPanel" class="ui-widget-content" style="">
+    <div id="propPanel" class="ui-widget-content">
         <div class="title"></div>
         <div class="items">
             <table id="propGrid"></table>
         </div>
     </div>
 
-    <!--<div id="dialog" title="Basic dialog">-->
-        <!--<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>-->
-    <!--</div>-->
 
-
-
-
+     <script type="text/javascript">
+         // customization per user
+         $("#propPanel").css("width", "<?php echo $User->getConfigValue('prop_panel_width', '300') ?>px");
+     </script>
 </body>
 </html>
