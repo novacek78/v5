@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+
     <!-- jQuery (ext) -->
     <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
     <!--<script src="https://code.jquery.com/jquery-1.12.4.js" crossorigin="anonymous"></script>-->
@@ -32,8 +34,8 @@
     <!-- Application -->
     <link rel="stylesheet" href="css/my-bootstrap.css"/>
     <link rel="stylesheet" href="css/app.css"/>
-    <script type="text/javascript" src="js/trans-init.js"></script>
-    <script type="text/javascript" src="js/trans_<?php echo "sk" ?>.js"></script>
+    <script type="text/javascript" src="translations/trans-init.js"></script>
+    <script type="text/javascript" src="translations/<?php echo "en" ?>.js"></script>
     <script type="text/javascript" src="js/app_constants.js"></script>
     <script type="text/javascript" src="js/cQP.js"></script>
     <script type="text/javascript" src="js/cPanel.js"></script>
