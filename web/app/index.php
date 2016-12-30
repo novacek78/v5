@@ -1,25 +1,35 @@
 <?php
 
-require_once "php/app.php";
+    spl_autoload_register(function ($class_name) {
+        include 'php/c' . $class_name . '.php';
+    });
 
-$User = new QPUser();
+    if (isset($_GET['ajax'])){
+        include "php/ajax.php";
+        exit;
+    }
 
-if( ! isset($_COOKIE['uid'])) {
 
-    $User->createAnonymousUser();
-    $expiry = time()+60*60*24*28;
-    setcookie('uid', $User->getId(), $expiry); // expiracia po 28 dnoch
-    setcookie('secure', $User->getSecureKey(), $expiry); // expiracia po 28 dnoch
+    $User = new User();
 
-} else {
+    if( ! isset($_COOKIE['uid'])) {
 
-    if ( ! $User->loginAnonymousUser($_COOKIE['uid'], $_COOKIE['secure'])) {
         $User->createAnonymousUser();
         $expiry = time()+60*60*24*28;
         setcookie('uid', $User->getId(), $expiry); // expiracia po 28 dnoch
         setcookie('secure', $User->getSecureKey(), $expiry); // expiracia po 28 dnoch
+        $showLanguageDialog = true;
+
+    } else {
+
+        if ( ! $User->loginAnonymousUser($_COOKIE['uid'], $_COOKIE['secure'])) {
+            $User->createAnonymousUser();
+            $expiry = time()+60*60*24*28;
+            setcookie('uid', $User->getId(), $expiry); // expiracia po 28 dnoch
+            setcookie('secure', $User->getSecureKey(), $expiry); // expiracia po 28 dnoch
+            $showLanguageDialog = true;
+        }
     }
-}
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -56,6 +66,7 @@ if( ! isset($_COOKIE['uid'])) {
 
     <!-- Application -->
     <link rel="stylesheet" href="css/my-bootstrap.css"/>
+    <link rel="stylesheet" href="css/my-jquery-ui.css"/>
     <link rel="stylesheet" href="css/app.css"/>
     <script type="text/javascript" src="translations/trans-init.js"></script>
     <script type="text/javascript" src="translations/<?php echo $User->getConfigValue('lang', 'en') ?>.js"></script>
@@ -69,6 +80,11 @@ if( ! isset($_COOKIE['uid'])) {
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/events.js"></script>
     <script type="text/javascript">
+        var TheUser = {
+            id: <?php echo $User->getId()?>,
+            secure: <?php echo $User->getSecureKey()?>
+        }
+
         $( function() {
             initApplication();
         } );
@@ -116,10 +132,6 @@ if( ! isset($_COOKIE['uid'])) {
 	    <canvas id="mainCanvas"></canvas>
     </div>
 
-    <!--<div id="propertiesDiv" class="panel panel-primary draggable-panel toolbar-panel ui-draggable panel-heading ui-resizable" style="width: 200px; height: 500px; border: 1px solid #ccc; z-index: 9">-->
-        <!--<canvas id="propertiesCanvas"></canvas>-->
-    <!--</div>-->
-
     <div id="propPanel" class="ui-widget-content">
         <div class="title"></div>
         <div class="items">
@@ -132,5 +144,23 @@ if( ! isset($_COOKIE['uid'])) {
          // customization per user
          $("#propPanel").css("width", "<?php echo $User->getConfigValue('prop_panel_width', '300') ?>px");
      </script>
+
+<?php
+if (isset($showLanguageDialog) && ($showLanguageDialog === true)):
+?>
+    <div id="dialogChooseLang" title="xxxxxxxx">
+        <p>xxxxxxxxxxxxxx</p>
+        <div id="flags">
+            <a href="#" name="en"><img class="flag ui-corner-all" src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg" alt="English"></a>
+            <a href="#" name="cs"><img class="flag ui-corner-all" src="https://lipis.github.io/flag-icon-css/flags/4x3/cz.svg" alt="Czech"></a>
+            <a href="#" name="sk"><img class="flag ui-corner-all" src="https://lipis.github.io/flag-icon-css/flags/4x3/sk.svg" alt="Slovak"></a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/welcome_dialog.js"></script>
+<?php
+endif; // if (isset($showLanguageDialog) && ($showLanguageDialog === true)):
+?>
+
 </body>
 </html>

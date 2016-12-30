@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-29 18:58+0100\n"
-"PO-Revision-Date: 2016-12-29 18:58+0100\n"
+"POT-Creation-Date: 2016-12-30 12:01+0100\n"
+"PO-Revision-Date: 2016-12-30 12:01+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -16,15 +16,15 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: js/app-init.js:48
+#: js/app-init.js:49
 msgid "Circular hole"
 msgstr "Circular hole"
 
-#: js/app-init.js:49
+#: js/app-init.js:50
 msgid "Rectangular hole"
 msgstr "Rectangular hole"
 
-#: js/app-init.js:50
+#: js/app-init.js:51
 msgid "Marker tool"
 msgstr "Marker tool"
 
@@ -136,14 +136,16 @@ msgstr "Surface color"
 msgid "Value %1=%2 is out of range."
 msgstr "Value is out of range: %1=%2"
 
-#~ msgid "Circular"
-#~ msgstr "Circular hole"
+#: js/welcome_dialog.js:1
+msgid "Welcome to QP"
+msgstr "Welcome to QuickPanel!"
 
-#~ msgid "Rectangular"
-#~ msgstr "Rectangular hole"
+#: js/welcome_dialog.js:2
+msgid "Please select language"
+msgstr ""
+"We are happy you decided to try our application. Please select your "
+"preferred language:"
 
-#~ msgid "Marker"
-#~ msgstr "Marker tool"
-
-#~ msgid "circ_hole"
-#~ msgstr "Circ.hole"
+#: js/welcome_dialog.js:20
+msgid "Oops! Error: %1, %2"
+msgstr "Oops! Something is wrong. Please inform us you got this error: %1, %2"

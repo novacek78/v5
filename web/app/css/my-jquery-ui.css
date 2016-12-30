@@ -1,0 +1,11 @@
+.no-close .ui-dialog-titlebar-close {
+    display: none;
+}
+
+#flags {
+    text-align: center;
+}
+img.flag {
+    width: 50px;
+    margin: 10px;
+}

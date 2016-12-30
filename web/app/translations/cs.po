@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-29 18:58+0100\n"
-"PO-Revision-Date: 2016-12-29 18:58+0100\n"
+"POT-Creation-Date: 2016-12-30 11:44+0100\n"
+"PO-Revision-Date: 2016-12-30 11:44+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -16,15 +16,15 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: js/app-init.js:48
+#: js/app-init.js:49
 msgid "Circular hole"
 msgstr "Kruhový otvor"
 
-#: js/app-init.js:49
+#: js/app-init.js:50
 msgid "Rectangular hole"
 msgstr "Obdélnikový otvor"
 
-#: js/app-init.js:50
+#: js/app-init.js:51
 msgid "Marker tool"
 msgstr "Značkovač"
 
@@ -136,14 +136,14 @@ msgstr "Barva povrchu"
 msgid "Value %1=%2 is out of range."
 msgstr "Hodnota mimo rozsah: %1=%2"
 
-#~ msgid "Circular"
-#~ msgstr "Kruhový otvor"
+#: js/welcome_dialog.js:1
+msgid "Welcome to QP"
+msgstr "Vítejte v aplikaci QuickPanel!"
 
-#~ msgid "Rectangular"
-#~ msgstr "Obdélnikový otvor"
+#: js/welcome_dialog.js:2
+msgid "Please select language"
+msgstr "Děkujeme, že jste se rozhodli vyzkoušet QuickPanel. Prosím vyberte si jazyk aplikace:"
 
-#~ msgid "Marker"
-#~ msgstr "Zvýrazňovač"
-
-#~ msgid "circ_hole"
-#~ msgstr "Kruhový otvor"
+#: js/welcome_dialog.js:20
+msgid "Oops! Error: %1, %2"
+msgstr "Zdá se, že něco není v pořádku, prosím informujte nás o této chybě: %1, %2"
