@@ -76,7 +76,8 @@
     <script type="text/javascript" src="js/cHoleRect.js"></script>
     <script type="text/javascript" src="js/cHoleCirc.js"></script>
     <script type="text/javascript" src="js/prototypes.js"></script>
-    <script type="text/javascript" src="js/app-init.js"></script>
+    <script type="text/javascript" src="js/app_init.js"></script>
+    <script type="text/javascript" src="js/app_exit.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/events.js"></script>
     <script type="text/javascript">
@@ -88,6 +89,10 @@
         $( function() {
             initApplication();
         } );
+
+        $(window).unload(function() {
+            exitApplication();
+        });
     </script>
 
 </head>

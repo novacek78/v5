@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-30 11:44+0100\n"
-"PO-Revision-Date: 2016-12-30 11:44+0100\n"
+"POT-Creation-Date: 2016-12-30 19:22+0100\n"
+"PO-Revision-Date: 2016-12-30 19:24+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -15,18 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
-
-#: js/app-init.js:49
-msgid "Circular hole"
-msgstr "Kruhový otvor"
-
-#: js/app-init.js:50
-msgid "Rectangular hole"
-msgstr "Obdélnikový otvor"
-
-#: js/app-init.js:51
-msgid "Marker tool"
-msgstr "Značkovač"
 
 #: js/app.js:105
 msgid "%1 objects"
@@ -80,6 +68,18 @@ msgstr "Modrý"
 msgid "Red"
 msgstr "Červený"
 
+#: js/app_init.js:49
+msgid "Circular hole"
+msgstr "Kruhový otvor"
+
+#: js/app_init.js:50
+msgid "Rectangular hole"
+msgstr "Obdélnikový otvor"
+
+#: js/app_init.js:51
+msgid "Marker tool"
+msgstr "Značkovač"
+
 #: js/cHoleCirc.js:4
 msgid "circ.hole"
 msgstr "Kruhový otvor"
@@ -132,6 +132,14 @@ msgstr "Tloušťka"
 msgid "qp_surfcolor"
 msgstr "Barva povrchu"
 
+#: js/cPanel.js:153
+msgid "Panel saved"
+msgstr "Panel byl úspěšně uložen"
+
+#: js/cPanel.js:156
+msgid "Error occured while saveing panel: %1, %2"
+msgstr "Při uložení panelu se vyskytla chyba: %1, %2"
+
 #: js/prototypes.js:132
 msgid "Value %1=%2 is out of range."
 msgstr "Hodnota mimo rozsah: %1=%2"
@@ -142,8 +150,11 @@ msgstr "Vítejte v aplikaci QuickPanel!"
 
 #: js/welcome_dialog.js:2
 msgid "Please select language"
-msgstr "Děkujeme, že jste se rozhodli vyzkoušet QuickPanel. Prosím vyberte si jazyk aplikace:"
+msgstr ""
+"Děkujeme, že jste se rozhodli vyzkoušet QuickPanel. Prosím vyberte si jazyk "
+"aplikace:"
 
 #: js/welcome_dialog.js:20
 msgid "Oops! Error: %1, %2"
-msgstr "Zdá se, že něco není v pořádku, prosím informujte nás o této chybě: %1, %2"
+msgstr ""
+"Zdá se, že něco není v pořádku, prosím informujte nás o této chybě: %1, %2"

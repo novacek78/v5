@@ -1,6 +1,7 @@
 var Panel = fabric.util.createClass(fabric.Object, {
 
     type: FT_PANEL,
+    qp_id: null,
     descShort: _('panel'),
     originX: 'left',
     originY: 'top',
@@ -107,6 +108,11 @@ var Panel = fabric.util.createClass(fabric.Object, {
                 qp_height: { min: 50 }
             };
 
+        objAttribs.qp_id = {
+            type: 'number',
+            hidden: true
+        };
+
         objAttribs.qp_width.type = 'number';
         objAttribs.qp_width.max = PANEL_WIDTH_MAX;
         objAttribs.qp_width.desc = _('qp_width');
@@ -135,6 +141,30 @@ var Panel = fabric.util.createClass(fabric.Object, {
         };
 
         return objAttribs;
+    },
+
+    savePanel: function () {
+
+        var attribs = this.getSizeRules();
+        var ajaxData = {};
+
+        for (var key in attribs) {
+            ajaxData[key] = eval('this.' + key);
+        }
+        ajaxData.user_id = TheUser.id;
+
+        $.ajax({
+            method: 'POST',
+            data: ajaxData,
+            url: "?ajax=savePanel&uid=" + TheUser.id + "&secure=" + TheUser.secure,
+            success: function() {
+                QP.showMessage('success', _('Panel saved'));
+            },
+            error: function(xhr,status,error){
+                QP.showMessage('error', _('Error occured while saveing panel: %1, %2', error, status));
+            }
+        });
     }
+
 
 });

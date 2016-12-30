@@ -26,19 +26,23 @@ var QP = {
     /**
      * Zaloguje / oznami / ukaze spravu.
      *
-     * @param type String['error'|'warn'|'info'] Typ spravy
+     * @param type String['error'|'warn'|'info'|'success'] Typ spravy
      * @param message String|Object Telo spravy alebo objekt s dalsimi parametrami
      */
     showMessage: function(type, message){
 
         if (typeof message === 'string'){
-            message = {text: message};
+            message = {
+                text: message,
+                type: type,
+                position: "top center"
+            };
         }
 
         if ( ! message.target) {
-            $.notify(message.text, message.type);
+            $.notify(message.text, {className: message.type, position: message.position});
         } else {
-            $(message.target).notify(message.text, message.type);
+            $(message.target).notify(message.text, type);
         }
 
         console.log('"' + type + '" message : ' + message.text);

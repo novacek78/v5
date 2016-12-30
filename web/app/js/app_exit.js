@@ -1,0 +1,4 @@
+function exitApplication() {
+
+    ThePanel.savePanel();
+}

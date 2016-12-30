@@ -11,5 +11,18 @@ switch ($action) {
         if ($User->loginAnonymousUser($_GET['uid'], $_GET['secure'])) {
             $User->setConfigValue('lang', $_GET['lang']);
         }
-    }
+    } break;
+
+    case 'savePanel': {
+
+        $User = new User();
+        if ($User->loginAnonymousUser($_GET['uid'], $_GET['secure'])) {
+
+            $Panel = new Panel();
+            $Panel->loadFromArray($_POST);
+            $Panel->save();
+        }
+    } break;
+
+
 }
