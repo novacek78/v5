@@ -11,9 +11,5 @@ if (ENV == 'dev') {
 }
 else if (ENV == 'prod') {
     // production
-    define('CFG_DB_host', 'localhost');
-    define('CFG_DB_user', 'quickpaneladmin');
-    define('CFG_DB_pwd', 'oxalokih');
-    define('CFG_DB_dbname', 'quickpanel');
 }
 

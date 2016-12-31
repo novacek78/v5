@@ -37,7 +37,9 @@ class Panel_DAO {
         }
 
         if ($newPanel){
-            $this->_Db->query("INSERT INTO qp2_panel (" . implode(',', $keys) . ") VALUES (" . implode(',', $vals) . ")");
+            if ($result = $this->_Db->query("INSERT INTO qp2_panel (" . implode(',', $keys) . ") VALUES (" . implode(',', $vals) . ")")){
+                
+            }
         } else {
             $pairs[] = 'last_modified=NOW()';
             $this->_Db->query("UPDATE qp2_panel SET " . implode(',', $pairs) . " WHERE id=$id");

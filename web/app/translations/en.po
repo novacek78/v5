@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-30 12:01+0100\n"
-"PO-Revision-Date: 2016-12-30 12:01+0100\n"
+"POT-Creation-Date: 2016-12-31 09:40+0100\n"
+"PO-Revision-Date: 2016-12-31 09:40+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -15,18 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
-
-#: js/app-init.js:49
-msgid "Circular hole"
-msgstr "Circular hole"
-
-#: js/app-init.js:50
-msgid "Rectangular hole"
-msgstr "Rectangular hole"
-
-#: js/app-init.js:51
-msgid "Marker tool"
-msgstr "Marker tool"
 
 #: js/app.js:105
 msgid "%1 objects"
@@ -80,6 +68,18 @@ msgstr "Blue"
 msgid "Red"
 msgstr "Red"
 
+#: js/app_init.js:49
+msgid "Circular hole"
+msgstr "Circular hole"
+
+#: js/app_init.js:50
+msgid "Rectangular hole"
+msgstr "Rectangular hole"
+
+#: js/app_init.js:51
+msgid "Marker tool"
+msgstr "Marker tool"
+
 #: js/cHoleCirc.js:4
 msgid "circ.hole"
 msgstr "Circular hole"
@@ -104,15 +104,15 @@ msgstr "Y position"
 msgid "rect.hole"
 msgstr "Rectangular hole"
 
-#: js/cHoleRect.js:221 js/cPanel.js:112
+#: js/cHoleRect.js:221 js/cPanel.js:118
 msgid "qp_width"
 msgstr "Width"
 
-#: js/cHoleRect.js:225 js/cPanel.js:116
+#: js/cHoleRect.js:225 js/cPanel.js:122
 msgid "qp_height"
 msgstr "Height"
 
-#: js/cHoleRect.js:229 js/cPanel.js:126
+#: js/cHoleRect.js:229 js/cPanel.js:132
 msgid "qp_r1"
 msgstr "Corner radius"
 
@@ -120,17 +120,25 @@ msgstr "Corner radius"
 msgid "qp_angle"
 msgstr "Rotation angle"
 
-#: js/cPanel.js:4
+#: js/cPanel.js:5
 msgid "panel"
 msgstr "Panel"
 
-#: js/cPanel.js:122
+#: js/cPanel.js:128
 msgid "qp_thickness"
 msgstr "Thickness"
 
-#: js/cPanel.js:134
+#: js/cPanel.js:140
 msgid "qp_surfcolor"
 msgstr "Surface color"
+
+#: js/cPanel.js:161
+msgid "Panel saved"
+msgstr ""
+
+#: js/cPanel.js:164
+msgid "Error occured while saveing panel: %1, %2"
+msgstr ""
 
 #: js/prototypes.js:132
 msgid "Value %1=%2 is out of range."

@@ -40,7 +40,7 @@ for ($i = 0; $i < count($inFiles); $i++){
             $count = 0;
             while (($line = fgets($fileRead)) !== false) {
                 // ak sme nasli riadok s frazou
-                if (strpos($line, 'msgid') === 0){
+                if ((strpos($line, 'msgid') === 0) && (trim($line) != 'msgid ""')) {
 
                     $txtOrig = str_replace(['msgid ','"'], '', trim($line));
                     $line = fgets($fileRead);
@@ -50,6 +50,11 @@ for ($i = 0; $i < count($inFiles); $i++){
                         fwrite($fileWrite, "TheTrans_orig[$count] = '$txtOrig';" . PHP_EOL);
                         fwrite($fileWrite, "TheTrans[$count] = '$txtTrans';" . PHP_EOL);
                         $count++;
+                    } else {
+                        echo '<h3>'.$inFiles[$i] . '</h3>';
+                        echo 'Empty translation for text:<br>';
+                        echo '"'.$txtOrig.'"<br>';
+                        echo "<hr>\n";
                     }
                 }
             }

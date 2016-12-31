@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-30 19:24+0100\n"
-"PO-Revision-Date: 2016-12-30 19:24+0100\n"
+"POT-Creation-Date: 2016-12-31 09:40+0100\n"
+"PO-Revision-Date: 2016-12-31 09:40+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -104,15 +104,15 @@ msgstr "Poloha Y"
 msgid "rect.hole"
 msgstr "Obdĺžnik.otvor"
 
-#: js/cHoleRect.js:221 js/cPanel.js:112
+#: js/cHoleRect.js:221 js/cPanel.js:118
 msgid "qp_width"
 msgstr "Šírka"
 
-#: js/cHoleRect.js:225 js/cPanel.js:116
+#: js/cHoleRect.js:225 js/cPanel.js:122
 msgid "qp_height"
 msgstr "Výška"
 
-#: js/cHoleRect.js:229 js/cPanel.js:126
+#: js/cHoleRect.js:229 js/cPanel.js:132
 msgid "qp_r1"
 msgstr "Zaoblenie rohu"
 
@@ -120,23 +120,23 @@ msgstr "Zaoblenie rohu"
 msgid "qp_angle"
 msgstr "Uhol natočenia"
 
-#: js/cPanel.js:4
+#: js/cPanel.js:5
 msgid "panel"
 msgstr "Panel"
 
-#: js/cPanel.js:122
+#: js/cPanel.js:128
 msgid "qp_thickness"
 msgstr "Hrúbka"
 
-#: js/cPanel.js:134
+#: js/cPanel.js:140
 msgid "qp_surfcolor"
 msgstr "Farba povrchu"
 
-#: js/cPanel.js:153
+#: js/cPanel.js:161
 msgid "Panel saved"
 msgstr "Panel bol úspešne uložený"
 
-#: js/cPanel.js:156
+#: js/cPanel.js:164
 msgid "Error occured while saveing panel: %1, %2"
 msgstr "Počas ukladania panela sa vyskytla chyba: %1, %2"
 
