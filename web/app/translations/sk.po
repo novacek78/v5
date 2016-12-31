@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-31 09:40+0100\n"
-"PO-Revision-Date: 2016-12-31 09:40+0100\n"
+"POT-Creation-Date: 2016-12-31 14:17+0100\n"
+"PO-Revision-Date: 2016-12-31 14:17+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: js/app.js:105
+#: js/app.js:104
 msgid "%1 objects"
 msgstr "%1 objektov"
 
@@ -85,35 +85,35 @@ msgid "circ.hole"
 msgstr "Kruhový otvor"
 
 #: js/cHoleCirc.js:134
-msgid "qp_diameter"
+msgid "diameter"
 msgstr "Priemer"
 
 #: js/cHoleCirc.js:136 js/cHoleRect.js:231
-msgid "qp_depth"
+msgid "depth"
 msgstr "Hĺbka"
 
 #: js/cHoleCirc.js:137 js/cHoleRect.js:233
-msgid "qp_posx"
+msgid "x"
 msgstr "Poloha X"
 
 #: js/cHoleCirc.js:138 js/cHoleRect.js:234
-msgid "qp_posy"
+msgid "y"
 msgstr "Poloha Y"
 
 #: js/cHoleRect.js:4
 msgid "rect.hole"
 msgstr "Obdĺžnik.otvor"
 
-#: js/cHoleRect.js:221 js/cPanel.js:118
+#: js/cHoleRect.js:221 js/cPanel.js:126
 msgid "qp_width"
 msgstr "Šírka"
 
-#: js/cHoleRect.js:225 js/cPanel.js:122
+#: js/cHoleRect.js:225 js/cPanel.js:131
 msgid "qp_height"
 msgstr "Výška"
 
-#: js/cHoleRect.js:229 js/cPanel.js:132
-msgid "qp_r1"
+#: js/cHoleRect.js:229 js/cPanel.js:142
+msgid "r1"
 msgstr "Zaoblenie rohu"
 
 #: js/cHoleRect.js:232
@@ -124,21 +124,25 @@ msgstr "Uhol natočenia"
 msgid "panel"
 msgstr "Panel"
 
-#: js/cPanel.js:128
-msgid "qp_thickness"
+#: js/cPanel.js:121
+msgid "qp_name"
+msgstr "Názov"
+
+#: js/cPanel.js:138
+msgid "thickness"
 msgstr "Hrúbka"
 
-#: js/cPanel.js:140
-msgid "qp_surfcolor"
+#: js/cPanel.js:150
+msgid "surfcolor"
 msgstr "Farba povrchu"
 
-#: js/cPanel.js:161
-msgid "Panel saved"
-msgstr "Panel bol úspešne uložený"
-
-#: js/cPanel.js:164
+#: js/cPanel.js:169 js/cPanel.js:176
 msgid "Error occured while saveing panel: %1, %2"
 msgstr "Počas ukladania panela sa vyskytla chyba: %1, %2"
+
+#: js/cPanel.js:172
+msgid "Panel saved"
+msgstr "Panel bol úspešne uložený"
 
 #: js/prototypes.js:132
 msgid "Value %1=%2 is out of range."

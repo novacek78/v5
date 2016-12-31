@@ -118,7 +118,4 @@ class User_DAO {
         else return false;
     }
 
-
-
-
 }

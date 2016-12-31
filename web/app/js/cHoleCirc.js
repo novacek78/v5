@@ -10,25 +10,25 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
     initialize: function(options) {
         options || (options = { });
 
-        if (options.qp_depth == null) {
-            options.qp_depth = 999;
+        if (options.depth == null) {
+            options.depth = 999;
         }
         
-        if (options.qp_depth < 900)
-            options.fill = ThePanel.getPocketColor(options.qp_depth);
+        if (options.depth < 900)
+            options.fill = ThePanel.getPocketColor(options.depth);
 
         if (options.width || options.height){
-            console.log('HoleCirc.initialize(): Don\'t use width/height, use qp_diameter instead.');
+            console.log('HoleCirc.initialize(): Don\'t use width/height, use diameter instead.');
         }
         if (options.left || options.top){
-            console.log('HoleCirc.initialize(): Don\'t use left/top, use qp_posx/qp_posy instead.');
+            console.log('HoleCirc.initialize(): Don\'t use left/top, use x/y instead.');
         }
 
-        options.width = options.qp_diameter;
-        options.height = options.qp_diameter;
+        options.width = options.diameter;
+        options.height = options.diameter;
 
-        options.left = options.qp_posx;
-        options.top = options.qp_posy;
+        options.left = options.x;
+        options.top = options.y;
 
         this.callSuper('initialize', options);
         this.setControlsVisibility({
@@ -43,14 +43,14 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
 
         value = this.checkRange(key, value);
 
-        if (key == 'qp_diameter') {
+        if (key == 'diameter') {
             this.width = value;
             this.height = value;
         }
 
-        if (key == 'qp_depth') {
+        if (key == 'depth') {
             value = Math.abs(value);
-            if (value >= ThePanel.qp_thickness) value = 999;
+            if (value >= ThePanel.thickness) value = 999;
             if (value > 900) {
                 this.fill = TheCanvas.backgroundColor;
                 if (this.canvas) this.bringToFront();
@@ -60,17 +60,17 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
             }
         }
 
-        if (key == 'qp_posx') {
+        if (key == 'x') {
             this.left = value;
         }
-        if (key == 'qp_posy') {
+        if (key == 'y') {
             this.top = value;
         }
         if (key == 'left') {
-            this.qp_posx = value;
+            this.x = value;
         }
         if (key == 'top') {
-            this.qp_posy = value;
+            this.y = value;
         }
 
         this.callSuper('_set', key, value);
@@ -82,7 +82,7 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
         ctx.fillStyle = this.fill;
 
         var PIx2 = 6.28319; // 2 * PI
-        var r = this.qp_diameter / 2;
+        var r = this.diameter / 2;
 
         ctx.beginPath();
         ctx.arc(0, 0, r, 0, PIx2, false);
@@ -93,49 +93,49 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
      * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
      * a ich hranice pre jednotlive hrubky plechov.
      *
-     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, qp_r1: {min: number, max: number}}}
+     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, r1: {min: number, max: number}}}
      */
-    getSizeRules: function(){
+    getAttributes: function(){
         var objAttribs;
 
-        if (ThePanel.qp_thickness <= 4)
+        if (ThePanel.thickness <= 4)
             objAttribs = {
-                qp_diameter: {
+                diameter: {
                     min: 1
                 }
             };
-        else if (ThePanel.qp_thickness <= 6)
+        else if (ThePanel.thickness <= 6)
             objAttribs = {
-                qp_diameter: {
+                diameter: {
                     min: 1.5
                 }
             };
-        else if (ThePanel.qp_thickness <= 8)
+        else if (ThePanel.thickness <= 8)
             objAttribs = {
-                qp_diameter: {
+                diameter: {
                     min: 2
                 }
             };
-        else if (ThePanel.qp_thickness <= 10)
+        else if (ThePanel.thickness <= 10)
             objAttribs = {
-                qp_diameter: {
+                diameter: {
                     min: 3
                 }
             };
         else
             objAttribs = {
-                qp_diameter: {
+                diameter: {
                     min: 6
                 }
             };
 
-        objAttribs.qp_diameter.type = 'number';
-        objAttribs.qp_diameter.max = Math.min(ThePanel.qp_width, ThePanel.qp_height);
-        objAttribs.qp_diameter.desc = _('qp_diameter');
+        objAttribs.diameter.type = 'number';
+        objAttribs.diameter.max = Math.min(ThePanel.qp_width, ThePanel.qp_height);
+        objAttribs.diameter.desc = _('diameter');
 
-        objAttribs.qp_depth = {type: 'number', desc: _('qp_depth')};
-        objAttribs.qp_posx = {type: 'number', desc: _('qp_posx')};
-        objAttribs.qp_posy = {type: 'number', desc: _('qp_posy')};
+        objAttribs.depth = {type: 'number', desc: _('depth')};
+        objAttribs.x = {type: 'number', desc: _('x')};
+        objAttribs.y = {type: 'number', desc: _('y')};
 
         return objAttribs;
     }

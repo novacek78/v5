@@ -3,6 +3,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
     type: FT_PANEL,
     qp_id: null,
     descShort: _('panel'),
+    name: 'Panel 1',
     originX: 'left',
     originY: 'top',
     left: 20,
@@ -17,11 +18,11 @@ var Panel = fabric.util.createClass(fabric.Object, {
         if (options.width || options.height)
             console.log('class Panel : Pouzi qp_width a qp_height. Width a height su LEN pre interne pouzitie!');
 
-        this.set('qp_thickness', options.qp_thickness || 3);
-        this.set('qp_edgeStyle', options.qp_edgeStyle || '');
-        this.set('qp_edgeSize', options.qp_edgeSize || 0);
-        this.set('qp_r1', options.qp_r1 || 0);
-        this.set('qp_surfcolor', 'RAW');
+        this.set('thickness', options.thickness || 3);
+        this.set('edgestyle', options.edgestyle || '');
+        this.set('edgesize', options.edgesize || 0);
+        this.set('r1', options.r1 || 0);
+        this.set('surfcolor', 'RAW');
         this.set('width', options.qp_width);
         this.set('height', options.qp_height);
 
@@ -38,19 +39,19 @@ var Panel = fabric.util.createClass(fabric.Object, {
             value = this.checkRange(key, value);
             this.height = value;
         }
-        if (key == 'qp_thickness') {
+        if (key == 'thickness') {
             value = this.checkRange(key, value);
             if (value === false) return false;
         }
-        if (key == 'qp_r1') {
+        if (key == 'r1') {
             // obmedzenie maxima radiusu velkostou panela
             value = Math.min( Math.abs(value) , Math.min(this.qp_width, this.qp_height) / 2);
         }
-        if (key == 'qp_surfcolor') {
-            var sizeRules = this.getSizeRules();
-            this.fill = sizeRules.qp_surfcolor.colors_surf[ sizeRules.qp_surfcolor.select_values.indexOf(value) ];
+        if (key == 'surfcolor') {
+            var sizeRules = this.getAttributes();
+            this.fill = sizeRules.surfcolor.colors_surf[ sizeRules.surfcolor.select_values.indexOf(value) ];
             this.dirty = true;
-            TheCanvas.setBackgroundColor(sizeRules.qp_surfcolor.colors_bgnd[ sizeRules.qp_surfcolor.select_values.indexOf(value) ], null);
+            TheCanvas.setBackgroundColor(sizeRules.surfcolor.colors_bgnd[ sizeRules.surfcolor.select_values.indexOf(value) ], null);
         }
 
         this.callSuper('_set', key, value);
@@ -59,7 +60,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
     _render: function(ctx) {
 
-        this.roundRect(ctx, this.qp_width, this.qp_height, this.qp_r1);
+        this.roundRect(ctx, this.qp_width, this.qp_height, this.r1);
 
         ctx.fillStyle = this.fill;
         ctx.fill();
@@ -71,7 +72,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
      * @param depth
      */
     getPocketColor: function(depth){
-        var relativeDepth = depth / ThePanel.qp_thickness;
+        var relativeDepth = depth / ThePanel.thickness;
         var rozsah = COL_FEATURE_POCKET_MINDEPTH - COL_FEATURE_POCKET_MAXDEPTH;
         var odtien = COL_FEATURE_POCKET_MINDEPTH - Math.round(rozsah * relativeDepth);
 
@@ -82,22 +83,22 @@ var Panel = fabric.util.createClass(fabric.Object, {
      * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
      * a ich pravidla a okrajove hodnoty.
      *
-     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, qp_r1: {min: number, max: number}}}
+     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, r1: {min: number, max: number}}}
      */
-    getSizeRules: function(){
+    getAttributes: function(){
         var objAttribs;
 
-        if (this.qp_thickness <= 4)
+        if (this.thickness <= 4)
             objAttribs = {
                 qp_width: { min: 20 },
                 qp_height: { min: 20 }
             };
-        else if (this.qp_thickness <= 6)
+        else if (this.thickness <= 6)
             objAttribs = {
                 qp_width: { min: 25 },
                 qp_height: { min: 25 }
             };
-        else if (this.qp_thickness <= 10)
+        else if (this.thickness <= 10)
             objAttribs = {
                 qp_width: { min: 30 },
                 qp_height: { min: 30 }
@@ -111,34 +112,42 @@ var Panel = fabric.util.createClass(fabric.Object, {
         objAttribs.qp_id = {
             type: 'number',
             desc: 'id',
-            hidden: true
+            hidden: true,
+            db_mapping: 'id'
         };
+
+        objAttribs.name = {
+            type: 'text',
+            desc: _('qp_name')
+        }
 
         objAttribs.qp_width.type = 'number';
         objAttribs.qp_width.max = PANEL_WIDTH_MAX;
         objAttribs.qp_width.desc = _('qp_width');
+        objAttribs.qp_width.db_mapping = 'width';
 
         objAttribs.qp_height.type = 'number';
         objAttribs.qp_height.max = PANEL_HEIGHT_MAX;
         objAttribs.qp_height.desc = _('qp_height');
+        objAttribs.qp_height.db_mapping = 'height';
 
-        objAttribs['qp_thickness'] = {
+        objAttribs['thickness'] = {
             type: 'select',
             select_values: PANEL_THICKNESS_AVAILABLE,
             select_labels: PANEL_THICKNESS_AVAILABLE_DESC,
-            desc: _('qp_thickness')
+            desc: _('thickness')
         };
-        objAttribs['qp_r1'] = {
+        objAttribs['r1'] = {
             type: 'number',
-            desc: _('qp_r1')
+            desc: _('r1')
         };
-        objAttribs['qp_surfcolor'] = {
+        objAttribs['surfcolor'] = {
             type: 'select',
             select_values: PANEL_SURFCOLOR_AVAILABLE,
             select_labels: PANEL_SURFCOLOR_AVAILABLE_DESC,
             colors_surf: PANEL_SURFCOLOR_AVAILABLE_COL,
             colors_bgnd: PANEL_SURFCOLOR_AVAILABLE_COLBGND,
-            desc: _('qp_surfcolor')
+            desc: _('surfcolor')
         };
 
         return objAttribs;
@@ -146,12 +155,9 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
     savePanel: function () {
 
-        var attribs = this.getSizeRules();
-        var ajaxData = {};
+        var ajaxData;
 
-        for (var key in attribs) {
-            ajaxData[key] = eval('this.' + key);
-        }
+        ajaxData = this.getTransportObject();
         ajaxData.user_id = TheUser.id;
 
         $.ajax({

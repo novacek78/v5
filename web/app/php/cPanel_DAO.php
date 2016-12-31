@@ -14,7 +14,11 @@ class Panel_DAO {
 
     public function doSave($attribs) {
 
-        $id = $this->_Db->real_escape_string($attribs->qp_id);
+        if (isset($attribs->id)) {
+            $id = $this->_Db->real_escape_string($attribs->id);
+        } else
+            $id = null;
+
         $newPanel = empty($id);
 
         $keys = array();
@@ -49,7 +53,17 @@ class Panel_DAO {
         }
     }
 
+    public function doLoad($id) {
 
+        $id = $this->_Db->real_escape_string($id);
 
+        $result = $this->_Db->query("SELECT id AS qp_id, *  FROM qp2_panel WHERE id=$id");
+        if ($result) {
+            $data = $result->fetch_assoc();
+            return $data;
+        } else {
+            return false;
+        }
 
+    }
 }

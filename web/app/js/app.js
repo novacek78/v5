@@ -59,11 +59,10 @@ function saveTextValue(edText) {
         return false;
     } else {
         edText.style.backgroundColor = 'white';
-        newValue = Number(newValue);
     }
 
     targetObj.set(key, newValue);
-    edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt
+    edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
 
     targetObj.dirty = true;  // force redraw
     TheCanvas.renderAll();
@@ -85,7 +84,7 @@ function saveSelectValue(edSelect) {
     }
 
     targetObj.set(key, newValue);
-    edSelect.value = targetObj.get(key); // spatne updatnem ak by dany objekt
+    edSelect.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
 
     targetObj.dirty = true;  // force redraw
     TheCanvas.renderAll();
@@ -113,7 +112,7 @@ function showProperties(objectToInspect){
     } else {
         // jeden objekt
         $("#propPanel div.title").text(objectToInspect.descShort.capitalizeFirstLetter());
-        attribs = objectToInspect.getSizeRules();
+        attribs = objectToInspect.getAttributes();
     }
 
     var value;
@@ -172,24 +171,24 @@ function showProperties(objectToInspect){
 }
 
 function addRectHole() {
-    var x = new HoleRect({
-        qp_posx: 50,
-        qp_posy: 50,
+    var obj = new HoleRect({
+        x: 50,
+        y: 50,
         qp_width: 40,
         qp_height: 30
     });
 
-    TheCanvas.add(x);
-    TheCanvas.setActiveObject(x, null);
+    TheCanvas.add(obj);
+    TheCanvas.setActiveObject(obj, null);
 }
 
 function addCircHole() {
-    var x = new HoleCirc({
-        qp_posx: 50,
-        qp_posy: 50,
-        qp_diameter: 20
+    var obj = new HoleCirc({
+        x: 50,
+        y: 50,
+        diameter: 20
     });
 
-    TheCanvas.add(x);
-    TheCanvas.setActiveObject(x, null);
+    TheCanvas.add(obj);
+    TheCanvas.setActiveObject(obj, null);
 }

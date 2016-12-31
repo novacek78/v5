@@ -29,6 +29,11 @@ class Panel {
 
     }
 
+    public function load($id) {
+
+        $this->DAO->doLoad($id);
+    }
+
     public function save() {
 
         return $this->DAO->doSave($this->_attribs);

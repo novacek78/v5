@@ -16,8 +16,8 @@ function definePrototypes(){
     fabric.Circle.prototype.perPixelTargetFind = true;
 
     // ----------- custom properties -----------------------
-    fabric.Object.prototype.qp_basePoint = BP_CENTER; // poloha base pointu
-    fabric.Object.prototype.qp_depth = -1; // hlbka
+    fabric.Object.prototype.basepoint = BP_CENTER; // poloha base pointu
+    fabric.Object.prototype.depth = -1; // hlbka
 
     // --------- custom methods ----------------------------
     fabric.Object.prototype.on('modified', function(){
@@ -29,8 +29,8 @@ function definePrototypes(){
                     this.set('qp_width', this.qp_width * this.scaleX);
                 if (this.qp_height)
                     this.set('qp_height', this.qp_height * this.scaleY);
-                if (this.qp_diameter)
-                    this.set('qp_diameter', this.qp_diameter * this.scaleX);
+                if (this.diameter)
+                    this.set('diameter', this.diameter * this.scaleX);
                 this.scaleX = 1;
                 this.scaleY = 1;
                 this.dirty = true;
@@ -81,7 +81,7 @@ function definePrototypes(){
      *
      * @returns Object
      */
-    fabric.Object.prototype.getSizeRules = function(){
+    fabric.Object.prototype.getAttributes = function(){
         return {};
     }; // abstract
 
@@ -95,7 +95,7 @@ function definePrototypes(){
      * @private
      */
     fabric.Object.prototype.checkRange = function(dimensionName, value){
-        var limits = this.getSizeRules();
+        var limits = this.getAttributes();
         var correctedValue = null;
 
         if ( eval('limits.'+dimensionName)) {
@@ -133,6 +133,29 @@ function definePrototypes(){
             return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
         }
     };
+
+    /**
+     * Vytvori objekt vhodny pre transport do DB - ak su niektore polia v DB pomenovane inak
+     * ako tu v objekte samotnom, tak ich namapuje.
+     *
+     * @returns {{}}
+     */
+    fabric.Object.prototype.getTransportObject = function() {
+
+        var attribs = this.getAttributes();
+        var obj = {};
+
+        for (var key in attribs) {
+            if (this[key]) {
+                if (eval('attribs.'+key+'.db_mapping'))
+                    obj[ eval('attribs.'+key+'.db_mapping') ] = this[key];
+                else
+                    obj[key] = this[key];
+            }
+        }
+
+        return obj;
+    }
 
     /**
      * Zisti, ci sa v poli nachadza dana hodnota.

@@ -19,9 +19,9 @@ function initApplication() {
     ThePanel = new Panel({
         qp_width: 400,
         qp_height: 150,
-        qp_thickness: 6,
-        qp_r1: 5,
-        qp_version: '0.1'
+        thickness: 6,
+        r1: 5,
+        version: '0.1'
     });
 
     TheStatusText = new fabric.Text('',{
