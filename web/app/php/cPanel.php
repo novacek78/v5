@@ -31,7 +31,7 @@ class Panel {
 
     public function save() {
 
-        $this->DAO->doSave($this->_attribs);
+        return $this->DAO->doSave($this->_attribs);
     }
 
 

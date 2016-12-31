@@ -20,7 +20,8 @@ switch ($action) {
 
             $Panel = new Panel();
             $Panel->loadFromArray($_POST);
-            $Panel->save();
+            $resultId = $Panel->save();
+            echo $resultId;
         }
     } break;
 

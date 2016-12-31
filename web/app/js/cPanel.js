@@ -110,6 +110,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
         objAttribs.qp_id = {
             type: 'number',
+            desc: 'id',
             hidden: true
         };
 
@@ -157,8 +158,13 @@ var Panel = fabric.util.createClass(fabric.Object, {
             method: 'POST',
             data: ajaxData,
             url: "?ajax=savePanel&uid=" + TheUser.id + "&secure=" + TheUser.secure,
-            success: function() {
-                QP.showMessage('success', _('Panel saved'));
+            success: function(data) {
+                if (isNaN(data)) {
+                    QP.showMessage('error', _('Error occured while saveing panel: %1, %2', data, ''));
+                } else {
+                    ThePanel.qp_id = Number(data);
+                    QP.showMessage('success', _('Panel saved'));
+                }
             },
             error: function(xhr,status,error){
                 QP.showMessage('error', _('Error occured while saveing panel: %1, %2', error, status));
