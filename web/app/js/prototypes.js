@@ -81,7 +81,7 @@ function definePrototypes(){
      *
      * @returns Object
      */
-    fabric.Object.prototype.getAttributes = function(){
+    fabric.Object.prototype.getAttribsInfo = function(){
         return {};
     }; // abstract
 
@@ -95,7 +95,7 @@ function definePrototypes(){
      * @private
      */
     fabric.Object.prototype.checkRange = function(dimensionName, value){
-        var limits = this.getAttributes();
+        var limits = this.getAttribsInfo();
         var correctedValue = null;
 
         if ( eval('limits.'+dimensionName)) {
@@ -142,7 +142,7 @@ function definePrototypes(){
      */
     fabric.Object.prototype.getTransportObject = function() {
 
-        var attribs = this.getAttributes();
+        var attribs = this.getAttribsInfo();
         var obj = {};
 
         for (var key in attribs) {
@@ -155,6 +155,28 @@ function definePrototypes(){
         }
 
         return obj;
+    };
+
+    fabric.Object.prototype.loadFromJson = function(jsonObj) {
+
+        var attribs = this.getAttribsInfo();
+
+        for (var key in attribs) {
+            var dbName = key;
+
+            if (attribs[key].db_mapping)
+                dbName = attribs[key].db_mapping;
+
+            if (jsonObj[dbName]) {
+
+                if (attribs[key].type == 'number')
+                    jsonObj[dbName] = Number(jsonObj[dbName])
+
+                this.set(key, jsonObj[dbName]);
+            }
+        }
+        TheCanvas.renderAll();
+        showProperties(this);
     }
 
     /**

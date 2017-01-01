@@ -112,7 +112,7 @@ function showProperties(objectToInspect){
     } else {
         // jeden objekt
         $("#propPanel div.title").text(objectToInspect.descShort.capitalizeFirstLetter());
-        attribs = objectToInspect.getAttributes();
+        attribs = objectToInspect.getAttribsInfo();
     }
 
     var value;

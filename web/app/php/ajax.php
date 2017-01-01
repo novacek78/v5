@@ -28,8 +28,13 @@ switch ($action) {
         if ($User->loginAnonymousUser($_GET['uid'], $_GET['secure'])) {
 
             $Panel = new Panel();
-            $Panel->load($_GET['id']);
-            echo '';
+
+            if (isset($_GET['id']))
+                $Panel->load($_GET['id']);
+            else
+                $result = $Panel->loadLast($User->getId()); // ak nie je zadefinovane ID panela, nahra ten, s ktorym robil ako poslednym
+
+            echo $Panel->makeJson();
         }
     } break;
 

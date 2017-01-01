@@ -48,7 +48,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
             value = Math.min( Math.abs(value) , Math.min(this.qp_width, this.qp_height) / 2);
         }
         if (key == 'surfcolor') {
-            var sizeRules = this.getAttributes();
+            var sizeRules = this.getAttribsInfo();
             this.fill = sizeRules.surfcolor.colors_surf[ sizeRules.surfcolor.select_values.indexOf(value) ];
             this.dirty = true;
             TheCanvas.setBackgroundColor(sizeRules.surfcolor.colors_bgnd[ sizeRules.surfcolor.select_values.indexOf(value) ], null);
@@ -85,7 +85,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
      *
      * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, r1: {min: number, max: number}}}
      */
-    getAttributes: function(){
+    getAttribsInfo: function(){
         var objAttribs;
 
         if (this.thickness <= 4)
@@ -166,14 +166,34 @@ var Panel = fabric.util.createClass(fabric.Object, {
             url: "?ajax=savePanel&uid=" + TheUser.id + "&secure=" + TheUser.secure,
             success: function(data) {
                 if (isNaN(data)) {
-                    QP.showMessage('error', _('Error occured while saveing panel: %1, %2', data, ''));
+                    QP.showMessage('error', _('Error occured while saving panel: %1, %2', data, ''));
                 } else {
                     ThePanel.qp_id = Number(data);
                     QP.showMessage('success', _('Panel saved'));
                 }
             },
             error: function(xhr,status,error){
-                QP.showMessage('error', _('Error occured while saveing panel: %1, %2', error, status));
+                QP.showMessage('error', _('Error occured while saving panel: %1, %2', error, status));
+            }
+        });
+    },
+
+    loadPanel: function () {
+
+        $.ajax({
+            url: "?ajax=loadPanel&uid=" + TheUser.id + "&secure=" + TheUser.secure,
+            success: function(data) {
+                var jsonObj = JSON.parse(data);
+                if (jsonObj) {
+                    ThePanel.loadFromJson(jsonObj);
+                } else {
+                    if (data == 'null') ; // nenasiel sa pre daneho usera ziadny panel v DB
+                    else
+                       QP.showMessage('error', _('Error occured while loading panel: %1, %2', data, ''));
+                }
+            },
+            error: function(xhr,status,error){
+                QP.showMessage('error', _('Error occured while loading panel: %1, %2', error, status));
             }
         });
     }

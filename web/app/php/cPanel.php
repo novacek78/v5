@@ -24,25 +24,26 @@ class Panel {
         }
     }
 
-    public function loadFromJson($jsonData) {
-
-
+    public function makeJson() {
+        return json_encode($this->_attribs);
     }
 
     public function load($id) {
+        $this->_attribs = $this->DAO->doLoad($id);
+    }
 
-        $this->DAO->doLoad($id);
+    public function loadLast($userId) {
+        $result = $this->_attribs = $this->DAO->doLoad(null, $userId);
+        return $result;
     }
 
     public function save() {
-
         return $this->DAO->doSave($this->_attribs);
     }
 
 
 
     public function getId(){
-
         return $this->_id;
     }
 }

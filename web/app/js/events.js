@@ -13,9 +13,10 @@ function initEventHandlers() {
         if ((e.keyCode == 72) && (TheCanvas.getActiveObject()))
             TheCanvas.getActiveObject().set('lockMovementY', !TheCanvas.getActiveObject().lockMovementY);
 
-        // CTRL+S
-        if ((e.keyCode == 83) && e.shiftKey)
-            ThePanel.savePanel();
+        // SHIFT+S
+        if ((e.keyCode == 83) && e.shiftKey) {
+            ThePanel.loadPanel();
+        }
 
         // V
         if ((e.keyCode == 86) && (TheCanvas.getActiveObject()))

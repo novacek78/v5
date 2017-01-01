@@ -95,7 +95,7 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
      *
      * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, r1: {min: number, max: number}}}
      */
-    getAttributes: function(){
+    getAttribsInfo: function(){
         var objAttribs;
 
         if (ThePanel.thickness <= 4)
