@@ -15,7 +15,7 @@ function initEventHandlers() {
 
         // SHIFT+S
         if ((e.keyCode == 83) && e.shiftKey) {
-            ThePanel.loadPanel();
+            ThePanel.savePanel();
         }
 
         // V

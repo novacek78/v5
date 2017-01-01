@@ -146,7 +146,8 @@ function definePrototypes(){
         var obj = {};
 
         for (var key in attribs) {
-            if (this[key]) {
+
+            if (this[key] != 'undefined') {
                 if (eval('attribs.'+key+'.db_mapping'))
                     obj[ eval('attribs.'+key+'.db_mapping') ] = this[key];
                 else
