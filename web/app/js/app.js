@@ -25,7 +25,6 @@ function saveNumberValue(edText) {
     if (isNaN(newValue) || (newValue == '')) {
         edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
         edText.focus();
-        //edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
         return;
     } else {
         edText.style.backgroundColor = 'white';

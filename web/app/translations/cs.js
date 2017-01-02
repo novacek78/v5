@@ -69,3 +69,7 @@ TheTrans_orig[32] = 'Value %1=%2 is out of range.';
 TheTrans[32] = 'Hodnota mimo rozsah: %1=%2';
 TheTrans_orig[33] = 'Welcome to QP';
 TheTrans[33] = 'Vítejte v aplikaci QuickPanel!';
+TheTrans_orig[34] = 'Please select language';
+TheTrans[34] = 'Děkujeme, že jste se rozhodli vyzkoušet QuickPanel. Prosím vyberte si jazyk aplikace:';
+TheTrans_orig[35] = 'Oops! Error: %1, %2';
+TheTrans[35] = 'Zdá se, že něco není v pořádku, prosím informujte nás o této chybě: %1, %2';

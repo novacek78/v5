@@ -46,16 +46,20 @@ for ($i = 0; $i < count($inFiles); $i++){
                     $line = fgets($fileRead);
                     $txtTrans = str_replace(['msgstr ','"'], '', trim($line));
 
-                    if ($txtTrans != '') {
-                        fwrite($fileWrite, "TheTrans_orig[$count] = '$txtOrig';" . PHP_EOL);
-                        fwrite($fileWrite, "TheTrans[$count] = '$txtTrans';" . PHP_EOL);
-                        $count++;
-                    } else {
-                        echo '<h3>'.$inFiles[$i] . '</h3>';
-                        echo 'Empty translation for text:<br>';
-                        echo '"'.$txtOrig.'"<br>';
-                        echo "<hr>\n";
+                    if ($txtTrans == '') {
+                        // multiline preklad - dovtedy nacitava dlasie riadky, az kym nenatrafi na koniec = prazdny riadok
+                        while (trim($line) != '') {
+                            $line = fgets($fileRead);
+                            $txtTrans .= str_replace('"', '', trim($line));
+                        }
                     }
+
+                    if ($txtTrans == '')
+                        echo "Prazdny preklad pre frazu: " . $txtOrig . "<br>\n";
+
+                    fwrite($fileWrite, "TheTrans_orig[$count] = '$txtOrig';" . PHP_EOL);
+                    fwrite($fileWrite, "TheTrans[$count] = '$txtTrans';" . PHP_EOL);
+                    $count++;
                 }
             }
             fclose($fileWrite);
