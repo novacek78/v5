@@ -23,3 +23,4 @@ $("#dialogChooseLang a").on({
         $( "#dialogChooseLang" ).dialog('close');
     }
 })
+

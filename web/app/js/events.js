@@ -78,9 +78,9 @@ function initEventHandlers() {
     });
 
     // zakazanie pop-up menu
-    //$(window).contextmenu(function(){
-    //    return false;
-    //});
+    $(window).contextmenu(function(){
+        //return false;
+    });
 
     // update suradnic mysi v statusbare
     TheCanvas.on('mouse:move', function (options) {

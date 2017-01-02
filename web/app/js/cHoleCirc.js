@@ -142,4 +142,3 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
 
 
 });
-

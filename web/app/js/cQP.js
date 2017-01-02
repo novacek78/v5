@@ -52,4 +52,3 @@ var QP = {
 
 
 } // end of QP object
-

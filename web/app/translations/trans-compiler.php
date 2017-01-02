@@ -5,7 +5,8 @@
  * ktory rozparsuje .PO subory a vytvori z nich .JS subory s prelozenymi frazami.
  */
 
-$dir = '.';
+$inDir = '.';
+$outDir = '../js/';
 $inFilesExt = 'po';
 $outFilesExt = 'js';
 $inFiles = [];
@@ -14,12 +15,12 @@ $outFiles = [];
 
 
 // do pola nacitame vsetky .PO subory
-if ($dirHandle = opendir($dir)) {
+if ($dirHandle = opendir($inDir)) {
     while (false !== ($entry = readdir($dirHandle))) {
         if ($entry != "." && $entry != "..") {
             if (pathinfo($entry, PATHINFO_EXTENSION) == $inFilesExt) {
                 $inFiles[] = $entry;
-                $outFiles[] = pathinfo($entry, PATHINFO_FILENAME) . '.' . $outFilesExt;
+                $outFiles[] = 'trans_' . pathinfo($entry, PATHINFO_FILENAME) . '.' . $outFilesExt;
             }
         }
     }
@@ -29,7 +30,7 @@ if ($dirHandle = opendir($dir)) {
 // spracovanie postupne vsetkych suborov
 for ($i = 0; $i < count($inFiles); $i++){
     $fileRead  = fopen($inFiles[$i], "r");
-    $fileWrite = fopen($outFiles[$i], "wb");
+    $fileWrite = fopen($outDir . $outFiles[$i], "wb");
     if ($fileRead) {
         if ($fileWrite){
             // zaciatok suboru - deklaracia premennych

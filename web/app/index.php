@@ -1,5 +1,9 @@
 <?php
 
+    include_once "../../cfg__init.php";
+
+
+
     spl_autoload_register(function ($class_name) {
         include 'php/c' . $class_name . '.php';
     });
@@ -8,6 +12,7 @@
         include "php/ajax.php";
         exit;
     }
+
 
 
     $User = new User();
@@ -30,6 +35,7 @@
             $showLanguageDialog = true;
         }
     }
+
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -68,18 +74,18 @@
     <link rel="stylesheet" href="css/my-bootstrap.css"/>
     <link rel="stylesheet" href="css/my-jquery-ui.css"/>
     <link rel="stylesheet" href="css/app.css"/>
-    <script type="text/javascript" src="translations/trans-init.js"></script>
-    <script type="text/javascript" src="translations/<?php echo $User->getConfigValue('lang', 'en') ?>.js"></script>
-    <script type="text/javascript" src="js/app_constants.js"></script>
-    <script type="text/javascript" src="js/cQP.js"></script>
-    <script type="text/javascript" src="js/cPanel.js"></script>
-    <script type="text/javascript" src="js/cHoleRect.js"></script>
-    <script type="text/javascript" src="js/cHoleCirc.js"></script>
-    <script type="text/javascript" src="js/prototypes.js"></script>
-    <script type="text/javascript" src="js/app_init.js"></script>
-    <script type="text/javascript" src="js/app_exit.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/events.js"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans_<?php echo $User->getConfigValue('lang', 'en') . CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_constants<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cQP<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cPanel<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cHoleRect<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cHoleCirc<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/prototypes<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_init<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_exit<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app<?php echo CFG_FILE_JS_EXT ?>"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/events<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript">
         var TheUser = {
             id: <?php echo $User->getId()?>,

@@ -236,6 +236,4 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         return objAttribs;
     }
 
-
 });
-

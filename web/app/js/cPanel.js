@@ -197,6 +197,4 @@ var Panel = fabric.util.createClass(fabric.Object, {
             }
         });
     }
-
-
 });

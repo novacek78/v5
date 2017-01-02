@@ -1,0 +1,9 @@
+ErrorDocument 404 "http://www.quickpanel.sk/app"
+
+RewriteEngine on
+
+# nastavenie typu prostredia (dev|test|prod)
+SetEnv APP_ENV dev
+
+
+
