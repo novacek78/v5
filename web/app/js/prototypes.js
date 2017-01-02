@@ -98,28 +98,28 @@ function definePrototypes(){
         var limits = this.getAttribsInfo();
         var correctedValue = null;
 
-        if ( eval('limits.'+dimensionName)) {
+        if ( limits[dimensionName]) {
 
-            if (eval('limits.' + dimensionName + '.min')) {
-                if (value < eval('limits.' + dimensionName + '.min'))
-                    correctedValue = eval('limits.' + dimensionName + '.min');
+            if (limits[dimensionName].min) {
+                if (value < limits[dimensionName].min)
+                    correctedValue = limits[dimensionName].min;
             }
 
-            if (eval('limits.' + dimensionName + '.max')) {
-                if (value > eval('limits.' + dimensionName + '.max'))
-                    correctedValue = eval('limits.' + dimensionName + '.max');
+            if (limits[dimensionName].max) {
+                if (value > limits[dimensionName].max)
+                    correctedValue = limits[dimensionName].max;
             }
 
             if (correctedValue !== null) {
                 // ak to nepreslo nejakym predoslym pravidlom, este to moze prejst ak sa hodnota najde v poli dovolenych
-                if (eval('limits.' + dimensionName + '.allowed')) {
-                    if (eval('limits.' + dimensionName + '.allowed.contains(value)'))
+                if (limits[dimensionName].allowed) {
+                    if (limits[dimensionName].allowed.contains(value))
                         correctedValue = null;
                 }
             }
 
-            if (eval('limits.' + dimensionName + '.select_values')) {
-                if (eval('limits.' + dimensionName + '.select_values.contains(value)'))
+            if (limits[dimensionName].select_values) {
+                if (limits[dimensionName].select_values.contains(value))
                     correctedValue = null;
                 else
                     correctedValue = false;
@@ -129,7 +129,7 @@ function definePrototypes(){
         if (correctedValue === null) {
             return value; // hodnota vyhovuje
         } else {
-            QP.showMessage('error', {text: _('Value %1=%2 is out of range.', eval('limits.'+dimensionName+'.desc'), QP.formatFloat(value)) , target: '#propPanel'});
+            QP.showMessage('error', {text: _('Value %1=%2 is out of range.', limits[dimensionName].desc, QP.formatFloat(value)) , target: '#propPanel'});
             return correctedValue; // hodnota nevyhovuje, vratime hranicnu hodnotu, ktora je este OK
         }
     };
@@ -148,8 +148,8 @@ function definePrototypes(){
         for (var key in attribs) {
 
             if (this[key] != 'undefined') {
-                if (eval('attribs.'+key+'.db_mapping'))
-                    obj[ eval('attribs.'+key+'.db_mapping') ] = this[key];
+                if (attribs[key].db_mapping)
+                    obj[ attribs[key].db_mapping ] = this[key];
                 else
                     obj[key] = this[key];
             }

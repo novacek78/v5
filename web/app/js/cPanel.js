@@ -187,8 +187,9 @@ var Panel = fabric.util.createClass(fabric.Object, {
                 if (jsonObj) {
                     ThePanel.loadFromJson(jsonObj);
                 } else {
-                    if (data == 'null') ; // nenasiel sa pre daneho usera ziadny panel v DB
-                    else
+                    if (data == 'null') {
+                        // nenasiel sa pre daneho usera ziadny panel v DB
+                    } else
                        QP.showMessage('error', _('Error occured while loading panel: %1, %2', data, ''));
                 }
             },

@@ -124,10 +124,10 @@ function showProperties(objectToInspect){
         // prejdeme zoznamom vlastnosti 'attribs', ktory sme vytiahli z objektu a tieto naplnime do properties panela
         for (var key in attribs) {
 
-            if (eval('attribs.'+key+'.hidden')) continue;
+            if (attribs[key].hidden) continue;
 
             tableData += '<tr>';
-            tableData += '<th>' + eval('attribs.'+key+'.desc') + '</th>';
+            tableData += '<th>' + attribs[key].desc + '</th>';
             tableData += '<td>';
 
             value = objectToInspect[key];
