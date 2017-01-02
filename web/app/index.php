@@ -168,7 +168,7 @@ if (isset($showLanguageDialog) && ($showLanguageDialog === true)):
         </div>
     </div>
 
-    <script type="text/javascript" src="js/welcome_dialog.js"></script>
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/welcome_dialog<?php echo CFG_FILE_JS_EXT ?>"></script>
 <?php
 endif; // if (isset($showLanguageDialog) && ($showLanguageDialog === true)):
 ?>

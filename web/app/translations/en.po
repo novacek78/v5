@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-31 14:15+0100\n"
-"PO-Revision-Date: 2016-12-31 14:16+0100\n"
+"POT-Creation-Date: 2017-01-02 21:40+0100\n"
+"PO-Revision-Date: 2017-01-02 21:40+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -16,148 +16,156 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: js/app.js:104
+#: js-min/app.min.js:5 js/app.js:103
 msgid "%1 objects"
 msgstr "%1 objects"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Raw"
 msgstr "Raw"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Silver"
 msgstr "Silver"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Black"
 msgstr "Black"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Bronze_light"
 msgstr "Bronze light"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Bronze"
 msgstr "Bronze"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Bronze_dark"
 msgstr "Bronze dark"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Gold_light"
 msgstr "Gold light"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Gold"
 msgstr "Gold"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Gold_dark"
 msgstr "Gold dark"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Green"
 msgstr "Green"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Blue"
 msgstr "Blue"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Red"
 msgstr "Red"
 
-#: js/app_init.js:49
+#: js-min/app_init.min.js:3 js/app_init.js:49
 msgid "Circular hole"
 msgstr "Circular hole"
 
-#: js/app_init.js:50
+#: js-min/app_init.min.js:3 js/app_init.js:50
 msgid "Rectangular hole"
 msgstr "Rectangular hole"
 
-#: js/app_init.js:51
+#: js-min/app_init.min.js:3 js/app_init.js:51
 msgid "Marker tool"
 msgstr "Marker tool"
 
-#: js/cHoleCirc.js:4
+#: js-min/cHoleCirc.min.js:3 js/cHoleCirc.js:4
 msgid "circ.hole"
 msgstr "Circular hole"
 
-#: js/cHoleCirc.js:134
+#: js-min/cHoleCirc.min.js:6 js/cHoleCirc.js:134
 msgid "diameter"
 msgstr "Diameter"
 
-#: js/cHoleCirc.js:136 js/cHoleRect.js:231
+#: js-min/cHoleCirc.min.js:6 js/cHoleCirc.js:136 js/cHoleRect.js:231
 msgid "depth"
 msgstr "Depth"
 
-#: js/cHoleCirc.js:137 js/cHoleRect.js:233
+#: js-min/cHoleCirc.min.js:6 js/cHoleCirc.js:137 js/cHoleRect.js:233
 msgid "x"
 msgstr "X position"
 
-#: js/cHoleCirc.js:138 js/cHoleRect.js:234
+#: js-min/cHoleCirc.min.js:6 js/cHoleCirc.js:138 js/cHoleRect.js:234
 msgid "y"
 msgstr "Y position"
 
-#: js/cHoleRect.js:4
-msgid "rect.hole"
-msgstr "Rectangular hole"
-
-#: js/cHoleRect.js:221 js/cPanel.js:126
-msgid "qp_width"
-msgstr "Width"
-
-#: js/cHoleRect.js:225 js/cPanel.js:131
-msgid "qp_height"
-msgstr "Height"
-
-#: js/cHoleRect.js:229 js/cPanel.js:142
-msgid "r1"
-msgstr "Corner radius"
-
-#: js/cHoleRect.js:232
-msgid "qp_angle"
-msgstr "Rotation angle"
-
-#: js/cPanel.js:5
+#: js-min/cPanel.min.js:3 js/cPanel.js:5
 msgid "panel"
 msgstr "Panel"
 
-#: js/cPanel.js:121
+#: js-min/cPanel.min.js:6 js/cPanel.js:121
 msgid "qp_name"
 msgstr "Panel name"
 
-#: js/cPanel.js:138
+#: js-min/cPanel.min.js:6 js/cHoleRect.js:221 js/cPanel.js:126
+msgid "qp_width"
+msgstr "Width"
+
+#: js-min/cPanel.min.js:6 js/cHoleRect.js:225 js/cPanel.js:131
+msgid "qp_height"
+msgstr "Height"
+
+#: js-min/cPanel.min.js:7 js/cPanel.js:138
 msgid "thickness"
 msgstr "Thickness"
 
-#: js/cPanel.js:150
+#: js-min/cPanel.min.js:7 js/cHoleRect.js:229 js/cPanel.js:142
+msgid "r1"
+msgstr "Corner radius"
+
+#: js-min/cPanel.min.js:7 js/cPanel.js:150
 msgid "surfcolor"
 msgstr "Surface color"
 
-#: js/cPanel.js:169 js/cPanel.js:176
-msgid "Error occured while saveing panel: %1, %2"
-msgstr "Error occured while saving the panel: %1, %2"
+#: js-min/cPanel.min.js:8 js/cPanel.js:169 js/cPanel.js:176
+msgid "Error occured while saving panel: %1, %2"
+msgstr "Error occured while saving panel: %1, %2"
 
-#: js/cPanel.js:172
+#: js-min/cPanel.min.js:8 js/cPanel.js:172
 msgid "Panel saved"
 msgstr "Panel sucessfully saved"
 
-#: js/prototypes.js:132
+#: js-min/cPanel.min.js:8 js-min/cPanel.min.js:9 js/cPanel.js:193
+#: js/cPanel.js:197
+msgid "Error occured while loading panel: %1, %2"
+msgstr "Error occured while loading panel: %1, %2"
+
+#: js-min/prototypes.min.js:4 js/prototypes.js:132
 msgid "Value %1=%2 is out of range."
 msgstr "Value is out of range: %1=%2"
 
-#: js/welcome_dialog.js:1
+#: js-min/welcome_dialog.min.js:1 js/welcome_dialog.js:1
 msgid "Welcome to QP"
 msgstr "Welcome to QuickPanel!"
 
-#: js/welcome_dialog.js:2
+#: js-min/welcome_dialog.min.js:1 js/welcome_dialog.js:2
 msgid "Please select language"
 msgstr ""
 "We are happy you decided to try our application. Please select your "
 "preferred language:"
 
-#: js/welcome_dialog.js:20
+#: js-min/welcome_dialog.min.js:1 js/welcome_dialog.js:20
 msgid "Oops! Error: %1, %2"
 msgstr "Oops! Something is wrong. Please inform us you got this error: %1, %2"
+
+#: js/cHoleRect.js:4
+msgid "rect.hole"
+msgstr "Rectangular hole"
+
+#: js/cHoleRect.js:232
+msgid "qp_angle"
+msgstr "Rotation angle"
+
+#~ msgid "Error occured while saveing panel: %1, %2"
+#~ msgstr "Error occured while saving the panel: %1, %2"

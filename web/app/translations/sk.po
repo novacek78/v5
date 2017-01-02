@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2016-12-31 14:17+0100\n"
-"PO-Revision-Date: 2016-12-31 14:17+0100\n"
+"POT-Creation-Date: 2017-01-02 21:40+0100\n"
+"PO-Revision-Date: 2017-01-02 21:41+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -16,148 +16,156 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: js/app.js:104
+#: js-min/app.min.js:5 js/app.js:103
 msgid "%1 objects"
 msgstr "%1 objektov"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Raw"
 msgstr "Surový"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Silver"
 msgstr "Strieborný"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Black"
 msgstr "Čierny"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Bronze_light"
 msgstr "Svetlo bronzový"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:1 js/app_constants.js:15
 msgid "Bronze"
 msgstr "Bronzový"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Bronze_dark"
 msgstr "Tmavo bronzový"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Gold_light"
 msgstr "Svetlo zlatý"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Gold"
 msgstr "Zlatý"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Gold_dark"
 msgstr "Tmavo zlatý"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Green"
 msgstr "Zelený"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Blue"
 msgstr "Modrý"
 
-#: js/app_constants.js:15
+#: js-min/app_constants.min.js:2 js/app_constants.js:15
 msgid "Red"
 msgstr "Červený"
 
-#: js/app_init.js:49
+#: js-min/app_init.min.js:3 js/app_init.js:49
 msgid "Circular hole"
 msgstr "Kruhový otvor"
 
-#: js/app_init.js:50
+#: js-min/app_init.min.js:3 js/app_init.js:50
 msgid "Rectangular hole"
 msgstr "Obdĺžnikový otvor"
 
-#: js/app_init.js:51
+#: js-min/app_init.min.js:3 js/app_init.js:51
 msgid "Marker tool"
 msgstr "Zvýrazňovač"
 
-#: js/cHoleCirc.js:4
+#: js-min/cHoleCirc.min.js:3 js/cHoleCirc.js:4
 msgid "circ.hole"
 msgstr "Kruhový otvor"
 
-#: js/cHoleCirc.js:134
+#: js-min/cHoleCirc.min.js:6 js/cHoleCirc.js:134
 msgid "diameter"
 msgstr "Priemer"
 
-#: js/cHoleCirc.js:136 js/cHoleRect.js:231
+#: js-min/cHoleCirc.min.js:6 js/cHoleCirc.js:136 js/cHoleRect.js:231
 msgid "depth"
 msgstr "Hĺbka"
 
-#: js/cHoleCirc.js:137 js/cHoleRect.js:233
+#: js-min/cHoleCirc.min.js:6 js/cHoleCirc.js:137 js/cHoleRect.js:233
 msgid "x"
 msgstr "Poloha X"
 
-#: js/cHoleCirc.js:138 js/cHoleRect.js:234
+#: js-min/cHoleCirc.min.js:6 js/cHoleCirc.js:138 js/cHoleRect.js:234
 msgid "y"
 msgstr "Poloha Y"
 
-#: js/cHoleRect.js:4
-msgid "rect.hole"
-msgstr "Obdĺžnik.otvor"
-
-#: js/cHoleRect.js:221 js/cPanel.js:126
-msgid "qp_width"
-msgstr "Šírka"
-
-#: js/cHoleRect.js:225 js/cPanel.js:131
-msgid "qp_height"
-msgstr "Výška"
-
-#: js/cHoleRect.js:229 js/cPanel.js:142
-msgid "r1"
-msgstr "Zaoblenie rohu"
-
-#: js/cHoleRect.js:232
-msgid "qp_angle"
-msgstr "Uhol natočenia"
-
-#: js/cPanel.js:5
+#: js-min/cPanel.min.js:3 js/cPanel.js:5
 msgid "panel"
 msgstr "Panel"
 
-#: js/cPanel.js:121
+#: js-min/cPanel.min.js:6 js/cPanel.js:121
 msgid "qp_name"
 msgstr "Názov"
 
-#: js/cPanel.js:138
+#: js-min/cPanel.min.js:6 js/cHoleRect.js:221 js/cPanel.js:126
+msgid "qp_width"
+msgstr "Šírka"
+
+#: js-min/cPanel.min.js:6 js/cHoleRect.js:225 js/cPanel.js:131
+msgid "qp_height"
+msgstr "Výška"
+
+#: js-min/cPanel.min.js:7 js/cPanel.js:138
 msgid "thickness"
 msgstr "Hrúbka"
 
-#: js/cPanel.js:150
+#: js-min/cPanel.min.js:7 js/cHoleRect.js:229 js/cPanel.js:142
+msgid "r1"
+msgstr "Zaoblenie rohu"
+
+#: js-min/cPanel.min.js:7 js/cPanel.js:150
 msgid "surfcolor"
 msgstr "Farba povrchu"
 
-#: js/cPanel.js:169 js/cPanel.js:176
-msgid "Error occured while saveing panel: %1, %2"
-msgstr "Počas ukladania panela sa vyskytla chyba: %1, %2"
+#: js-min/cPanel.min.js:8 js/cPanel.js:169 js/cPanel.js:176
+msgid "Error occured while saving panel: %1, %2"
+msgstr "Chyba pri ukladaní panelu: %1, %2"
 
-#: js/cPanel.js:172
+#: js-min/cPanel.min.js:8 js/cPanel.js:172
 msgid "Panel saved"
 msgstr "Panel bol úspešne uložený"
 
-#: js/prototypes.js:132
+#: js-min/cPanel.min.js:8 js-min/cPanel.min.js:9 js/cPanel.js:193
+#: js/cPanel.js:197
+msgid "Error occured while loading panel: %1, %2"
+msgstr "Chyba pri nahrávaní panelu: %1, %2"
+
+#: js-min/prototypes.min.js:4 js/prototypes.js:132
 msgid "Value %1=%2 is out of range."
 msgstr "Hodnota je mimo rozsahu: %1=%2"
 
-#: js/welcome_dialog.js:1
+#: js-min/welcome_dialog.min.js:1 js/welcome_dialog.js:1
 msgid "Welcome to QP"
 msgstr "Vitajte v aplikácii QuickPanel!"
 
-#: js/welcome_dialog.js:2
+#: js-min/welcome_dialog.min.js:1 js/welcome_dialog.js:2
 msgid "Please select language"
 msgstr ""
 "Ďakujeme, že ste sa rozhodli vyskúšať QuickPanel, prosím vyberte si "
 "preferovaný jazyk aplikácie:"
 
-#: js/welcome_dialog.js:20
+#: js-min/welcome_dialog.min.js:1 js/welcome_dialog.js:20
 msgid "Oops! Error: %1, %2"
 msgstr "Vyskytla sa chyba, prosím informujte nás o chybovom hlásení: %1, %2"
+
+#: js/cHoleRect.js:4
+msgid "rect.hole"
+msgstr "Obdĺžnik.otvor"
+
+#: js/cHoleRect.js:232
+msgid "qp_angle"
+msgstr "Uhol natočenia"
+
+#~ msgid "Error occured while saveing panel: %1, %2"
+#~ msgstr "Počas ukladania panela sa vyskytla chyba: %1, %2"
