@@ -122,14 +122,22 @@ function setPropertiesPanelEvents(){
         },
         focusout: function(event){
             saveNumberValue(event.target);
+        },
+        focusin: function(event){
+            event.target.select();
         }});
+
     $( ".textValue").on({
         keypress: function(event){
             if (event.keyCode == 13) saveTextValue(event.target); // ENTER
         },
         focusout: function(event){
             saveTextValue(event.target);
+        },
+        focusin: function(event){
+            event.target.select();
         }});
+
     $( ".selectValue").on({
         change: function(event){
             saveSelectValue(event.target);

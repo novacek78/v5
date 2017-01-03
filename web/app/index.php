@@ -82,7 +82,6 @@
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cHoleRect<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cHoleCirc<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/prototypes<?php echo CFG_FILE_JS_EXT ?>"></script>
-    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_init<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_exit<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/events<?php echo CFG_FILE_JS_EXT ?>"></script>
@@ -95,6 +94,10 @@
         $( function() {
             initApplication();
         } );
+
+        $(window).resize(function() {
+            resizeApplication();
+        });
 
         $(window).unload(function() {
             exitApplication();
