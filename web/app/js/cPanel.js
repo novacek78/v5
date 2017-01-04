@@ -1,7 +1,7 @@
 var Panel = fabric.util.createClass(fabric.Object, {
 
-    type: FT_PANEL,
-    qp_id: null,
+    qp_id: null, // ID v databaze QP
+    objectCounter: 1, // ID, ktore ziska nasledujuci pridany objekt
     descShort: _('panel'),
     name: 'Panel 1',
     originX: 'left',
@@ -64,6 +64,43 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
         ctx.fillStyle = this.fill;
         ctx.fill();
+    },
+
+    add: function(Obj) {
+
+        Obj.clientId = this.objectCounter;
+        this.objectCounter++;
+
+        TheCanvas.add(Obj);
+    },
+
+    selectObject: function(Obj) {
+
+        TheCanvas.setActiveObject(Obj, null);
+    },
+
+    getObject: function(clientId) {
+
+        var objects = TheCanvas.getObjects();
+
+        for (var i = 0; i < objects.length; i++){
+            if (objects[i].clientId == clientId)
+                return objects[i];
+        }
+    },
+
+    getFeatures: function() {
+
+        var allObjects = TheCanvas.getObjects();
+        var arrFeatures = [];
+
+        for (var i = 0; i < allObjects.length; i++){
+            if (allObjects[i].clientId > 0){ // ak sa jedna o ficuru na paneli
+                arrFeatures.push(allObjects[i]);
+            }
+        }
+
+        return arrFeatures;
     },
 
 /**
@@ -155,23 +192,40 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
     savePanel: function () {
 
-        var ajaxData;
+        var ajaxPanel, ficury;
+        var ajaxFicury = [];
 
-        ajaxData = this.getTransportObject();
-        ajaxData.user_id = TheUser.id;
+        ajaxPanel = this.getTransportObject();
+        ajaxPanel.user_id = TheUser.id;
+
+        ficury = this.getFeatures();
+
+        for (var i=0; i < ficury.length; i++){
+            ajaxFicury.push( ficury[i].getTransportObject() );
+        }
+        ajaxPanel.features = ajaxFicury;
 
         $.ajax({
             method: 'POST',
-            data: ajaxData,
+            data: ajaxPanel,
             url: "?ajax=savePanel&uid=" + TheUser.id + "&secure=" + TheUser.secure,
+
             success: function(data) {
-                if (isNaN(data)) {
-                    QP.showMessage('error', _('Error occured while saving panel: %1, %2', data, ''));
-                } else {
-                    ThePanel.qp_id = Number(data);
+                try {
+                    var json = JSON.parse(data);
+
+                    ThePanel.qp_id = Number(json.panelId);
+
+                    for (var key in json.features) {
+                        ThePanel.getObject(key).qp_id = Number(json.features[key]);
+                    }
+
                     QP.showMessage('success', _('Panel saved'));
+                } catch(e) {
+                    QP.showMessage('error', _('Error occured while saving panel: %1, %2', e, ''));
                 }
             },
+
             error: function(xhr,status,error){
                 QP.showMessage('error', _('Error occured while saving panel: %1, %2', error, status));
             }

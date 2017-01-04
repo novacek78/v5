@@ -37,6 +37,9 @@ class Panel {
         return $result;
     }
 
+    /**
+     * @return bool|stdClass
+     */
     public function save() {
         return $this->DAO->doSave($this->_attribs);
     }

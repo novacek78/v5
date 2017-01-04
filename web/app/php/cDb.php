@@ -7,33 +7,68 @@ require "../../cfg_db.php";
 class Db {
 
     /**
-     * @var mysqli
+     * @var string
      */
-    private static $_connection;
+    private static $_lastSql = 'nothing yet';
 
     /**
-     * @return mysqli
+     * @var bool
      */
-    public static function getConnection() {
+    private static $_debugMode = false;
 
-        if (isset(self::$_connection))
-            return self::$_connection;
+    /**
+     * @var int
+     */
+    private static $_debugQueryCounter = 0;
 
-        // Create connection
-        self::$_connection = new mysqli(CFG_DB_host, CFG_DB_user, CFG_DB_pwd);
+    /**
+     * @var mysqli
+     */
+    public static $Db;
 
-        // Check connection
-        if (self::$_connection->connect_error) {
-            die("Connection failed: " . self::$_connection->connect_error);
+
+
+    public static function __init() {
+
+        if (is_null(self::$Db)) {
+            self::$Db = new mysqli(CFG_DB_host, CFG_DB_user, CFG_DB_pwd);
+
+            // Check connection
+            if (self::$Db->connect_error) {
+                Log::w("DB SQL connection failed: " . self::$Db->connect_error);
+                return false;
+            }
+
+            // Select database
+            self::$Db->select_db(CFG_DB_dbname);
+
+            self::$Db->set_charset('utf8');
+            if (self::$_debugMode) Log::w('----- DB connected -----');
         }
-
-        // Select database
-        self::$_connection->select_db(CFG_DB_dbname);
-
-        self::$_connection->set_charset('utf8');
-
-        return self::$_connection;
     }
 
+    public static function query($sql) {
 
+        self::$_lastSql = $sql;
+        $result = self::$Db->query($sql);
+
+        if ( ! $result) {
+            Log::w($sql);
+            Log::w(self::$Db->error);
+        } else {
+            if (self::$_debugMode) {
+                self::$_debugQueryCounter++;
+                Log::w('#' . self::$_debugQueryCounter . " : $sql");
+            }
+        }
+
+        return $result;
+    }
+
+    public static function getLastSql() {
+
+        return self::$_lastSql;
+    }
 }
+
+Db::__init();

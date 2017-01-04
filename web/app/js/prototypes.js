@@ -4,7 +4,6 @@
 function definePrototypes(){
 
     // ----------- default properties ----------------------
-    fabric.Object.prototype.descShort = 'object';
     fabric.Object.prototype.borderColor = 'red';
     fabric.Object.prototype.borderDashArray = [5,8];
     fabric.Object.prototype.cornerColor = 'red';
@@ -16,8 +15,11 @@ function definePrototypes(){
     fabric.Circle.prototype.perPixelTargetFind = true;
 
     // ----------- custom properties -----------------------
+    fabric.Object.prototype.descShort = 'object';
     fabric.Object.prototype.basepoint = BP_CENTER; // poloha base pointu
     fabric.Object.prototype.depth = -1; // hlbka
+    fabric.Object.prototype.clientId = -1; // nemenne ID
+    fabric.Object.prototype.qp_id = -1; // ID pridelene v DB systeme QP (pre panel aj pre feature)
 
     // --------- custom methods ----------------------------
     fabric.Object.prototype.on('modified', function(){

@@ -18,8 +18,8 @@ switch ($action) {
 
             $Panel = new Panel();
             $Panel->loadFromArray($_POST);
-            $resultId = $Panel->save();
-            echo $resultId;
+            $resultObject = $Panel->save();
+            echo json_encode($resultObject);
         }
     } break;
 

@@ -129,6 +129,25 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
                 }
             };
 
+        objAttribs.qp_id = {
+            type: 'number',
+            desc: 'id',
+            hidden: true,
+            db_mapping: 'id'
+        };
+
+        objAttribs.clientId = {
+            type: 'number',
+            desc: 'clientId',
+            hidden: true
+        };
+
+        objAttribs.type = {
+            type: 'number',
+            desc: 'type',
+            hidden: true
+        };
+
         objAttribs.diameter.type = 'number';
         objAttribs.diameter.max = Math.min(ThePanel.qp_width, ThePanel.qp_height);
         objAttribs.diameter.desc = _('diameter');

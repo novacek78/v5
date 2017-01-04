@@ -16,8 +16,14 @@ class Log {
 
         if (is_array($text))
             $text = var_export($text, true);
+        elseif (is_bool($text))
+            $text = var_export($text, true);
+        elseif (is_object($text)){
+            self::w(get_object_vars($text));
+            return;
+        }
 
-        error_log(date('H:i:s') . "   " . $text . PHP_EOL, 3, "logs/log.txt");
+        error_log(date('H:i:s') . "   " . $text . PHP_EOL, 3, "../../logs-app/log.txt");
     }
 
 

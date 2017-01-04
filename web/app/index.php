@@ -76,6 +76,7 @@
     <link rel="stylesheet" href="css/app.css"/>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans_<?php echo $User->getConfigValue('lang', 'en') . CFG_FILE_JS_EXT ?>"></script>
+<!--    odtialto skombinovane .js vsetko OK -->
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_constants<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cQP<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cPanel<?php echo CFG_FILE_JS_EXT ?>"></script>
@@ -84,6 +85,7 @@
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/prototypes<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_exit<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app<?php echo CFG_FILE_JS_EXT ?>"></script>
+<!--    potialto skombinovane .js vsetko OK -->
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/events<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript">
         var TheUser = {

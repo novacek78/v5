@@ -51,6 +51,7 @@ function initApplication() {
     $( "#menu_tools_marker" ).text(_('Marker tool'));
 
     ThePanel.loadPanel();
+
 }
 
 function resizeApplication() {
@@ -237,8 +238,8 @@ function addRectHole() {
         qp_height: 30
     });
 
-    TheCanvas.add(obj);
-    TheCanvas.setActiveObject(obj, null);
+    ThePanel.add(obj);
+    ThePanel.selectObject(obj);
 }
 
 function addCircHole() {
@@ -248,6 +249,6 @@ function addCircHole() {
         diameter: 20
     });
 
-    TheCanvas.add(obj);
-    TheCanvas.setActiveObject(obj, null);
+    ThePanel.add(obj);
+    ThePanel.selectObject(obj);
 }

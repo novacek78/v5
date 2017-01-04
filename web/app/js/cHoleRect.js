@@ -216,6 +216,25 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
                 }
             };
 
+        objAttribs.clientId = {
+            type: 'number',
+            desc: 'clientId',
+            hidden: true
+        };
+
+        objAttribs.qp_id = {
+            type: 'number',
+            desc: 'id',
+            hidden: true,
+            db_mapping: 'id'
+        };
+
+        objAttribs.type = {
+            type: 'number',
+            desc: 'type',
+            hidden: true
+        };
+
         objAttribs.qp_width.type = 'number';
         objAttribs.qp_width.max = ThePanel.qp_width+6;
         objAttribs.qp_width.desc = _('qp_width');
