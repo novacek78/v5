@@ -238,10 +238,12 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         objAttribs.qp_width.type = 'number';
         objAttribs.qp_width.max = ThePanel.qp_width+6;
         objAttribs.qp_width.desc = _('qp_width');
+        objAttribs.qp_width.db_mapping = 'size1';
 
         objAttribs.qp_height.type = 'number';
         objAttribs.qp_height.max = ThePanel.qp_height+6;
         objAttribs.qp_height.desc = _('qp_height');
+        objAttribs.qp_height.db_mapping = 'size2';
 
         objAttribs.r1.type = 'number';
         objAttribs.r1.max = 250;
