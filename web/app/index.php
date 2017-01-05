@@ -106,7 +106,9 @@
 
 </head>
 <body>
-     <!--top menu-->
+    <!-- ------------------ -->
+    <!--      top menu      -->
+    <!-- ------------------ -->
     <nav class="navbar navbar-light bg-faded">
         <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
         <a class="navbar-brand" href="http://www.quickpanel.sk/app"><img src="./img/qp-logo-80px.png" height="40px" style="vertical-align: top"></a>
@@ -150,7 +152,11 @@ endif;
 	    <canvas id="mainCanvas"></canvas>
     </div>
 
-    <div id="propPanel" class="ui-widget-content">
+
+     <!-- ------------------ -->
+     <!--  properties panel  -->
+     <!-- ------------------ -->
+     <div id="propPanel" class="ui-widget-content">
         <div class="title"></div>
         <div class="items">
             <table id="propGrid"></table>
@@ -166,6 +172,9 @@ endif;
 <?php
 if (isset($showLanguageDialog) && ($showLanguageDialog === true)):
 ?>
+    <!-- ------------------------ -->
+    <!--  select language dialog  -->
+    <!-- ------------------------ -->
     <div id="dialogChooseLang" title="xxxxxxxx">
         <p>xxxxxxxxxxxxxx</p>
         <div id="flags">
@@ -179,6 +188,31 @@ if (isset($showLanguageDialog) && ($showLanguageDialog === true)):
 <?php
 endif; // if (isset($showLanguageDialog) && ($showLanguageDialog === true)):
 ?>
+
+
+<!-- ------------------- -->
+<!--  loading animation  -->
+<!-- ------------------- -->
+<div id="inProgressWaiting">
+    <img id="animationRotating" src="img/loading.png" height="125px" />
+    <script type="text/javascript">
+        var inProgressRotateAngle = 0;
+
+        jQuery.fn.rotate = function(degrees) {
+            $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
+                '-moz-transform' : 'rotate('+ degrees +'deg)',
+                '-ms-transform' : 'rotate('+ degrees +'deg)',
+                'transform' : 'rotate('+ degrees +'deg)'});
+            return $(this);
+        };
+
+        setInterval(function() {
+            inProgressRotateAngle += 10;
+            if (inProgressRotateAngle >= 360) inProgressRotateAngle -= 360;
+            $('#animationRotating').rotate(inProgressRotateAngle);
+        }, 20);
+    </script>
+</div>
 
 </body>
 </html>

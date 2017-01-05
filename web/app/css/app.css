@@ -77,3 +77,11 @@ body {
     background-color: white; }
 
 
+#inProgressWaiting {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    visibility: hidden;
+}
+
+

@@ -51,6 +51,7 @@ function initApplication() {
     $( "#menu_tools_marker" ).text(_('Marker tool'));
 
     ThePanel.loadPanel(0);
+
 }
 
 function resizeApplication() {
