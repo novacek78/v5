@@ -74,6 +74,37 @@ var Panel = fabric.util.createClass(fabric.Object, {
         TheCanvas.add(Obj);
     },
 
+    addFromJson: function(jsonObj){
+
+        var className = FT_FEATURE_CLASS_NAMES[ Number(jsonObj.type) ];
+
+        var result = eval('new ' + className + '()');
+        var objAttribInfo = result.getAttribsInfo();
+
+        for (var attribNameInDb in jsonObj){
+
+            var attribNameInObject = attribNameInDb;
+
+            // prejdeme atributmi abjektu a hladame, ci je nieco namapovane na tento nazov DB stlpca
+            for (var attribName in objAttribInfo){
+                if (objAttribInfo[attribName].db_mapping){
+                    if (objAttribInfo[attribName].db_mapping == attribNameInDb){
+                        attribNameInObject = attribName;
+                    }
+                }
+            }
+
+            // este skonvertujeme udaj na cislo ak treba
+            if (objAttribInfo[attribNameInObject]) { // z DB pridu aj polia, ktore v atributoch nefiguruju (panel_id) tak to overime
+                if (objAttribInfo[attribNameInObject].type == 'number')
+                    jsonObj[attribNameInDb] = Number(jsonObj[attribNameInDb]);
+                result.set(attribNameInObject, jsonObj[attribNameInDb]);
+            }
+        }
+
+        ThePanel.add(result);
+    },
+
     selectObject: function(Obj) {
 
         TheCanvas.setActiveObject(Obj, null);
@@ -232,19 +263,40 @@ var Panel = fabric.util.createClass(fabric.Object, {
         });
     },
 
-    loadPanel: function () {
+    loadPanel: function (panelId) {
+
+        var panelIdUrl = '';
+        if (panelId > 0) panelIdUrl = "&pid=" + panelId;
 
         $.ajax({
-            url: "?ajax=loadPanel&uid=" + TheUser.id + "&secure=" + TheUser.secure,
+            url: "?ajax=loadPanel&uid=" + TheUser.id + "&secure=" + TheUser.secure + panelIdUrl,
             success: function(data) {
-                var jsonObj = JSON.parse(data);
-                if (jsonObj) {
-                    ThePanel.loadFromJson(jsonObj);
-                } else {
-                    if (data == 'null') {
-                        // nenasiel sa pre daneho usera ziadny panel v DB
-                    } else
-                       QP.showMessage('error', _('Error occured while loading panel: %1, %2', data, ''));
+                if (data != 'null') { // ak su data NULL, znamena to, ze pre tohoto usera nie je ulozeny ziadny panel
+                    try {
+                        var jsonObj = JSON.parse(data);
+                        ThePanel.loadFromJson(jsonObj);
+
+                        // este nahrame features
+                        if (jsonObj.features && jsonObj.features.length > 0){
+                            for (var i = 0; i < jsonObj.features.length; i++){
+                                ThePanel.addFromJson(jsonObj.features[i]);
+                            }
+                        }
+
+                        if (READONLY_MODE){
+                            TheCanvas.forEachObject(function(object){
+                                object.lockMovementX = true;
+                                object.lockMovementY = true;
+                                object.hasControls = false;
+                                object.hoverCursor = 'pointer';
+                            });
+                        }
+
+                        TheCanvas.renderAll();
+                        showProperties(ThePanel);
+                    } catch (e) {
+                        QP.showMessage('error', _('Error occured while loading panel: %1, %2', e, ''));
+                    }
                 }
             },
             error: function(xhr,status,error){

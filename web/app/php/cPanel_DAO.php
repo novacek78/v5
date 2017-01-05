@@ -144,28 +144,42 @@ class Panel_DAO {
     }
 
 
-    public function doLoad($id, $userId = null) {
+    public function doLoad($panelId, $userId = null) {
 
-        $id = Db::$Db->real_escape_string($id);
+        $returnObject = new stdClass();
 
-        if ( ! empty($id)) {
-            $result = Db::query("SELECT * FROM qp2_panel WHERE id=$id");
-            if ($result) {
-                $data = $result->fetch_assoc();
-                return $data;
-            } else {
-                return false;
-            }
-        } else {
-            $userId = Db::$Db->real_escape_string($userId);
+        $panelId = Db::$Db->real_escape_string($panelId);
+        $userId = Db::$Db->real_escape_string($userId);
+
+        if ( empty($panelId)) {
+            // nemame ID - nahrame posledne upraveny panel daneho usera
             $result = Db::query("SELECT *, GREATEST(IFNULL(created,0), IFNULL(last_modified,0)) AS cas FROM qp2_panel WHERE user_id=$userId ORDER BY cas DESC");
-            if ($result) {
-                $data = $result->fetch_assoc(); // zoberiem len prvy riadok - panel, s ktorym pracoval posledne
-                return $data;
-            } else {
-                return false;
-            }
+        } else {
+            $result = Db::query("SELECT * FROM qp2_panel WHERE id=$panelId");
         }
+
+        if ($result) {
+            $returnObject = $result->fetch_object();
+        } else {
+            return false;
+        }
+
+        // este nahrame jeho features
+        $result = Db::query("SELECT * FROM qp2_panelfeature WHERE panel_id=" . $returnObject->id);
+        if ($result) {
+            $features = array();
+            while ($feature = $result->fetch_object())
+                $features[] = $feature;
+            $returnObject->features = $features;
+        } else {
+            return false;
+        }
+
+        return $returnObject;
     }
 
+    public function doSharePanel($panelId, $type, $sharingEnabled) {
+
+
+    }
 }

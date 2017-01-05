@@ -115,33 +115,42 @@ function initEventHandlers() {
 
 function setPropertiesPanelEvents(){
 
-    // eventy properties panela - pre kazdy typ editovacieho policka zvlast
-    $( ".numberValue").on({
-        keypress: function(event){
-            if (event.keyCode == 13) saveNumberValue(event.target); // ENTER
-        },
-        focusout: function(event){
-            saveNumberValue(event.target);
-        },
-        focusin: function(event){
-            event.target.select();
-        }});
+    if (READONLY_MODE) {
+        $(".numberValue").attr('readonly', 'readonly').addClass('readonly');
+        $(".textValue").attr('readonly', 'readonly').addClass('readonly');
+        $(".selectValue").attr('disabled', 'true').addClass('readonly');
+    } else {
+        // eventy properties panela - pre kazdy typ editovacieho policka zvlast
+        $(".numberValue").on({
+            keypress: function (event) {
+                if (event.keyCode == 13) saveNumberValue(event.target); // ENTER
+            },
+            focusout: function (event) {
+                saveNumberValue(event.target);
+            },
+            focusin: function (event) {
+                event.target.select();
+            }
+        });
 
-    $( ".textValue").on({
-        keypress: function(event){
-            if (event.keyCode == 13) saveTextValue(event.target); // ENTER
-        },
-        focusout: function(event){
-            saveTextValue(event.target);
-        },
-        focusin: function(event){
-            event.target.select();
-        }});
+        $(".textValue").on({
+            keypress: function (event) {
+                if (event.keyCode == 13) saveTextValue(event.target); // ENTER
+            },
+            focusout: function (event) {
+                saveTextValue(event.target);
+            },
+            focusin: function (event) {
+                event.target.select();
+            }
+        });
 
-    $( ".selectValue").on({
-        change: function(event){
-            saveSelectValue(event.target);
-        }});
+        $(".selectValue").on({
+            change: function (event) {
+                saveSelectValue(event.target);
+            }
+        });
+    }
 }
 
 

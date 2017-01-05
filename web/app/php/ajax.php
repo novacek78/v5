@@ -12,6 +12,16 @@ switch ($action) {
         }
     } break;
 
+    case 'sharePanel': {
+        $User = new User();
+        if ($User->loginAnonymousUser($_GET['uid'], $_GET['secure'])) {
+            $User->setConfigValue('lang', $_GET['lang']);
+
+            $Panel = new Panel();
+            $Panel->sharePanel($_GET['pid'], $_GET['type'], $_GET['enabled']);
+        }
+    } break;
+
     case 'savePanel': {
         $User = new User();
         if ($User->loginAnonymousUser($_GET['uid'], $_GET['secure'])) {
@@ -29,10 +39,10 @@ switch ($action) {
 
             $Panel = new Panel();
 
-            if (isset($_GET['id']))
-                $Panel->load($_GET['id']);
+            if (isset($_GET['pid']))
+                $Panel->load($_GET['pid']);
             else
-                $result = $Panel->loadLast($User->getId()); // ak nie je zadefinovane ID panela, nahra ten, s ktorym robil ako poslednym
+                $Panel->loadLast($User->getId()); // ak nie je zadefinovane ID panela, nahra ten, s ktorym robil ako poslednym
 
             echo $Panel->makeJson();
         }

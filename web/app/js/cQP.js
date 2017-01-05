@@ -46,6 +46,10 @@ var QP = {
         }
 
         console.log('"' + type + '" message : ' + message.text);
+    },
+
+    isSet: function(value){
+        return ( ! isNaN(value) && (value != null) && (value != 'undefined'));
     }
 
 

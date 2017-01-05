@@ -13,27 +13,24 @@
         exit;
     }
 
+    if (isset($_GET['share'])){
+        define('READONLY_MODE', true);
+    } else {
+        define('READONLY_MODE', false);
+    }
+
 
 
     $User = new User();
 
-    if( ! isset($_COOKIE['uid'])) {
+    // ak to je neznamy user alebo sa nepodarilo ho prihlasit, vytvorime noveho anonyma
+    if( ! isset($_COOKIE['uid']) || ( ! $User->loginAnonymousUser($_COOKIE['uid'], $_COOKIE['secure']))) {
 
         $User->createAnonymousUser();
         $expiry = time()+60*60*24*28;
         setcookie('uid', $User->getId(), $expiry); // expiracia po 28 dnoch
         setcookie('secure', $User->getSecureKey(), $expiry); // expiracia po 28 dnoch
         $showLanguageDialog = true;
-
-    } else {
-
-        if ( ! $User->loginAnonymousUser($_COOKIE['uid'], $_COOKIE['secure'])) {
-            $User->createAnonymousUser();
-            $expiry = time()+60*60*24*28;
-            setcookie('uid', $User->getId(), $expiry); // expiracia po 28 dnoch
-            setcookie('secure', $User->getSecureKey(), $expiry); // expiracia po 28 dnoch
-            $showLanguageDialog = true;
-        }
     }
 
 ?><!DOCTYPE html>
@@ -76,7 +73,6 @@
     <link rel="stylesheet" href="css/app.css"/>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans_<?php echo $User->getConfigValue('lang', 'en') . CFG_FILE_JS_EXT ?>"></script>
-<!--    odtialto skombinovane .js vsetko OK -->
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_constants<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cQP<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cPanel<?php echo CFG_FILE_JS_EXT ?>"></script>
@@ -85,9 +81,11 @@
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/prototypes<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_exit<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app<?php echo CFG_FILE_JS_EXT ?>"></script>
-<!--    potialto skombinovane .js vsetko OK -->
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/events<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript">
+
+        const READONLY_MODE = <?php echo (READONLY_MODE) ? "true" : "false"; ?>;
+
         var TheUser = {
             id: <?php echo $User->getId()?>,
             secure: <?php echo $User->getSecureKey()?>
@@ -114,15 +112,19 @@
         <a class="navbar-brand" href="http://www.quickpanel.sk/app"><img src="./img/qp-logo-80px.png" height="40px" style="vertical-align: top"></a>
         <div class="collapse navbar-toggleable-md" id="navbarResponsive">
             <ul class="nav navbar-nav">
+<?php
+// niektore ovladacie prvky zobrazime len ak sa nejedna o readonly pohlad na panel
+if ( ! READONLY_MODE ):
+?>
                 <li class="nav-item">
                     <a class="nav-link" id="menu_new_recthole" href="javascript:addRectHole();">xxxxxxxxx</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="menu_new_circhole" href="javascript:addCircHole();">xxxxxxx</a>
                 </li>
-                <!--<li class="nav-item">-->
-                    <!--<a class="nav-link" href="javascript:;">Circular</a>-->
-                <!--</li>-->
+<?php
+endif;
+?>
                 <li class="nav-item">
                     <a class="nav-link" id="menu_tools_marker" href="javascript:freehandToggle()">xxxxxxx</a>
                 </li>

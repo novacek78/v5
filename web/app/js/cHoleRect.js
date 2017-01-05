@@ -22,21 +22,28 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             console.log('HoleRect.initialize(): Don\'t use left/top, use x/y instead.');
         }
 
-        if (options.r1 == null) {
-            options.r1 = Math.min(options.qp_width, options.qp_height) / 3;
-            if (options.r1 < 0.5) options.r1 = 0.5;
-            if (options.r1 > 3) options.r1 = 3;
-        }
-        if ((options.r1 < 0.5) && (options.r1 > 0)) {
-            options.r1 = 0.5;
-            console.log('Corner radius too small, changing to R0.5');
-        }
-        if (options.r1 == 0){
-            options.width = options.qp_width + ZAPICHY_PRIDAVOK;
-            options.height = options.qp_height + ZAPICHY_PRIDAVOK;
+        if ( ! QP.isSet(options.r1)) {
+
+            if (QP.isSet(options.qp_width) && QP.isSet(options.qp_height)) {
+                options.r1 = Math.min(options.qp_width, options.qp_height) / 3;
+                if (options.r1 < 0.5) options.r1 = 0.5;
+                if (options.r1 > 3) options.r1 = 3;
+            } else {
+                options.r1 = 2;
+            }
+
         } else {
-            options.width = options.qp_width;
-            options.height = options.qp_height;
+
+            if ((options.r1 < 0.5) && (options.r1 > 0)) {
+                options.r1 = 0.5;
+                console.log('Corner radius too small, changing to R0.5');
+            } else if (options.r1 == 0){
+                options.width = options.qp_width + ZAPICHY_PRIDAVOK;
+                options.height = options.qp_height + ZAPICHY_PRIDAVOK;
+            } else {
+                options.width = options.qp_width;
+                options.height = options.qp_height;
+            }
         }
 
         options.left = options.x;
@@ -86,7 +93,10 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             } else {
                 this.width = value;
                 // obmedzenie maxima radiusu
-                this.r1 = Math.min( this.r1 , Math.min(value, this.qp_height) / 2);
+                if (QP.isSet(this.r1))
+                    this.r1 = Math.min( this.r1 , Math.min(value, this.qp_height) / 2);
+                else
+                    this.r1 = Math.min(value, this.qp_height) / 2;
             }
         }
         if (key == 'qp_height') {
@@ -95,7 +105,10 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             } else {
                 this.height = value;
                 // obmedzenie maxima radiusu
-                this.r1 = Math.min( this.r1 , Math.min(this.qp_width, value) / 2);
+                if (QP.isSet(this.r1))
+                    this.r1 = Math.min( this.r1 , Math.min(this.qp_width, value) / 2);
+                else
+                    this.r1 = Math.min(value, this.qp_width) / 2;
             }
         }
 
@@ -248,6 +261,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         objAttribs.r1.type = 'number';
         objAttribs.r1.max = 250;
         objAttribs.r1.desc = _('r1');
+        objAttribs.r1.db_mapping = 'size3';
 
         objAttribs.depth = {type: 'number', desc: _('depth')};
         objAttribs.angle = {type: 'number', desc: _('qp_angle')};

@@ -118,6 +118,7 @@ class User_DAO {
 
         $result = Db::query("UPDATE qp2_config SET $key='$value' WHERE user_id=$uid");
 
+        // vymaze stare data aj z cache
         $this->_cfgCache = null;
 
         if ($result) return true;

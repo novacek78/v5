@@ -178,8 +178,6 @@ function definePrototypes(){
                 this.set(key, jsonObj[dbName]);
             }
         }
-        TheCanvas.renderAll();
-        showProperties(this);
     }
 
     /**

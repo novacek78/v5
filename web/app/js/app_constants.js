@@ -31,6 +31,9 @@ const BP_LEFTMIDDLE = 41;
 const BP_CENTER = 5;
 
 // typy ficrov podla systemu cislovania QP
-const FT_PANEL = 1;
 const FT_HOLE_CIRC = 10;
 const FT_HOLE_RECT = 20;
+const FT_FEATURE_CLASS_NAMES = {
+    10: 'HoleCirc',
+    20: 'HoleRect'
+};

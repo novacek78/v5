@@ -33,8 +33,7 @@ class Panel {
     }
 
     public function loadLast($userId) {
-        $result = $this->_attribs = $this->DAO->doLoad(null, $userId);
-        return $result;
+        $this->_attribs = $this->DAO->doLoad(null, $userId);
     }
 
     /**
@@ -44,9 +43,8 @@ class Panel {
         return $this->DAO->doSave($this->_attribs);
     }
 
-
-
-    public function getId(){
-        return $this->_id;
+    public function sharePanel($panelId, $type, $sharingEnabled) {
+        return $this->DAO->doSharePanel($panelId, $type, $sharingEnabled);
     }
+
 }

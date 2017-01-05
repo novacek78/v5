@@ -50,8 +50,7 @@ function initApplication() {
     $( "#menu_new_recthole" ).text(_('Rectangular hole'));
     $( "#menu_tools_marker" ).text(_('Marker tool'));
 
-    ThePanel.loadPanel();
-
+    ThePanel.loadPanel(0);
 }
 
 function resizeApplication() {
