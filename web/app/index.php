@@ -195,23 +195,6 @@ endif; // if (isset($showLanguageDialog) && ($showLanguageDialog === true)):
 <!-- ------------------- -->
 <div id="inProgressWaiting">
     <img id="animationRotating" src="img/loading.png" height="125px" />
-    <script type="text/javascript">
-        var inProgressRotateAngle = 0;
-
-        jQuery.fn.rotate = function(degrees) {
-            $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
-                '-moz-transform' : 'rotate('+ degrees +'deg)',
-                '-ms-transform' : 'rotate('+ degrees +'deg)',
-                'transform' : 'rotate('+ degrees +'deg)'});
-            return $(this);
-        };
-
-        setInterval(function() {
-            inProgressRotateAngle += 10;
-            if (inProgressRotateAngle >= 360) inProgressRotateAngle -= 360;
-            $('#animationRotating').rotate(inProgressRotateAngle);
-        }, 20);
-    </script>
 </div>
 
 </body>

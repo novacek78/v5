@@ -226,7 +226,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
         var ajaxPanel, ficury;
         var ajaxFicury = [];
 
-        $('#animationRotating').css('visibility', 'visible');
+        showLoadingAnimation(true);
 
         ajaxPanel = this.getTransportObject();
         ajaxPanel.user_id = TheUser.id;
@@ -258,16 +258,12 @@ var Panel = fabric.util.createClass(fabric.Object, {
                     QP.showMessage('error', _('Error occured while saving panel: %1, %2', e, ''));
                 }
 
-                setTimeout(function() {
-                    $('#animationRotating').css('visibility', 'hidden');
-                }, 500);
+                showLoadingAnimation(false);
             },
 
             error: function(xhr,status,error){
 
-                setTimeout(function() {
-                    $('#animationRotating').css('visibility', 'hidden');
-                }, 500);
+                showLoadingAnimation(false);
 
                 QP.showMessage('error', _('Error occured while saving panel: %1, %2', error, status));
             }
@@ -276,7 +272,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
     loadPanel: function (panelId) {
 
-        $('#animationRotating').css('visibility', 'visible');
+        showLoadingAnimation(true);
 
         var panelIdUrl = '';
         if (panelId > 0) panelIdUrl = "&pid=" + panelId;
@@ -312,16 +308,12 @@ var Panel = fabric.util.createClass(fabric.Object, {
                     }
                 }
 
-                setTimeout(function() {
-                    $('#animationRotating').css('visibility', 'hidden');
-                }, 500);
+                showLoadingAnimation(false);
 
             },
             error: function(xhr,status,error){
 
-                setTimeout(function() {
-                    $('#animationRotating').css('visibility', 'hidden');
-                }, 500);
+                showLoadingAnimation(false);
 
                 QP.showMessage('error', _('Error occured while loading panel: %1, %2', error, status));
             }

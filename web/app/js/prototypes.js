@@ -181,6 +181,21 @@ function definePrototypes(){
     }
 
     /**
+     * Funkcia natocenia elementu pomocou CSS
+     * Pouziva sa pre tocenie "loading..." animacie
+     *
+     * @param degrees
+     * @returns {*|jQuery|HTMLElement}
+     */
+    jQuery.fn.rotate = function(degrees) {
+        $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
+            '-moz-transform' : 'rotate('+ degrees +'deg)',
+            '-ms-transform' : 'rotate('+ degrees +'deg)',
+            'transform' : 'rotate('+ degrees +'deg)'});
+        return $(this);
+    };
+
+    /**
      * Zisti, ci sa v poli nachadza dana hodnota.
      * Nie je urcene pre hladanie objektov.
      *

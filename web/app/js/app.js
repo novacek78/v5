@@ -1,7 +1,10 @@
-var ThePanel;
 var TheCanvas;
+var ThePanel;
 var TheStatusText;
 var TheClipboard;
+
+var loadingAnimationAngle = 0;
+var loadingAnimationInterval;
 
 
 
@@ -58,12 +61,6 @@ function resizeApplication() {
     TheCanvas.setWidth(window.innerWidth);
     TheCanvas.setHeight(window.innerHeight);
     TheCanvas.renderAll();
-}
-
-function freehandToggle(){ // OBFUSCATE:rename=frhtgl
-    TheCanvas.freeDrawingBrush.color = 'rgba(221,255,0,0.55)';
-    TheCanvas.freeDrawingBrush.width = 5;
-    TheCanvas.isDrawingMode = !TheCanvas.isDrawingMode;
 }
 
 function saveNumberValue(edText) {
@@ -230,6 +227,29 @@ function showProperties(objectToInspect){
     setPropertiesPanelEvents();
 }
 
+function showLoadingAnimation(showIt){
+
+    if (showIt){
+
+        loadingAnimationInterval = setInterval(function() {
+            loadingAnimationAngle += 10;
+            if (loadingAnimationAngle >= 360) loadingAnimationAngle -= 360;
+            $('#animationRotating').rotate(loadingAnimationAngle);
+        }, 20);
+
+        $('#animationRotating').css('visibility', 'visible');
+
+    } else {
+
+        // schovame, ale az po pol sekunde aby to len tak neprebliklo
+        setTimeout(function() {
+            $('#animationRotating').css('visibility', 'hidden');
+            clearInterval(loadingAnimationInterval);
+        }, 500);
+
+    }
+}
+
 function addRectHole() {
     var obj = new HoleRect({
         x: 50,
@@ -252,3 +272,10 @@ function addCircHole() {
     ThePanel.add(obj);
     ThePanel.selectObject(obj);
 }
+
+function freehandToggle(){ // OBFUSCATE:rename=frhtgl
+    TheCanvas.freeDrawingBrush.color = 'rgba(221,255,0,0.55)';
+    TheCanvas.freeDrawingBrush.width = 5;
+    TheCanvas.isDrawingMode = !TheCanvas.isDrawingMode;
+}
+
