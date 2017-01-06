@@ -26,10 +26,14 @@ switch ($action) {
         $User = new User();
         if ($User->loginAnonymousUser($_GET['uid'], $_GET['secure'])) {
 
-            $Panel = new Panel();
-            $Panel->loadFromArray($_POST);
-            $resultObject = $Panel->save();
-            echo json_encode($resultObject);
+            try {
+                $Panel = new Panel();
+                $Panel->loadFromArray($_POST);
+                $resultObject = $Panel->save($User->getId());
+                echo json_encode($resultObject);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
         }
     } break;
 
@@ -37,14 +41,18 @@ switch ($action) {
         $User = new User();
         if ($User->loginAnonymousUser($_GET['uid'], $_GET['secure'])) {
 
-            $Panel = new Panel();
+            try {
+                $Panel = new Panel();
+                if (isset($_GET['pid']))
+                    $Panel->load($_GET['pid'], $User->getId());
+                else
+                    $Panel->loadLast($User->getId()); // ak nie je zadefinovane ID panela, nahra ten, s ktorym robil ako poslednym
 
-            if (isset($_GET['pid']))
-                $Panel->load($_GET['pid']);
-            else
-                $Panel->loadLast($User->getId()); // ak nie je zadefinovane ID panela, nahra ten, s ktorym robil ako poslednym
+                echo $Panel->makeJson();
 
-            echo $Panel->makeJson();
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
         }
     } break;
 

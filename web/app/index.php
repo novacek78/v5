@@ -71,9 +71,9 @@
     <link rel="stylesheet" href="css/my-bootstrap.css"/>
     <link rel="stylesheet" href="css/my-jquery-ui.css"/>
     <link rel="stylesheet" href="css/app.css"/>
-    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans_<?php echo $User->getConfigValue('lang', 'en') . CFG_FILE_JS_EXT ?>"></script>
-<!--    <script type="text/javascript" src="js-min/quickpanel.min.js"></script>-->
+<!--    <script type="text/javascript" src="js-min/quickpanel.min"></script>-->
+    <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/trans<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/app_constants<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cQP<?php echo CFG_FILE_JS_EXT ?>"></script>
     <script type="text/javascript" src="<?php echo CFG_FILE_JS_DIR ?>/cPanel<?php echo CFG_FILE_JS_EXT ?>"></script>
@@ -143,8 +143,8 @@ endif;
 
             </ul>
             <form class="form-inline float-lg-right">
-                <input class="form-control" type="text" placeholder="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input class="form-control" type="text" id="search_field" placeholder="xxxxxxxxxxx">
+                <button class="btn btn-outline-info" type="submit" id="search_button">xxxxxxxxxxxxx</button>
             </form>
         </div>
     </nav>

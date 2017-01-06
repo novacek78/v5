@@ -5,19 +5,24 @@
  * Pospaja vsetky .min.js subory + prepise mena funkcii
  */
 
+$inFilesExt = '.min.js';
 $inDir = '../js-min/';
 $outDir = '../js-min/';
 $inFiles = [
-    'app_constants.min.js',
-    'cQP.min.js',
-    'cPanel.min.js',
-    'cHoleRect.min.js',
-    'cHoleCirc.min.js',
-    'prototypes.min.js',
-    'app_exit.min.js',
-    'app.min.js'
+    'trans',
+    'app_constants',
+    'cQP',
+    'cPanel',
+    'cHoleRect',
+    'cHoleCirc',
+    'prototypes',
+    'app_exit',
+    'app',
+    'events'
 ];
-$outFile = 'quickpanel.min.js';
+$outFile = 'quickpanel.min'; // nema priponu .js lebo potom sa ho snazil ClosureCompiler zminifikovat a on uz minifikovany je
+$fileSeparator = PHP_EOL . PHP_EOL . '// --------------------------------' . PHP_EOL;
+//$fileSeparator = '';
 
 $varsRename = new stdClass();
 
@@ -30,8 +35,8 @@ $fileWrite = fopen($outDir . $outFile, "wb");
 if ($fileWrite){
 
     for ($i = 0; $i < count($inFiles); $i++){
-        $obsahSuboru = file_get_contents($inDir . $inFiles[$i]);
-        fwrite($fileWrite, $obsahSuboru);
+        $obsahSuboru = file_get_contents($inDir . $inFiles[$i] . $inFilesExt);
+        fwrite($fileWrite, $obsahSuboru . $fileSeparator);
     }
 
     fclose($fileWrite);

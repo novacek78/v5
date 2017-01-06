@@ -52,6 +52,8 @@ function initApplication() {
     $( "#menu_new_circhole" ).text(_('Circular hole'));
     $( "#menu_new_recthole" ).text(_('Rectangular hole'));
     $( "#menu_tools_marker" ).text(_('Marker tool'));
+    $( "#search_field" ).attr('placeholder', _('Search placeholder'));
+    $( "#search_button" ).text(_('Search button'));
 
     ThePanel.loadPanel(0);
 

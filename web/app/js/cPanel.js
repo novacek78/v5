@@ -255,7 +255,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
 
                     QP.showMessage('success', _('Panel saved'));
                 } catch(e) {
-                    QP.showMessage('error', _('Error occured while saving panel: %1, %2', e, ''));
+                    QP.showMessage('error', _('Error occured while saving panel: %1, %2', data, ''));
                 }
 
                 showLoadingAnimation(false);

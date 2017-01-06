@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2017-01-04 14:59+0100\n"
-"PO-Revision-Date: 2017-01-04 14:59+0100\n"
+"POT-Creation-Date: 2017-01-06 21:56+0100\n"
+"PO-Revision-Date: 2017-01-06 21:56+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -16,19 +16,27 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: js-min/app.min.js:3 js/app.js:49
+#: js-min/app.min.js:3 js/app.js:52
 msgid "Circular hole"
 msgstr "Kruhový otvor"
 
-#: js-min/app.min.js:3 js/app.js:50
+#: js-min/app.min.js:3 js/app.js:53
 msgid "Rectangular hole"
 msgstr "Obdĺžnikový otvor"
 
-#: js-min/app.min.js:3 js/app.js:51
+#: js-min/app.min.js:3 js/app.js:54
 msgid "Marker tool"
 msgstr "Zvýrazňovač"
 
-#: js-min/app.min.js:8 js/app.js:164
+#: js-min/app.min.js:4 js/app.js:55
+msgid "Search placeholder"
+msgstr "Hľadaný rozmer"
+
+#: js-min/app.min.js:4 js/app.js:56
+msgid "Search button"
+msgstr "Hľadať"
+
+#: js-min/app.min.js:8 js/app.js:163
 msgid "%1 objects"
 msgstr "%1 objektov"
 
@@ -88,18 +96,18 @@ msgstr "Kruhový otvor"
 msgid "diameter"
 msgstr "Priemer"
 
-#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:9 js/cHoleCirc.js:155
-#: js/cHoleRect.js:250
+#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:9 js/cHoleCirc.js:156
+#: js/cHoleRect.js:266
 msgid "depth"
 msgstr "Hĺbka"
 
-#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:9 js/cHoleCirc.js:156
-#: js/cHoleRect.js:252
+#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:9 js/cHoleCirc.js:157
+#: js/cHoleRect.js:268
 msgid "x"
 msgstr "Poloha X"
 
-#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:9 js/cHoleCirc.js:157
-#: js/cHoleRect.js:253
+#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:9 js/cHoleCirc.js:158
+#: js/cHoleRect.js:269
 msgid "y"
 msgstr "Poloha Y"
 
@@ -107,22 +115,22 @@ msgstr "Poloha Y"
 msgid "rect.hole"
 msgstr "Obdĺžnik.otvor"
 
-#: js-min/cHoleRect.min.js:8 js-min/cPanel.min.js:7 js/cHoleRect.js:240
-#: js/cPanel.js:163
+#: js-min/cHoleRect.min.js:9 js-min/cPanel.min.js:7 js/cHoleRect.js:253
+#: js/cPanel.js:194
 msgid "qp_width"
 msgstr "Šírka"
 
-#: js-min/cHoleRect.min.js:9 js-min/cPanel.min.js:7 js/cHoleRect.js:244
-#: js/cPanel.js:168
+#: js-min/cHoleRect.min.js:9 js-min/cPanel.min.js:8 js/cHoleRect.js:258
+#: js/cPanel.js:199
 msgid "qp_height"
 msgstr "Výška"
 
-#: js-min/cHoleRect.min.js:9 js-min/cPanel.min.js:7 js/cHoleRect.js:248
-#: js/cPanel.js:179
+#: js-min/cHoleRect.min.js:9 js-min/cPanel.min.js:8 js/cHoleRect.js:263
+#: js/cPanel.js:210
 msgid "r1"
 msgstr "Zaoblenie rohu"
 
-#: js-min/cHoleRect.min.js:9 js/cHoleRect.js:251
+#: js-min/cHoleRect.min.js:9 js/cHoleRect.js:267
 msgid "qp_angle"
 msgstr "Uhol natočenia"
 
@@ -130,28 +138,28 @@ msgstr "Uhol natočenia"
 msgid "panel"
 msgstr "Panel"
 
-#: js-min/cPanel.min.js:7 js/cPanel.js:158
+#: js-min/cPanel.min.js:7 js/cPanel.js:189
 msgid "qp_name"
 msgstr "Názov"
 
-#: js-min/cPanel.min.js:7 js/cPanel.js:175
+#: js-min/cPanel.min.js:8 js/cPanel.js:206
 msgid "thickness"
 msgstr "Hrúbka"
 
-#: js-min/cPanel.min.js:8 js/cPanel.js:187
+#: js-min/cPanel.min.js:8 js/cPanel.js:218
 msgid "surfcolor"
 msgstr "Farba povrchu"
 
-#: js-min/cPanel.min.js:9 js/cPanel.js:223
+#: js-min/cPanel.min.js:9 js/cPanel.js:256
 msgid "Panel saved"
 msgstr "Panel bol úspešne uložený"
 
-#: js-min/cPanel.min.js:9 js/cPanel.js:225 js/cPanel.js:230
+#: js-min/cPanel.min.js:9 js-min/cPanel.min.js:10 js/cPanel.js:258
+#: js/cPanel.js:268
 msgid "Error occured while saving panel: %1, %2"
 msgstr "Chyba pri ukladaní panelu: %1, %2"
 
-#: js-min/cPanel.min.js:9 js-min/cPanel.min.js:10 js/cPanel.js:247
-#: js/cPanel.js:251
+#: js-min/cPanel.min.js:11 js/cPanel.js:307 js/cPanel.js:318
 msgid "Error occured while loading panel: %1, %2"
 msgstr "Chyba pri nahrávaní panelu: %1, %2"
 

@@ -65,6 +65,10 @@ class Db {
         return $result;
     }
 
+    public static function escape($value) {
+        return self::$Db->real_escape_string($value);
+    }
+
     public static function getLastSql() {
 
         return self::$_lastSql;

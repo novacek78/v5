@@ -2,6 +2,8 @@
 
 class Panel_DAO {
 
+
+
     /**
      * @param $attribs
      * @return bool|stdClass
@@ -11,7 +13,7 @@ class Panel_DAO {
         $returnObject = new stdClass();
 
         if (isset($attribs->id)) {
-            $panel_id = Db::$Db->real_escape_string($attribs->id);
+            $panel_id = Db::escape($attribs->id);
         } else
             $panel_id = null;
 
@@ -25,8 +27,8 @@ class Panel_DAO {
 
             if (is_array($value)) continue; // preskocime zoznam featurov
 
-            $key = Db::$Db->real_escape_string( str_replace('qp_', '', $key) );
-            $value = '"' . Db::$Db->real_escape_string($value) . '"';
+            $key = Db::escape( str_replace('qp_', '', $key) );
+            $value = '"' . Db::escape($value) . '"';
 
             if ($newPanel) {
                 // bude to INSERT
@@ -34,7 +36,8 @@ class Panel_DAO {
                 $vals[] = $value;
             } else {
                 // bude to UPDATE
-                $pairs[] = $key . '=' . $value;
+                if ($key != 'user_id') // vlastnik panela sa nemoze zmenit, toho neupdatujeme
+                    $pairs[] = $key . '=' . $value;
             }
         }
 
@@ -69,22 +72,22 @@ class Panel_DAO {
             for ($i = 0; $i < count($attribs->features); $i++){
 
                 $feaAttribs['panel_id'] = $panel_id;
-                $feaAttribs['type'] = Db::$Db->real_escape_string($attribs->features[$i]['type']);
-                $feaAttribs['x'] = Db::$Db->real_escape_string($attribs->features[$i]['x']);
-                $feaAttribs['y'] = Db::$Db->real_escape_string($attribs->features[$i]['y']);
-                $feaAttribs['depth'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['depth']) ? $attribs->features[$i]['depth'] : 'null');
-                $feaAttribs['angle'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['angle']) ? $attribs->features[$i]['angle'] : 'null');
-                $feaAttribs['size1'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['size1']) ? $attribs->features[$i]['size1'] : 'null');
-                $feaAttribs['size2'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['size2']) ? $attribs->features[$i]['size2'] : 'null');
-                $feaAttribs['size3'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['size3']) ? $attribs->features[$i]['size3'] : 'null');
-                $feaAttribs['size4'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['size4']) ? $attribs->features[$i]['size4'] : 'null');
-                $feaAttribs['param1'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['param1']) ? "'" . $attribs->features[$i]['param1'] . "'" : 'null');
-                $feaAttribs['param2'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['param2']) ? "'" . $attribs->features[$i]['param2'] . "'" : 'null');
-                $feaAttribs['param3'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['param3']) ? "'" . $attribs->features[$i]['param3'] . "'" : 'null');
-                $feaAttribs['param4'] = Db::$Db->real_escape_string(isset($attribs->features[$i]['param4']) ? "'" . $attribs->features[$i]['param4'] . "'" : 'null');
+                $feaAttribs['type'] = Db::escape($attribs->features[$i]['type']);
+                $feaAttribs['x'] = Db::escape($attribs->features[$i]['x']);
+                $feaAttribs['y'] = Db::escape($attribs->features[$i]['y']);
+                $feaAttribs['depth'] = Db::escape(isset($attribs->features[$i]['depth']) ? $attribs->features[$i]['depth'] : 'null');
+                $feaAttribs['angle'] = Db::escape(isset($attribs->features[$i]['angle']) ? $attribs->features[$i]['angle'] : 'null');
+                $feaAttribs['size1'] = Db::escape(isset($attribs->features[$i]['size1']) ? $attribs->features[$i]['size1'] : 'null');
+                $feaAttribs['size2'] = Db::escape(isset($attribs->features[$i]['size2']) ? $attribs->features[$i]['size2'] : 'null');
+                $feaAttribs['size3'] = Db::escape(isset($attribs->features[$i]['size3']) ? $attribs->features[$i]['size3'] : 'null');
+                $feaAttribs['size4'] = Db::escape(isset($attribs->features[$i]['size4']) ? $attribs->features[$i]['size4'] : 'null');
+                $feaAttribs['param1'] = Db::escape(isset($attribs->features[$i]['param1']) ? "'" . $attribs->features[$i]['param1'] . "'" : 'null');
+                $feaAttribs['param2'] = Db::escape(isset($attribs->features[$i]['param2']) ? "'" . $attribs->features[$i]['param2'] . "'" : 'null');
+                $feaAttribs['param3'] = Db::escape(isset($attribs->features[$i]['param3']) ? "'" . $attribs->features[$i]['param3'] . "'" : 'null');
+                $feaAttribs['param4'] = Db::escape(isset($attribs->features[$i]['param4']) ? "'" . $attribs->features[$i]['param4'] . "'" : 'null');
 
-                $clientId = Db::$Db->real_escape_string($attribs->features[$i]['clientId']);
-                $qpId = Db::$Db->real_escape_string($attribs->features[$i]['id']);
+                $clientId = Db::escape($attribs->features[$i]['clientId']);
+                $qpId = Db::escape($attribs->features[$i]['id']);
 
                 // ak je to nova, tak INSERT, inak UPDATE
                 $isNewFeature = ( ! isset($qpId) || ($qpId == -1));
@@ -143,22 +146,19 @@ class Panel_DAO {
         return $returnObject;
     }
 
-
     public function doLoad($panelId, $userId = null) {
 
-        $returnObject = new stdClass();
+        $panelId = Db::escape($panelId);
+        $userId = Db::escape($userId);
 
-        $panelId = Db::$Db->real_escape_string($panelId);
-        $userId = Db::$Db->real_escape_string($userId);
-
-        if ( empty($panelId)) {
+        if ( $panelId == '') {
             // nemame ID - nahrame posledne upraveny panel daneho usera
             $result = Db::query("SELECT *, GREATEST(IFNULL(created,0), IFNULL(last_modified,0)) AS cas FROM qp2_panel WHERE user_id=$userId ORDER BY cas DESC");
         } else {
             $result = Db::query("SELECT * FROM qp2_panel WHERE id=$panelId");
         }
 
-        if ($result) {
+        if ($result && ($result->num_rows > 0)) {
             $returnObject = $result->fetch_object();
         } else {
             return false;
@@ -166,7 +166,7 @@ class Panel_DAO {
 
         // este nahrame jeho features
         $result = Db::query("SELECT * FROM qp2_panelfeature WHERE panel_id=" . $returnObject->id);
-        if ($result) {
+        if ($result && ($result->num_rows > 0)) {
             $features = array();
             while ($feature = $result->fetch_object())
                 $features[] = $feature;
@@ -179,7 +179,21 @@ class Panel_DAO {
     }
 
     public function doSharePanel($panelId, $type, $sharingEnabled) {
-
-
     }
+
+    public function getPanelOwner($panelId) {
+
+        $panelId = Db::escape($panelId);
+
+        $result = Db::query("SELECT user_id FROM qp2_panel WHERE id=$panelId");
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return $row['user_id'];
+        } else {
+            return false;
+        }
+    }
+
+
+
 }
