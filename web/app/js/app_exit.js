@@ -1,4 +1,4 @@
 function exitApplication() {
 
-    //ThePanel.savePanel();
+    ThePanel.savePanel();
 }

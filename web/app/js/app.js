@@ -95,7 +95,7 @@ function saveNumberValue(edText) {
     edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
 
     targetObj.dirty = true;  // force redraw
-    TheCanvas.renderAll();
+    ThePanel.sortFeatures();
 }
 
 function saveTextValue(edText) {
@@ -146,7 +146,7 @@ function saveSelectValue(edSelect) {
     edSelect.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
 
     targetObj.dirty = true;  // force redraw
-    TheCanvas.renderAll();
+    ThePanel.sortFeatures();
 }
 
 /**

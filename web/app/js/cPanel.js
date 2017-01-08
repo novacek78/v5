@@ -72,6 +72,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
         this.objectCounter++;
 
         TheCanvas.add(Obj);
+        ThePanel.sortFeatures();
     },
 
     addFromJson: function(jsonObj){
@@ -108,6 +109,135 @@ var Panel = fabric.util.createClass(fabric.Object, {
     selectObject: function(Obj) {
 
         TheCanvas.setActiveObject(Obj, null);
+    },
+
+    savePanel: function () {
+
+        var ajaxPanel, ficury;
+        var ajaxFicury = [];
+
+        showLoadingAnimation(true);
+
+        ajaxPanel = this.getTransportObject();
+        ajaxPanel.user_id = TheUser.id;
+
+        ficury = this.getFeatures();
+
+        for (var i=0; i < ficury.length; i++){
+            ajaxFicury.push( ficury[i].getTransportObject() );
+        }
+        ajaxPanel.features = ajaxFicury;
+
+        $.ajax({
+            method: 'POST',
+            data: ajaxPanel,
+            url: "?ajax=savePanel&uid=" + TheUser.id + "&secure=" + TheUser.secure,
+
+            success: function(data) {
+                try {
+                    var json = JSON.parse(data);
+
+                    ThePanel.qp_id = Number(json.panelId);
+
+                    for (var key in json.features) {
+                        ThePanel.getObject(key).qp_id = Number(json.features[key]);
+                    }
+
+                    QP.showMessage('success', _('Panel saved'));
+                } catch(e) {
+                    QP.showMessage('error', _('Error occured while saving panel: %1, %2', data, ''));
+                }
+
+                showLoadingAnimation(false);
+            },
+
+            error: function(xhr,status,error){
+
+                showLoadingAnimation(false);
+
+                QP.showMessage('error', _('Error occured while saving panel: %1, %2', error, status));
+            }
+        });
+    },
+
+    loadPanel: function (panelId) {
+
+        showLoadingAnimation(true);
+
+        var panelIdUrl = '';
+        if (panelId > 0) panelIdUrl = "&pid=" + panelId;
+
+        $.ajax({
+            url: "?ajax=loadPanel&uid=" + TheUser.id + "&secure=" + TheUser.secure + panelIdUrl,
+            success: function(data) {
+                if (data != 'null') { // ak su data NULL, znamena to, ze pre tohoto usera nie je ulozeny ziadny panel
+                    try {
+                        var jsonObj = JSON.parse(data);
+                        ThePanel.loadFromJson(jsonObj);
+
+                        // este nahrame features
+                        if (jsonObj.features && jsonObj.features.length > 0){
+                            for (var i = 0; i < jsonObj.features.length; i++){
+                                ThePanel.addFromJson(jsonObj.features[i]);
+                            }
+                        }
+
+                        if (READONLY_MODE){
+                            TheCanvas.forEachObject(function(object){
+                                object.lockMovementX = true;
+                                object.lockMovementY = true;
+                                object.hasControls = false;
+                                object.hoverCursor = 'pointer';
+                            });
+                        }
+
+                        ThePanel.sortFeatures();
+                        showProperties(ThePanel);
+                    } catch (e) {
+                        QP.showMessage('error', _('Error occured while loading panel: %1, %2', e, ''));
+                    }
+                }
+
+                showLoadingAnimation(false);
+
+            },
+            error: function(xhr,status,error){
+
+                showLoadingAnimation(false);
+
+                QP.showMessage('error', _('Error occured while loading panel: %1, %2', error, status));
+            }
+        });
+    },
+
+    /**
+     * Zoradi prvky tak, aby sa vykreslovali v spravnom poradi (kapsy za dierami atd...)
+     */
+    sortFeatures: function() {
+
+        var esteTreba = false;
+
+        do {
+            var objects, features = [];
+            objects = TheCanvas.getObjects();
+            // najprv vyberieme len objekty z canvasu, ktore su features
+            for (var i=0; i < objects.length; i++){
+                if (objects[i].clientId > 0) features.push( {
+                    canvasIndex: i,
+                    depth: objects[i].depth
+                });
+            }
+            // teraz ich prechadzame a porovnavame hlbku
+            esteTreba = false;
+            for (var i=1; i < features.length; i++){
+                if (features[i].depth < features[i-1].depth) {
+                    TheCanvas.sendBackwards( TheCanvas.item(features[i].canvasIndex) );
+                    esteTreba = true;
+                }
+            }
+        } while (esteTreba);
+
+        TheCanvas.renderAll();
     },
 
     getObject: function(clientId) {
@@ -219,104 +349,7 @@ var Panel = fabric.util.createClass(fabric.Object, {
         };
 
         return objAttribs;
-    },
-
-    savePanel: function () {
-
-        var ajaxPanel, ficury;
-        var ajaxFicury = [];
-
-        showLoadingAnimation(true);
-
-        ajaxPanel = this.getTransportObject();
-        ajaxPanel.user_id = TheUser.id;
-
-        ficury = this.getFeatures();
-
-        for (var i=0; i < ficury.length; i++){
-            ajaxFicury.push( ficury[i].getTransportObject() );
-        }
-        ajaxPanel.features = ajaxFicury;
-
-        $.ajax({
-            method: 'POST',
-            data: ajaxPanel,
-            url: "?ajax=savePanel&uid=" + TheUser.id + "&secure=" + TheUser.secure,
-
-            success: function(data) {
-                try {
-                    var json = JSON.parse(data);
-
-                    ThePanel.qp_id = Number(json.panelId);
-
-                    for (var key in json.features) {
-                        ThePanel.getObject(key).qp_id = Number(json.features[key]);
-                    }
-
-                    QP.showMessage('success', _('Panel saved'));
-                } catch(e) {
-                    QP.showMessage('error', _('Error occured while saving panel: %1, %2', data, ''));
-                }
-
-                showLoadingAnimation(false);
-            },
-
-            error: function(xhr,status,error){
-
-                showLoadingAnimation(false);
-
-                QP.showMessage('error', _('Error occured while saving panel: %1, %2', error, status));
-            }
-        });
-    },
-
-    loadPanel: function (panelId) {
-
-        showLoadingAnimation(true);
-
-        var panelIdUrl = '';
-        if (panelId > 0) panelIdUrl = "&pid=" + panelId;
-
-        $.ajax({
-            url: "?ajax=loadPanel&uid=" + TheUser.id + "&secure=" + TheUser.secure + panelIdUrl,
-            success: function(data) {
-                if (data != 'null') { // ak su data NULL, znamena to, ze pre tohoto usera nie je ulozeny ziadny panel
-                    try {
-                        var jsonObj = JSON.parse(data);
-                        ThePanel.loadFromJson(jsonObj);
-
-                        // este nahrame features
-                        if (jsonObj.features && jsonObj.features.length > 0){
-                            for (var i = 0; i < jsonObj.features.length; i++){
-                                ThePanel.addFromJson(jsonObj.features[i]);
-                            }
-                        }
-
-                        if (READONLY_MODE){
-                            TheCanvas.forEachObject(function(object){
-                                object.lockMovementX = true;
-                                object.lockMovementY = true;
-                                object.hasControls = false;
-                                object.hoverCursor = 'pointer';
-                            });
-                        }
-
-                        TheCanvas.renderAll();
-                        showProperties(ThePanel);
-                    } catch (e) {
-                        QP.showMessage('error', _('Error occured while loading panel: %1, %2', e, ''));
-                    }
-                }
-
-                showLoadingAnimation(false);
-
-            },
-            error: function(xhr,status,error){
-
-                showLoadingAnimation(false);
-
-                QP.showMessage('error', _('Error occured while loading panel: %1, %2', error, status));
-            }
-        });
     }
+
+
 });

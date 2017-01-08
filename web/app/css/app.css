@@ -70,6 +70,7 @@ body {
 .propPanelEdit {
     border: 0;
     width: 90%;
+    background-color: white;
 }
 
 .readonly {
