@@ -3,6 +3,7 @@
 $action = $_GET['ajax'];
 
 
+//Log::w("AJAX : $action");
 
 switch ($action) {
     case 'saveLang': {
@@ -27,8 +28,7 @@ switch ($action) {
         if ($User->loginAnonymousUser($_GET['uid'], $_GET['secure'])) {
 
             try {
-                $Panel = new Panel();
-                $Panel->loadFromArray($_POST);
+                $Panel = new Panel($_POST);
                 $resultObject = $Panel->save($User->getId());
                 echo json_encode($resultObject);
             } catch (Exception $e) {

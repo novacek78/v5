@@ -14,12 +14,16 @@ class Panel {
 
 
 
-    public function __construct() {
+    public function __construct($constructData = null) {
         $this->DAO = new Panel_DAO();
         $this->_attribs = new stdClass();
+
+        if (isset($constructData) && is_array($constructData)){
+            $this->_loadFromArray($constructData);
+        }
     }
 
-    public function loadFromArray($arrayData) {
+    private function _loadFromArray($arrayData) {
 
        foreach ($arrayData as $key => $value) {
            $this->_attribs->$key = $value;
@@ -31,20 +35,20 @@ class Panel {
     }
 
     /**
-     * @param $id int Uzivatel, ktory chce nahrat panel
-     * @param $loadingUser
+     * @param $panelId int ID panela
+     * @param $loadingUser int Uzivatel, ktory chce nahrat panel
      * @throws Exception
      * @return Panel
      */
-    public function load($id, $loadingUser) {
+    public function load($panelId, $loadingUser) {
         if ($loadingUser > 0) {
-            $ownerId = $this->DAO->getPanelOwner($id);
+            $ownerId = $this->DAO->getPanelOwner($panelId);
             if ($ownerId != $loadingUser) {
                 throw new Exception('User has no privileges to load this panel.');
             }
         }
 
-        $this->_attribs = $this->DAO->doLoad($id);
+        $this->_attribs = $this->DAO->doLoad($panelId);
         return $this;
     }
 
@@ -59,7 +63,7 @@ class Panel {
      */
     public function save($savingUserId) {
 
-        if (isset($this->_attribs->id)) {
+        if (isset($this->_attribs->id) && ! empty($this->_attribs->id)) {
             $ownerId = $this->DAO->getPanelOwner($this->_attribs->id);
             if ($ownerId != $savingUserId) {
                 throw new Exception('User has no privileges to save this panel.');

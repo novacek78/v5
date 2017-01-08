@@ -127,6 +127,28 @@ function saveTextValue(edText) {
     TheCanvas.renderAll();
 }
 
+function saveBooleanValue(edCheckbox) {
+    var newValue = edCheckbox.checked;
+    var key = edCheckbox.name;
+    var targetObj;
+
+    if (TheCanvas.getActiveObject()) {
+        // pre prave jeden vybraty objekt
+        targetObj = TheCanvas.getActiveObject();
+    } else if (TheCanvas.getActiveGroup()) {
+        // pre viac objektov naraz
+    } else if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
+        // pre panel samotny - ziadny vybraty objekt
+        targetObj = ThePanel;
+    }
+
+    targetObj.set(key, newValue);
+    edCheckbox.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+
+    targetObj.dirty = true;  // force redraw
+    TheCanvas.renderAll();
+}
+
 function saveSelectValue(edSelect) {
     var newValue = edSelect.value;
     var key = edSelect.name;
@@ -200,6 +222,7 @@ function showProperties(objectToInspect){
             if (readonly) cssClass = 'labelValue';
             else if (attribs[key].type == 'number') cssClass = 'numberValue';
             else if (attribs[key].type == 'select') cssClass = 'selectValue';
+            else if (attribs[key].type == 'boolean') cssClass = 'checkboxValue';
             else cssClass = 'textValue';
 
             if ((cssClass == 'numberValue') || (cssClass == 'textValue') || (cssClass == 'labelValue')) {
@@ -215,6 +238,10 @@ function showProperties(objectToInspect){
                     tableData += '<option value="' + attribs[key].select_values[i] + '"' + selected + '>' + attribs[key].select_labels[i] + '</option>';
                 }
                 tableData += '</select>';
+            } else if (cssClass == 'checkboxValue') {
+                tableData += '<input type="checkbox" class="propPanelEdit ' + cssClass + '" name="' + key + '" value="' + ((value) ? '1':'0') + '" ' + ((value) ? 'checked':'');
+                tableData += (readonly ? (' disabled="disabled"> <input type="hidden" name="'+key+'" value="' + (value) ? '1':'0' + '"') : '');
+                tableData += '>';
             }
 
             tableData += '</td></tr>';

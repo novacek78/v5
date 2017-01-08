@@ -77,6 +77,10 @@ body {
     color: #aaa;
     background-color: white; }
 
+.checkboxValue {
+    text-align: left;
+    width: auto;
+}
 
 #inProgressWaiting {
     position: absolute;

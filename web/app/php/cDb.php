@@ -59,6 +59,8 @@ class Db {
             if (self::$_debugMode) {
                 self::$_debugQueryCounter++;
                 Log::w('#' . self::$_debugQueryCounter . " : $sql");
+                if (isset($result->num_rows))
+                    Log::w("      " . $result->num_rows . " rows returned");
             }
         }
 

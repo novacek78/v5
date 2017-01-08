@@ -150,6 +150,12 @@ function setPropertiesPanelEvents(){
                 saveSelectValue(event.target);
             }
         });
+
+        $(".checkboxValue").on({
+            change: function (event) {
+                saveBooleanValue(event.target);
+            }
+        });
     }
 }
 

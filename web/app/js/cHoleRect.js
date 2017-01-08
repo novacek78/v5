@@ -4,6 +4,7 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
     descShort: _('rect.hole'),
     originX: 'center',
     originY: 'center',
+    isAnodised: true,
 
     initialize: function(options) {
         options || (options = { });
@@ -246,6 +247,12 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             type: 'number',
             desc: 'type',
             hidden: true
+        };
+
+        objAttribs.isAnodised = {
+            type: 'boolean',
+            desc: _('Feature anodised'),
+            db_mapping: 'is_anodised'
         };
 
         objAttribs.qp_width.type = 'number';

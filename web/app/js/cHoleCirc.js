@@ -4,6 +4,7 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
     descShort: _('circ.hole'),
     originX: 'center',
     originY: 'center',
+    isAnodised: true,
     hasRotatingPoint: false,
     perPixelTargetFind: true,
 
@@ -146,6 +147,12 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
             type: 'number',
             desc: 'type',
             hidden: true
+        };
+
+        objAttribs.isAnodised = {
+            type: 'boolean',
+            desc: _('Feature anodised'),
+            db_mapping: 'is_anodised'
         };
 
         objAttribs.diameter.type = 'number';

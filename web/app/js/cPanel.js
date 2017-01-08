@@ -96,13 +96,14 @@ var Panel = fabric.util.createClass(fabric.Object, {
             }
 
             // este skonvertujeme udaj na cislo ak treba
-            if (objAttribInfo[attribNameInObject]) { // z DB pridu aj polia, ktore v atributoch nefiguruju (panel_id) tak to overime
+            if (objAttribInfo[attribNameInObject]) { // z DB pridu aj polia, ktore v atributoch nefiguruju (napr. panel_id) tak to najprv overime
                 if (objAttribInfo[attribNameInObject].type == 'number')
                     jsonObj[attribNameInDb] = Number(jsonObj[attribNameInDb]);
-                result.set(attribNameInObject, jsonObj[attribNameInDb]);
+                if (objAttribInfo[attribNameInObject].type == 'boolean')
+                    jsonObj[attribNameInDb] = (jsonObj[attribNameInDb] == '1');
             }
+            result.set(attribNameInObject, jsonObj[attribNameInDb]);
         }
-
         ThePanel.add(result);
     },
 

@@ -76,6 +76,7 @@ class Panel_DAO {
                 $feaAttribs['x'] = Db::escape($attribs->features[$i]['x']);
                 $feaAttribs['y'] = Db::escape($attribs->features[$i]['y']);
                 $feaAttribs['depth'] = Db::escape(isset($attribs->features[$i]['depth']) ? $attribs->features[$i]['depth'] : 'null');
+                $feaAttribs['is_anodised'] = Db::escape(isset($attribs->features[$i]['is_anodised']) ? $attribs->features[$i]['is_anodised'] : '1');
                 $feaAttribs['angle'] = Db::escape(isset($attribs->features[$i]['angle']) ? $attribs->features[$i]['angle'] : 'null');
                 $feaAttribs['size1'] = Db::escape(isset($attribs->features[$i]['size1']) ? $attribs->features[$i]['size1'] : 'null');
                 $feaAttribs['size2'] = Db::escape(isset($attribs->features[$i]['size2']) ? $attribs->features[$i]['size2'] : 'null');
@@ -151,9 +152,9 @@ class Panel_DAO {
         $panelId = Db::escape($panelId);
         $userId = Db::escape($userId);
 
-        if ( $panelId == '') {
+        if (( $panelId == '') || ($panelId == null)) {
             // nemame ID - nahrame posledne upraveny panel daneho usera
-            $result = Db::query("SELECT *, GREATEST(IFNULL(created,0), IFNULL(last_modified,0)) AS cas FROM qp2_panel WHERE user_id=$userId ORDER BY cas DESC");
+            $result = Db::query("SELECT *, GREATEST(IFNULL(created,0), IFNULL(last_modified,0)) AS cas FROM qp2_panel WHERE user_id=$userId ORDER BY cas DESC LIMIT 1");
         } else {
             $result = Db::query("SELECT * FROM qp2_panel WHERE id=$panelId");
         }
@@ -166,7 +167,7 @@ class Panel_DAO {
 
         // este nahrame jeho features
         $result = Db::query("SELECT * FROM qp2_panelfeature WHERE panel_id=" . $returnObject->id);
-        if ($result && ($result->num_rows > 0)) {
+        if ($result){
             $features = array();
             while ($feature = $result->fetch_object())
                 $features[] = $feature;
