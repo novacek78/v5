@@ -15,7 +15,7 @@ function initEventHandlers() {
 
         // SHIFT+S
         if ((e.keyCode == 83) && e.shiftKey) {
-            ThePanel.sortFeatures();
+            ThePanel.savePanel();
         }
 
         // V
@@ -104,6 +104,11 @@ function initEventHandlers() {
             showProperties(options.target._objects);
         else
             showProperties(options.target);
+    });
+
+    // ked sa vytvori vyber viacerych objektov
+    TheCanvas.on('selection:created', function() {
+        showProperties(TheCanvas.getActiveGroup());
     });
 
     // ked sa zrusi vyber objektu/objektov

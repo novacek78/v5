@@ -54,10 +54,8 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
             if (value >= ThePanel.thickness) value = 999;
             if (value > 900) {
                 this.fill = TheCanvas.backgroundColor;
-                if (this.canvas) this.bringToFront();
             } else {
                 this.fill = ThePanel.getPocketColor(value);
-                if (this.canvas) { this.sendToBack(); ThePanel.sendToBack(); } // kapsy budu za dierami ale pred panelom
             }
         }
 
@@ -87,18 +85,30 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
 
         ctx.beginPath();
         ctx.arc(0, 0, r, 0, PIx2, false);
+        ctx.closePath();
         ctx.fill();
+
+        if ( ! this.isAnodised) {
+            ctx.strokeStyle = COL_FEATURE_NO_ELOX;
+            ctx.strokeWidth = 1;
+            ctx.beginPath();
+            ctx.arc(0, 0, r-1, 0, PIx2, false);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
     },
 
     /**
      * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
      * a ich hranice pre jednotlive hrubky plechov.
      *
-     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, r1: {min: number, max: number}}}
+     * @returns Object
      */
     getAttribsInfo: function(){
-        var objAttribs;
+        var objAttribs = {};
 
+        //TODO preusporiadat tak, aby tieto podmienene vlastnosti sa nastavovali az na koniec ako posledne
         if (ThePanel.thickness <= 4)
             objAttribs = {
                 diameter: {
@@ -132,27 +142,18 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
 
         objAttribs.qp_id = {
             type: 'number',
-            desc: 'id',
             hidden: true,
             db_mapping: 'id'
         };
 
         objAttribs.clientId = {
             type: 'number',
-            desc: 'clientId',
             hidden: true
         };
 
         objAttribs.type = {
             type: 'number',
-            desc: 'type',
             hidden: true
-        };
-
-        objAttribs.isAnodised = {
-            type: 'boolean',
-            desc: _('Feature anodised'),
-            db_mapping: 'is_anodised'
         };
 
         objAttribs.diameter.type = 'number';
@@ -160,9 +161,15 @@ var HoleCirc = fabric.util.createClass(fabric.Object, {
         objAttribs.diameter.desc = _('diameter');
         objAttribs.diameter.db_mapping = 'size1';
 
-        objAttribs.depth = {type: 'number', desc: _('depth')};
         objAttribs.x = {type: 'number', desc: _('x')};
         objAttribs.y = {type: 'number', desc: _('y')};
+        objAttribs.depth = {type: 'number', desc: _('depth')};
+
+        objAttribs.isAnodised = {
+            type: 'boolean',
+            desc: _('Feature anodised'),
+            db_mapping: 'is_anodised'
+        };
 
         return objAttribs;
     }

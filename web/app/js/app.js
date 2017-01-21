@@ -75,6 +75,7 @@ function saveNumberValue(edText) {
         targetObj = TheCanvas.getActiveObject();
     } else if (TheCanvas.getActiveGroup()) {
         // pre viac objektov naraz
+        targetObj = TheCanvas.getActiveGroup().getObjects();
     } else if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
         // pre panel samotny - ziadny vybraty objekt
         targetObj = ThePanel;
@@ -82,19 +83,48 @@ function saveNumberValue(edText) {
 
     newValue = newValue.replace(',', '.');
 
-    if (isNaN(newValue) || (newValue == '')) {
+    // validacie
+    if (isNaN(newValue)) {
+        // ak neplatne cislo
         edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
         edText.focus();
-        return;
+        return false;
+    } else if (newValue == '') {
+        // ak prazdne policko
+        // pri vybere viacerych je to ale OK - nemusia mat vsetky rovnaku hodnotu parametra
+        if  ( ! Array.isArray(targetObj)) {
+            edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
+            edText.focus();
+        }
+        return false;
     } else {
         edText.style.backgroundColor = 'white';
         newValue = Number(newValue);
     }
 
-    targetObj.set(key, newValue);
-    edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+    if (Array.isArray(targetObj)){
+        for (var i=0; i < targetObj.length; i++){
+            // ked su objekty vybrate v skupine, tak ich left a top vlastnosti su relativne k stredu skupiny
+            var newTransformedValue;
 
-    targetObj.dirty = true;  // force redraw
+            if (key == 'x')
+                newTransformedValue = targetObj[i].left + (newValue - targetObj[i].originalLeft);
+            else if (key == 'y')
+                newTransformedValue = targetObj[i].top + (newValue - targetObj[i].originalTop);
+            else
+                newTransformedValue = newValue;
+
+            targetObj[i].set(key, newTransformedValue);
+            targetObj[i].dirty = true;  // force redraw
+            targetObj[i].setCoords(false);
+            edText.value = targetObj[i].get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+        }
+    } else {
+        targetObj.set(key, newValue);
+        targetObj.dirty = true;  // force redraw
+        edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+    }
+
     ThePanel.sortFeatures();
 }
 
@@ -108,22 +138,37 @@ function saveTextValue(edText) {
         targetObj = TheCanvas.getActiveObject();
     } else if (TheCanvas.getActiveGroup()) {
         // pre viac objektov naraz
+        targetObj = TheCanvas.getActiveGroup().getObjects();
     } else if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
         // pre panel samotny - ziadny vybraty objekt
         targetObj = ThePanel;
     }
 
+    // validacie
     if (newValue == '') {
-        edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
+        // ak prazdne policko
+        // pri vybere viacerych je to ale OK - nemusia mat vsetky rovnaku hodnotu parametra
+        if ( ! Array.isArray(targetObj))
+            edText.style.backgroundColor = COL_VALIDATE_ERROR_BGND;
         return false;
     } else {
         edText.style.backgroundColor = 'white';
     }
 
-    targetObj.set(key, newValue);
-    edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+    if (Array.isArray(targetObj)){
+        for (var i=0; i < targetObj.length; i++){
+            // ked su objekty vybrate v skupine, tak ich left a top vlastnosti su relativne k stredu skupiny
+            targetObj[i].set(key, newValue);
+            targetObj[i].dirty = true;  // force redraw
+            targetObj[i].setCoords(false);
+            edText.value = targetObj[i].get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+        }
+    } else {
+        targetObj.set(key, newValue);
+        targetObj.dirty = true;  // force redraw
+        edText.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+    }
 
-    targetObj.dirty = true;  // force redraw
     TheCanvas.renderAll();
 }
 
@@ -137,16 +182,27 @@ function saveBooleanValue(edCheckbox) {
         targetObj = TheCanvas.getActiveObject();
     } else if (TheCanvas.getActiveGroup()) {
         // pre viac objektov naraz
+        targetObj = TheCanvas.getActiveGroup().getObjects();
     } else if (!TheCanvas.getActiveObject() && !TheCanvas.getActiveGroup()) {
         // pre panel samotny - ziadny vybraty objekt
         targetObj = ThePanel;
     }
 
-    targetObj.set(key, newValue);
-    edCheckbox.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+    if (Array.isArray(targetObj)){
+        for (var i=0; i < targetObj.length; i++){
+            // ked su objekty vybrate v skupine, tak ich left a top vlastnosti su relativne k stredu skupiny
+            targetObj[i].set(key, newValue);
+            targetObj[i].dirty = true;  // force redraw
+            targetObj[i].setCoords(false);
+            edCheckbox.value = targetObj[i].get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+        }
+    } else {
+        targetObj.set(key, newValue);
+        targetObj.dirty = true;  // force redraw
+        edCheckbox.value = targetObj.get(key); // spatne updatnem ak by dany objekt nejak upravil hodnotu
+    }
 
-    targetObj.dirty = true;  // force redraw
-    TheCanvas.renderAll();
+    ThePanel.sortFeatures();
 }
 
 function saveSelectValue(edSelect) {
@@ -177,19 +233,47 @@ function saveSelectValue(edSelect) {
  * @param objectToInspect fabric.Object
  */
 function showProperties(objectToInspect){
+
     var attribs;
+    var isMultipleSelect = false;
 
     if (Array.isArray(objectToInspect) || objectToInspect._objects){
         // viac objektov - treba najst ich spolocne vlastnosti a len tie zobrazit
+        isMultipleSelect = true;
         objectToInspect = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects
         $( "#propPanel div.title").text(_("%1 objects", objectToInspect.length));
         // prejdeme vsetkymi objektami a urobime prienik ich vlastnosti aby sme ziskali len tie, co maju spolocne
-        attribs = {};
-        /*
-        *
-        * Naplnit options panel vlastnostami spolocnymi pre vsetky objekty v skupine
-        *
-        * */
+
+        for (var i=0; i < objectToInspect.length; i++){
+            var currFeaAttribs = objectToInspect[i].getAttribsInfo();
+
+            if (attribs == undefined){
+                // spracuvame prvy objekt = nasypeme do mnoziny vsetky jeho vlastnosti...
+                attribs = currFeaAttribs;
+
+                // ...a aj hodnoty
+                for (var attribName in attribs){
+                    attribs[attribName].value = objectToInspect[i][attribName];
+                }
+
+            } else {
+                // prechadzame po atributoch a tie, ktore nenajdeme v currFeaAttribs zlikvidujeme aj z attribs
+                for (var attribName in attribs){
+                    if ( ! currFeaAttribs.hasOwnProperty(attribName)){
+                        delete attribs[attribName];
+                    }
+                }
+
+                // este do attribs naplnime hodnoty - ak maju nejaku hodnotu vsetky objekty spolocnu, zostane tam, ak nie, bude prazdna
+                for (var attribName in attribs){
+
+                    if (attribs[attribName].value != objectToInspect[i][attribName]) {
+                        delete attribs[attribName].value;
+                    }
+                }
+            }
+        }
+
     } else {
         // jeden objekt
         $("#propPanel div.title").text(objectToInspect.descShort.capitalizeFirstLetter());
@@ -212,12 +296,15 @@ function showProperties(objectToInspect){
             tableData += '<th>' + attribs[key].desc + '</th>';
             tableData += '<td>';
 
-            value = objectToInspect[key];
-            readonly = attribs[key].readonly;
+            if (isMultipleSelect) value = (attribs[key].hasOwnProperty('value')) ? attribs[key].value : '';
+            else value = objectToInspect[key];
 
             if (attribs[key].type == 'number'){
-                value = QP.formatFloat(value);
+                if ( ! isMultipleSelect || (value != ''))
+                    value = QP.formatFloat(value);
             }
+
+            readonly = attribs[key].readonly;
 
             if (readonly) cssClass = 'labelValue';
             else if (attribs[key].type == 'number') cssClass = 'numberValue';
@@ -242,6 +329,10 @@ function showProperties(objectToInspect){
                 tableData += '<input type="checkbox" class="propPanelEdit ' + cssClass + '" name="' + key + '" value="' + ((value) ? '1':'0') + '" ' + ((value) ? 'checked':'');
                 tableData += (readonly ? (' disabled="disabled"> <input type="hidden" name="'+key+'" value="' + (value) ? '1':'0' + '"') : '');
                 tableData += '>';
+                // ak maju roznu hodnotu, nastavim checkbox na 3.stav
+                if (isMultipleSelect && value === ''){
+                    tableData += '<script type="text/javascript"> $("[name='+key+']")[0].indeterminate = true;</script>';
+                }
             }
 
             tableData += '</td></tr>';
@@ -256,7 +347,10 @@ function showProperties(objectToInspect){
     setPropertiesPanelEvents();
 }
 
-function showLoadingAnimation(showIt){
+function showLoadingAnimation(showIt, hideDelay){
+
+    // schovame, ale az po kratkom delay, aby to len tak neprebliklo
+    if (hideDelay == undefined) hideDelay = 100;
 
     if (showIt){
 
@@ -270,11 +364,10 @@ function showLoadingAnimation(showIt){
 
     } else {
 
-        // schovame, ale az po pol sekunde aby to len tak neprebliklo
         setTimeout(function() {
             $('#animationRotating').css('visibility', 'hidden');
             clearInterval(loadingAnimationInterval);
-        }, 500);
+        }, hideDelay);
 
     }
 }

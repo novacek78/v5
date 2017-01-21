@@ -15,7 +15,7 @@ function definePrototypes(){
     fabric.Circle.prototype.perPixelTargetFind = true;
 
     // ----------- custom properties -----------------------
-    fabric.Object.prototype.descShort = 'object';
+    fabric.Object.prototype.descShort = _('object');
     fabric.Object.prototype.basepoint = BP_CENTER; // poloha base pointu
     fabric.Object.prototype.depth = -1; // hlbka
     fabric.Object.prototype.clientId = -1; // nemenne ID
@@ -219,5 +219,12 @@ function definePrototypes(){
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
 
-
+    /**
+     * Funkcia pre ziskanie timestamp
+     */
+    if (!Date.now) {
+        Date.now = function() {
+            return new Date().getTime();
+        }
+    }
 }

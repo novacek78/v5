@@ -118,10 +118,8 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             if (value >= ThePanel.thickness) value = 999;
             if (value > 900) {
                 this.fill = TheCanvas.backgroundColor;
-                if (this.canvas) this.bringToFront();
             } else {
                 this.fill = ThePanel.getPocketColor(value);
-                if (this.canvas) { this.sendToBack(); ThePanel.sendToBack(); } // kapsy budu za dierami ale pred panelom
             }
         }
 
@@ -174,17 +172,27 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             this.roundRect(ctx, this.width, this.height, this.r1);
             ctx.fill();
         }
+
+        if ( ! this.isAnodised) {
+            ctx.strokeStyle = COL_FEATURE_NO_ELOX;
+            ctx.strokeWidth = 1;
+            ctx.beginPath();
+            this.roundRect(ctx, this.width-2, this.height-2, Math.max(this.r1-1, 0));
+            ctx.closePath();
+            ctx.stroke();
+        }
     },
 
     /**
      * Vrati zoznam atributov potrebnych pre definiciu objektu (aj pre ukladanie a exportovanie)
      * a ich hranice pre jednotlive hrubky plechov.
      *
-     * @returns {{qp_width: {min: number, max: number}, qp_height: {min: number, max: number}, r1: {min: number, max: number}}}
+     * @returns Object
      */
     getAttribsInfo: function(){
-        var objAttribs;
+        var objAttribs = {};
 
+        //TODO preusporiadat tak, aby tieto podmienene vlastnosti sa nastavovali az na koniec ako posledne
         if (ThePanel.thickness <= 4)
             objAttribs = {
                 qp_width: { min: 2 },
@@ -249,12 +257,6 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
             hidden: true
         };
 
-        objAttribs.isAnodised = {
-            type: 'boolean',
-            desc: _('Feature anodised'),
-            db_mapping: 'is_anodised'
-        };
-
         objAttribs.qp_width.type = 'number';
         objAttribs.qp_width.max = ThePanel.qp_width+6;
         objAttribs.qp_width.desc = _('qp_width');
@@ -270,10 +272,17 @@ var HoleRect = fabric.util.createClass(fabric.Object, {
         objAttribs.r1.desc = _('r1');
         objAttribs.r1.db_mapping = 'size3';
 
-        objAttribs.depth = {type: 'number', desc: _('depth')};
         objAttribs.angle = {type: 'number', desc: _('qp_angle')};
+
         objAttribs.x = {type: 'number', desc: _('x')};
         objAttribs.y = {type: 'number', desc: _('y')};
+        objAttribs.depth = {type: 'number', desc: _('depth')};
+
+        objAttribs.isAnodised = {
+            type: 'boolean',
+            desc: _('Feature anodised'),
+            db_mapping: 'is_anodised'
+        };
 
         return objAttribs;
     }

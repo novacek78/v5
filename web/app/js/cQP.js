@@ -11,8 +11,8 @@ var QP = {
     formatFloat: function(value, decimals, removeTrailing) {
 
         // default values:
-        decimals = typeof decimals !== 'undefined' ? decimals : 2;
-        removeTrailing = typeof removeTrailing !== 'undefined' ? removeTrailing : true;
+        decimals = (decimals == undefined) ? 2 : decimals;
+        removeTrailing = (removeTrailing == undefined) ? true : removeTrailing;
 
         if (isNaN(value)) {
             return 'NaN'
@@ -49,7 +49,7 @@ var QP = {
     },
 
     isSet: function(value){
-        return ( ! isNaN(value) && (value != null) && (value != 'undefined'));
+        return ( ! isNaN(value) && (value != null) && (value != undefined) && (value != 'undefined'));
     }
 
 

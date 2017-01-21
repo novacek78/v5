@@ -3,6 +3,7 @@ const STATUSBAR_FONT_SIZE = 30;
 
 const COL_FEATURE_POCKET_MAXDEPTH = 130; // odtien sedej 0 .. 255
 const COL_FEATURE_POCKET_MINDEPTH = 180; // odtien sedej 0 .. 255
+const COL_FEATURE_NO_ELOX = '#ff0000'; // oznacenie neeloxovanej diery
 const COL_VALIDATE_ERROR_BGND = '#ffdddd';
 
 const PANEL_WIDTH_MAX = 500;

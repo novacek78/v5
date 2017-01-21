@@ -48,6 +48,10 @@ switch ($action) {
                 else
                     $Panel->loadLast($User->getId()); // ak nie je zadefinovane ID panela, nahra ten, s ktorym robil ako poslednym
 
+                // IE cachuje AJAX requesty
+                header('Cache-control: no-cache, no-store, must-revalidate');
+                header('Pragma: no-cache');
+                header('Expires: 0');
                 echo $Panel->makeJson();
 
             } catch (Exception $e) {
