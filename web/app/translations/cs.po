@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2017-01-21 17:13+0100\n"
-"PO-Revision-Date: 2017-01-21 17:13+0100\n"
+"POT-Creation-Date: 2017-01-21 18:09+0100\n"
+"PO-Revision-Date: 2017-01-21 18:09+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -36,8 +36,12 @@ msgstr "Hledat rozměr"
 msgid "Search button"
 msgstr "Hledat"
 
-#: js-min/app.min.js:10 js/app.js:244
-msgid "%1 objects"
+#: js-min/app.min.js:10 js/app.js:245
+msgid "%1 objects (<5)"
+msgstr "%1 objekty"
+
+#: js-min/app.min.js:10 js/app.js:247
+msgid "%1 objects (>=5)"
 msgstr "%1 objektů"
 
 #: js-min/app_constants.min.js:1 js/app_constants.js:16
@@ -96,7 +100,7 @@ msgstr "Kruhový otvor"
 msgid "diameter"
 msgstr "Průměr"
 
-#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:10 js/cHoleCirc.js:164
+#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:9 js/cHoleCirc.js:164
 #: js/cHoleRect.js:277
 msgid "x"
 msgstr "Pozice X"
@@ -135,7 +139,7 @@ msgstr "Výška"
 msgid "r1"
 msgstr "Zaoblení rohu"
 
-#: js-min/cHoleRect.min.js:10 js/cHoleRect.js:275
+#: js-min/cHoleRect.min.js:9 js/cHoleRect.js:275
 msgid "qp_angle"
 msgstr "Ůhel natočení"
 
@@ -189,6 +193,9 @@ msgstr ""
 msgid "Oops! Error: %1, %2"
 msgstr ""
 "Zdá se, že něco není v pořádku, prosím informujte nás o této chybě: %1, %2"
+
+#~ msgid "%1 objects"
+#~ msgstr "%1 objektů"
 
 #~ msgid "Error occured while saveing panel: %1, %2"
 #~ msgstr "Při uložení panelu se vyskytla chyba: %1, %2"

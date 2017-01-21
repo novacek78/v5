@@ -241,7 +241,10 @@ function showProperties(objectToInspect){
         // viac objektov - treba najst ich spolocne vlastnosti a len tie zobrazit
         isMultipleSelect = true;
         objectToInspect = (Array.isArray(objectToInspect)) ? objectToInspect : objectToInspect._objects
-        $( "#propPanel div.title").text(_("%1 objects", objectToInspect.length));
+        if (objectToInspect.length < 5)
+            $( "#propPanel div.title").text(_("%1 objects (<5)", objectToInspect.length));
+        else
+            $( "#propPanel div.title").text(_("%1 objects (>=5)", objectToInspect.length));
         // prejdeme vsetkymi objektami a urobime prienik ich vlastnosti aby sme ziskali len tie, co maju spolocne
 
         for (var i=0; i < objectToInspect.length; i++){

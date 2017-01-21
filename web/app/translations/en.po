@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: QuickPanel\n"
-"POT-Creation-Date: 2017-01-21 17:13+0100\n"
-"PO-Revision-Date: 2017-01-21 17:13+0100\n"
+"POT-Creation-Date: 2017-01-21 18:09+0100\n"
+"PO-Revision-Date: 2017-01-21 18:09+0100\n"
 "Last-Translator: Erik Novacek, DATRON-TECHNOLOGY s.r.o. <enovacek@datron."
 "sk>\n"
 "Language-Team: \n"
@@ -36,8 +36,12 @@ msgstr "Dimension to search"
 msgid "Search button"
 msgstr "Search"
 
-#: js-min/app.min.js:10 js/app.js:244
-msgid "%1 objects"
+#: js-min/app.min.js:10 js/app.js:245
+msgid "%1 objects (<5)"
+msgstr "%1 objects"
+
+#: js-min/app.min.js:10 js/app.js:247
+msgid "%1 objects (>=5)"
 msgstr "%1 objects"
 
 #: js-min/app_constants.min.js:1 js/app_constants.js:16
@@ -96,7 +100,7 @@ msgstr "Circular hole"
 msgid "diameter"
 msgstr "Diameter"
 
-#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:10 js/cHoleCirc.js:164
+#: js-min/cHoleCirc.min.js:6 js-min/cHoleRect.min.js:9 js/cHoleCirc.js:164
 #: js/cHoleRect.js:277
 msgid "x"
 msgstr "X position"
@@ -135,7 +139,7 @@ msgstr "Height"
 msgid "r1"
 msgstr "Corner radius"
 
-#: js-min/cHoleRect.min.js:10 js/cHoleRect.js:275
+#: js-min/cHoleRect.min.js:9 js/cHoleRect.js:275
 msgid "qp_angle"
 msgstr "Rotation angle"
 
@@ -188,6 +192,9 @@ msgstr ""
 #: js-min/welcome_dialog.min.js:1 js/welcome_dialog.js:20
 msgid "Oops! Error: %1, %2"
 msgstr "Oops! Something is wrong. Please inform us you got this error: %1, %2"
+
+#~ msgid "%1 objects"
+#~ msgstr "%1 objects"
 
 #~ msgid "Error occured while saveing panel: %1, %2"
 #~ msgstr "Error occured while saving the panel: %1, %2"
